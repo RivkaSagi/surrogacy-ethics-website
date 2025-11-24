@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-sand text-ink font-sans antialiased;
+}
+
+#__next,
+#root {
+  min-height: 100%;
+}
+
+.glass-panel {
+  @apply bg-white/85 backdrop-blur border border-border rounded-3xl shadow-card;
+}
+
+.section-shell {
+  @apply glass-panel p-6 sm:p-8 lg:p-10 space-y-4 animate-fade;
+}
+
+.badge {
+  @apply inline-flex items-center gap-2 rounded-full bg-clay/10 px-4 py-1 text-sm text-clay font-medium;
+}
+
+.prose-content {
+  @apply prose prose-lg prose-slate max-w-none rtl text-right;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.rtl-list ul {
+  @apply list-disc pr-6;
+}
