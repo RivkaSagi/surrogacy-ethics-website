@@ -9,7 +9,6 @@ export function TeamMembers() {
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
   const members: TeamMember[] = teamCache.members;
-  const lastUpdated = teamCache.lastUpdated;
 
   const handleImageError = (imageId: string) => {
     setImageErrors((prev) => new Set(prev).add(imageId));
