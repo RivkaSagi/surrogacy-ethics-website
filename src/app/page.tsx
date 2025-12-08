@@ -14,6 +14,9 @@ const sections = [
         docId={CONTENT_SOURCES.aboutDocId}
         title="מי אנחנו"
         description="היכרות עם היוזמה, הצוות והחזון שמוביל את כתיבת הקוד האתי."
+        variant="preview"
+        ctaHref="/team"
+        ctaLabel="היכרות עם צוות הפורום"
       />
     ),
   },

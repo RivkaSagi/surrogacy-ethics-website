@@ -5,6 +5,7 @@ export const CONTENT_SOURCES = {
   signatoriesSheetId: "1zx4FgdoUzJ-PxM753RFC5iycmyUGxM03juZ29AwszKk",
   signatoriesGid: "0",
   updatesDocId: "1glvXjc5e-G0ycTKa3QXdZ881xM4XzQ4mhTmDv6zVXXs",
+  teamDriveFolderId: "1M5uFc8ilWS_f8it0tKBNmj35hYZbPj_z",
 } as const;
 
 export const CONTACT = {

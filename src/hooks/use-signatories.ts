@@ -5,6 +5,7 @@ import { fetchGoogleSheetCsv, parseSignatories, Signatory } from "@/lib/google";
 
 export function useSignatories(sheetId: string, gid?: string) {
   const [rows, setRows] = useState<Signatory[]>([]);
+  const [headers, setHeaders] = useState<string[]>([]);
   const [error, setError] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,7 +17,9 @@ export function useSignatories(sheetId: string, gid?: string) {
     fetchGoogleSheetCsv(sheetId, gid)
       .then((csv) => {
         if (!active) return;
-        setRows(parseSignatories(csv));
+        const data = parseSignatories(csv);
+        setRows(data.rows);
+        setHeaders(data.headers);
       })
       .catch((err) => {
         if (!active) return;
@@ -32,6 +35,6 @@ export function useSignatories(sheetId: string, gid?: string) {
     };
   }, [sheetId, gid]);
 
-  return { rows, error, isLoading };
+  return { rows, headers, error, isLoading };
 }
 
