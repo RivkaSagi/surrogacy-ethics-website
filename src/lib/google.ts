@@ -76,6 +76,7 @@ export type TeamMember = {
 type DriveFile = {
   id: string;
   name: string;
+  mimeType?: string;
   webContentLink?: string;
   thumbnailLink?: string;
 };
@@ -84,14 +85,28 @@ type DriveApiResponse = {
   files: DriveFile[];
 };
 
+async function fetchDocContent(docId: string): Promise<string | null> {
+  try {
+    const docUrl = `https://docs.google.com/document/d/${docId}/export?format=txt`;
+    const response = await fetch(docUrl);
+    if (response.ok) {
+      const text = await response.text();
+      return text.trim();
+    }
+  } catch {
+    console.warn(`Could not fetch description for doc ${docId}`);
+  }
+  return null;
+}
+
 export async function fetchGoogleDriveFolder(
   folderId: string,
 ): Promise<TeamMember[]> {
   try {
     // Using Google Drive API v3 to list files in a public folder
-    const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&fields=files(id,name,webContentLink,thumbnailLink)&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ""}`;
+    const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&fields=files(id,name,mimeType,webContentLink,thumbnailLink)&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ""}`;
 
-    const response = await fetch(apiUrl, { cache: "no-store" });
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
       throw new Error("לא ניתן לגשת לתיקיית Google Drive");
@@ -100,37 +115,70 @@ export async function fetchGoogleDriveFolder(
     const data = (await response.json()) as DriveApiResponse;
     const files = data.files || [];
 
-    // Extract name from filename (remove extension) and create team members
-    const members: TeamMember[] = files
-      .filter((file: DriveFile) => {
-        const ext = file.name.toLowerCase().split(".").pop();
-        return ["jpg", "jpeg", "png", "gif", "webp"].includes(ext || "");
-      })
-      .map((file: DriveFile) => {
-        // Remove file extension from name
-        const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
-        // Clean up the name (replace underscores, hyphens with spaces)
-        const cleanName = nameWithoutExt.replace(/[_-]/g, " ").trim();
+    // Separate images and documents
+    const imageExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
+    const images = files.filter((file: DriveFile) => {
+      const ext = file.name.toLowerCase().split(".").pop();
+      return imageExtensions.includes(ext || "");
+    });
 
-        return {
-          name: cleanName,
-          description: generateDescription(),
-          imageId: file.id,
-          imageUrl: `https://drive.google.com/uc?export=view&id=${file.id}`,
-        };
-      })
-      .sort((a: TeamMember, b: TeamMember) => a.name.localeCompare(b.name, "he")); // Sort alphabetically
+    const docs = files.filter(
+      (file: DriveFile) =>
+        file.mimeType === "application/vnd.google-apps.document",
+    );
+
+    // Create a map of document names to their content
+    const docMap = new Map<string, string>();
+    for (const doc of docs) {
+      const cleanDocName = doc.name.replace(/[_-]/g, " ").trim();
+      const content = await fetchDocContent(doc.id);
+      if (content) {
+        docMap.set(cleanDocName, content);
+      }
+    }
+
+    // Process images and match with descriptions
+    const members: TeamMember[] = images.map((file: DriveFile) => {
+      // Remove file extension from name
+      const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+      // Clean up the name (replace underscores, hyphens with spaces)
+      const cleanName = nameWithoutExt.replace(/[_-]/g, " ").trim();
+
+      // Try to find matching description
+      let description = docMap.get(cleanName);
+
+      if (!description) {
+        // Try partial match (in case doc name is slightly different)
+        for (const [docName, docContent] of docMap.entries()) {
+          if (docName.includes(cleanName) || cleanName.includes(docName)) {
+            description = docContent;
+            break;
+          }
+        }
+      }
+
+      // Fallback to default description
+      if (!description) {
+        description = `חבר/ה בצוות הפורום להובלת הקוד האתי לפונדקאות בישראל`;
+      }
+
+      return {
+        name: cleanName,
+        description: description,
+        imageId: file.id,
+        imageUrl: `https://drive.google.com/uc?export=view&id=${file.id}`,
+      };
+    });
+
+    // Sort alphabetically in Hebrew
+    members.sort((a: TeamMember, b: TeamMember) =>
+      a.name.localeCompare(b.name, "he"),
+    );
 
     return members;
   } catch (error) {
     console.error("Error fetching Google Drive folder:", error);
     return [];
   }
-}
-
-function generateDescription(): string {
-  // This is a placeholder function. You can customize descriptions based on names
-  // or fetch them from another source (like a Google Sheet)
-  return `חבר/ה בצוות הפורום להובלת הקוד האתי לפונדקאות בישראל`;
 }
 

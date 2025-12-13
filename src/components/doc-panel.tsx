@@ -47,7 +47,7 @@ export function DocPanel({
               dangerouslySetInnerHTML={{ __html: html }}
             />
             {isPreview && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-sand via-sand/70 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-sand/90 via-sand/40 to-transparent" />
             )}
           </>
         )}
