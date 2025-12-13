@@ -7,7 +7,7 @@
 - **הקוד האתי** – מסמך Google Docs מלא
 - **רשימת החותמות והחותמים** – Google Sheet (4 עמודות עם סינון מתקדם)
 - **עדכונים** – מסמך Google Docs לתיבת הגלילה
-- **צוות הפורום** – תמונות ותיאורים מ-Google Drive (עם cache מקומי)
+- **צוות הפורום** – תמונות ותיאורים מ-Google Drive (נטען בזמן build)
 
 הנתונים מנוהלים בקובץ ההגדרות `src/config/content.ts`.
 
@@ -18,16 +18,17 @@ npm install
 npm run dev           # http://localhost:3000
 npm run lint          # בדיקות ESLint
 npm run build         # הפקת גרסת פרודקשן
-npm run update-team   # עדכון cache של צוות הפורום
 ```
 
 ### הגדרת Google API Key
 
-לעדכון אוטומטי של צוות הפורום, צור קובץ `.env.local`:
+צוות הפורום נטען מ-Google Drive בזמן ה-build. צור קובץ `.env.local`:
 
 ```bash
 NEXT_PUBLIC_GOOGLE_API_KEY=your_google_api_key_here
 ```
+
+**חשוב:** הוסף את המשתנה גם לסביבת הפרודקשן (Vercel/Netlify) כדי שהנתונים יטענו בזמן הבנייה.
 
 למידע מפורט, ראה [SETUP.md](SETUP.md)
 
@@ -63,28 +64,26 @@ NEXT_PUBLIC_GOOGLE_API_KEY=your_google_api_key_here
 - `/signatories` - רשימת כל החותמים (עם סינון)
 - `/team` - צוות הפורום
 
-## צוות הפורום - מערכת Cache חכמה
+## צוות הפורום - טעינה בזמן Build
 
-האתר משתמש במערכת cache מקומית לניהול צוות הפורום:
+צוות הפורום נטען ישירות מ-Google Drive בזמן הבנייה:
 
 1. **תמונות ותיאורים** נשמרים בתיקיית Google Drive
-2. **סקריפט אוטומטי** מעדכן את ה-cache מקומית (`src/data/team-members.json`)
-3. **האתר קורא מה-cache** - טעינה מהירה, ללא תלות ב-API בזמן ריצה
-4. **עדכון אוטומטי** - GitHub Actions מעדכן כל שעה
+2. **בזמן build** - הנתונים נמשכים מ-Google Drive
+3. **תיאורים מותאמים** - Google Docs עם שם זהה לשם התמונה
+4. **מיון אוטומטי** - ממוין אלפביתית בעברית
 
-### עדכון ידני של צוות הפורום
+### מבנה תיקיית Google Drive
 
-```bash
-npm run update-team
+```
+תיקיית צוות הפורום/
+├── אדם רינגל.jpg        # תמונת חבר צוות
+├── אדם רינגל            # Google Doc עם תיאור
+├── רבקה שגיא.jpg
+└── רבקה שגיא
 ```
 
-הסקריפט:
-- מושך תמונות מתיקיית Google Drive
-- מתאים תיאורים מ-Google Docs (לפי שם הקובץ)
-- ממיין אלפביתית בעברית
-- שומר ב-`src/data/team-members.json`
-
-למידע מפורט: [README-TEAM-CACHE.md](README-TEAM-CACHE.md)
+התיקייה חייבת להיות ציבורית (`Anyone with the link can view`)
 
 ## התאמות עיצוב ותוכן
 
@@ -104,21 +103,25 @@ npm run build
 npm start   # הרצה של גרסת הפרודקשן
 ```
 
-### הגדרת GitHub Actions (עדכון אוטומטי)
+### הגדרת משתני סביבה בפרודקשן
 
-1. הוסיפו את Google API Key ל-GitHub Secrets:
-   - Settings → Secrets and variables → Actions
-   - New repository secret: `GOOGLE_API_KEY`
-2. הסקריפט `.github/workflows/update-team.yml` יעדכן את ה-cache **כל שעה**
-3. השינויים יוסרו אוטומטית ל-Git
+**Vercel:**
+1. Project Settings → Environment Variables
+2. הוסיפו: `NEXT_PUBLIC_GOOGLE_API_KEY`
+3. סמנו: Production, Preview, Development
+4. Redeploy
+
+**Netlify:**
+1. Site settings → Environment variables
+2. הוסיפו: `NEXT_PUBLIC_GOOGLE_API_KEY`
+3. Redeploy
 
 ### דרישות
 
 - כל המסמכים ב-Google Docs/Sheets חייבים להיות ציבוריים (`Anyone with the link`)
 - תיקיית Google Drive לצוות חייבת להיות ציבורית
-- API Key מוגדר ב-GitHub Secrets לאוטומציה
+- `NEXT_PUBLIC_GOOGLE_API_KEY` מוגדר בסביבת הפרודקשן
 
 ## תיעוד נוסף
 
 - [SETUP.md](SETUP.md) - הוראות הגדרה מפורטות
-- [README-TEAM-CACHE.md](README-TEAM-CACHE.md) - מערכת ה-cache של צוות הפורום
