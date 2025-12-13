@@ -71,8 +71,6 @@ export default function Home() {
 
       <footer className="mt-8 border-t border-border/50 bg-white/70">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-center text-sm text-stone sm:flex-row sm:items-center sm:justify-between sm:text-right">
-          <p>© {new Date().getFullYear()} הפורום לקידום הקוד האתי לפונדקאות</p>
-          <p>התוכן מתעדכן באופן שוטף לפי הנתונים האחרונים.</p>
         </div>
       </footer>
     </div>
