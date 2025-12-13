@@ -11,12 +11,12 @@ export default function SignatoriesPage() {
         <section className="glass-panel p-6 sm:p-8 lg:p-10 space-y-4 text-right">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="badge">רשימת החותמות והחותמים</p>
+              <p className="badge">רשימת אנשי המקצוע</p>
               <h1 className="text-3xl font-display text-ink">
-                כל החותמות והחותמים על הקוד האתי
+                אנשי המקצוע בתחום הפונדקאות בישראל החתומים על הקוד האתי
               </h1>
               <p className="text-stone mt-2">
-                כאן ניתן לראות את כל החותמות והחותמים, למיין לפי שם או תחום
+                כאן ניתן לראות את כל אנשי המקצוע החתומים, למיין לפי שם או תחום
                 מקצועי, ולחפש בקלות.
               </p>
             </div>

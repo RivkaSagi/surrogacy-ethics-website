@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { id: "about", label: "מי אנחנו" },
   { id: "summary", label: "תמצית הקוד האתי" },
   { id: "ethics", label: "הקוד האתי" },
-  { id: "signatories", label: "רשימת החותמים" },
+  { id: "signatories", label: "אנשי המקצוע החתומים" },
 ];
 
 export function SiteHeader() {
