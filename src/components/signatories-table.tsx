@@ -108,7 +108,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
   return (
     <section className="section-shell" id="signatories">
       <div className="flex flex-col gap-2">
-        <p className="badge">רשימת החתומים</p>
+        <p className="badge">רשימת אנשי המקצוע החתומים</p>
       </div>
 
       <div className="mt-6 space-y-4">
@@ -116,7 +116,8 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
         {error && <p className="text-danger">{error}</p>}
         {!isLoading && !error && rows.length > 0 && (
           <>
-            <div className="overflow-x-auto rounded-2xl border border-border/80 bg-white/70">
+            <div className={showFullPageLink ? "relative" : ""}>
+              <div className="overflow-x-auto rounded-2xl border border-border/80 bg-white/70">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border/60 bg-sand/30">
@@ -239,13 +240,17 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                 </tbody>
               </table>
             </div>
+              {showFullPageLink && (
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-sand/95 via-sand/50 to-transparent" />
+              )}
+            </div>
             {showFullPageLink && (
               <div className="flex justify-center">
                 <Link
                   href="/signatories"
                   className="rounded-full border border-clay px-6 py-3 text-clay transition hover:bg-clay hover:text-white"
                 >
-                  צפייה בכל {total} החותמות והחותמים →
+                  צפייה בכל אנשי המקצוע החתומים   →
                 </Link>
               </div>
             )}

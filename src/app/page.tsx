@@ -61,7 +61,7 @@ export default function Home() {
         <SignatoriesTable
           sheetId={CONTENT_SOURCES.signatoriesSheetId}
           gid={CONTENT_SOURCES.signatoriesGid}
-          limit={20}
+          limit={4}
         />
 
         <UpdatesPanel docId={CONTENT_SOURCES.updatesDocId} />
