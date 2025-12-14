@@ -12,10 +12,10 @@ export default function TeamPage() {
             <div>
               <p className="badge">מי אנחנו</p>
               <h1 className="text-3xl font-display text-ink">
-                צוות הפורום להובלת הקוד האתי
+                השותפים לכתיבת הקוד האתי
               </h1>
               <p className="text-stone mt-2">
-                היכרות עם חברי הצוות המוביל את היוזמה
+                היכרות עם השותפים בכתיבת ובעריכת הקוד האתי
               </p>
             </div>
             <Link
