@@ -88,7 +88,9 @@ type DriveApiResponse = {
 async function fetchDocContent(docId: string): Promise<string | null> {
   try {
     const docUrl = `https://docs.google.com/document/d/${docId}/export?format=txt`;
-    const response = await fetch(docUrl);
+    const response = await fetch(docUrl, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
     if (response.ok) {
       const text = await response.text();
       return text.trim();
@@ -106,7 +108,9 @@ export async function fetchGoogleDriveFolder(
     // Using Google Drive API v3 to list files in a public folder
     const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&fields=files(id,name,mimeType,webContentLink,thumbnailLink)&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ""}`;
 
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
 
     if (!response.ok) {
       throw new Error("לא ניתן לגשת לתיקיית Google Drive");

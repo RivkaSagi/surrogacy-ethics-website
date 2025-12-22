@@ -40,9 +40,8 @@ export function SiteHeader() {
           />
           <div className="text-right leading-tight">
             <p className="text-xs uppercase tracking-[0.2em] text-stone">
-              קוד אתי לפונדקאות
+            פורום הקוד האתי לפונדקאות בישראל
             </p>
-            <p className="text-2xl font-display text-ink">work in progress</p>
           </div>
         </Link>
 

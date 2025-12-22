@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { DocPanel } from "@/components/doc-panel";
+import { PdfViewer } from "@/components/pdf-viewer";
 import { SignatoriesTable } from "@/components/signatories-table";
 import { UpdatesPanel } from "@/components/updates-panel";
 import { ContactCard } from "@/components/contact-card";
@@ -14,7 +15,7 @@ const sections = [
         docId={CONTENT_SOURCES.aboutDocId}
         title="מי אנחנו"
         description="היכרות עם היוזמה, הצוות והחזון שמוביל את כתיבת הקוד האתי."
-        variant="preview"
+        variant="expandable"
         ctaHref="/team"
         ctaLabel="היכרות עם צוות הפורום"
       />
@@ -48,13 +49,9 @@ export default function Home() {
         </div>
 
         <div id="ethics">
-          <DocPanel
-            docId={CONTENT_SOURCES.ethicsDocId}
+          <PdfViewer
+            pdfUrl="/TheEthicsCode.pdf"
             title="הקוד האתי המלא"
-            description="המסמך המלא כולל 14 עמודים ומוצג גם בעמוד ייעודי לקריאה נוחה."
-            variant="preview"
-            ctaHref="/code"
-            ctaLabel="לקריאת הקוד המלא"
           />
         </div>
 
