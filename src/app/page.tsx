@@ -1,33 +1,19 @@
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { DocPanel } from "@/components/doc-panel";
-import { PdfViewer } from "@/components/pdf-viewer";
-import { SignatoriesTable } from "@/components/signatories-table";
 import { UpdatesPanel } from "@/components/updates-panel";
 import { ContactCard } from "@/components/contact-card";
 import { CONTENT_SOURCES } from "@/config/content";
 
 const sections = [
   {
-    id: "about",
-    component: (
-      <DocPanel
-        docId={CONTENT_SOURCES.aboutDocId}
-        title="מי אנחנו"
-        description="היכרות עם היוזמה, הצוות והחזון שמוביל את כתיבת הקוד האתי."
-        variant="expandable"
-        ctaHref="/team"
-        ctaLabel="היכרות עם צוות הפורום"
-      />
-    ),
-  },
-  {
     id: "summary",
     component: (
       <DocPanel
         docId={CONTENT_SOURCES.summaryDocId}
         title="תמצית הקוד האתי"
-          description="תמצית העקרונות המרכזיים של הקוד."
+        description="תמצית העקרונות המרכזיים של הקוד."
+        showPdfButton={true}
       />
     ),
   },
@@ -37,9 +23,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-sand via-mist to-white">
       <SiteHeader />
+      <HeroSection />
       <main className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6 lg:gap-12">
-        <HeroSection />
-
         <div className="space-y-8">
           {sections.map((section) => (
             <div key={section.id} id={section.id}>
@@ -47,19 +32,6 @@ export default function Home() {
             </div>
           ))}
         </div>
-
-        <div id="ethics">
-          <PdfViewer
-            pdfUrl="/TheEthicsCode.pdf"
-            title="הקוד האתי המלא"
-          />
-        </div>
-
-        <SignatoriesTable
-          sheetId={CONTENT_SOURCES.signatoriesSheetId}
-          gid={CONTENT_SOURCES.signatoriesGid}
-          limit={4}
-        />
 
         <UpdatesPanel docId={CONTENT_SOURCES.updatesDocId} />
 

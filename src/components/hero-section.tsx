@@ -2,8 +2,14 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="glass-panel mx-auto max-w-4xl px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-      <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-center">
+    <section className="relative flex items-center justify-center py-16 sm:py-20">
+      {/* Full-width background frame */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="h-full w-full bg-gradient-to-r from-clay/20 via-clay/30 to-clay/20 shadow-lg" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center gap-6 px-8 sm:flex-row sm:items-center sm:justify-center sm:px-12 lg:px-16">
         <div className="flex-shrink-0">
           <Image
             src="/Logo2.png"
@@ -19,20 +25,6 @@ export function HeroSection() {
             הקוד האתי לפונדקאות בישראל
           </h1>
         </div>
-      </div>
-      <div className="flex flex-wrap items-center justify-center gap-4 pt-8">
-        <a
-          href="#about"
-          className="rounded-full bg-clay px-8 py-4 text-white shadow-card transition hover:bg-clay/90"
-        >
-          היכרות מהירה
-        </a>
-        <a
-          href="#signatories"
-          className="rounded-full border border-border px-8 py-4 text-ink transition hover:border-clay hover:text-clay"
-        >
-          לרשימת החתומים
-        </a>
       </div>
     </section>
   );

@@ -9,23 +9,15 @@ export default function SignatoriesPage() {
       <SiteHeader />
       <main className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:py-16">
         <section className="glass-panel p-6 sm:p-8 lg:p-10 space-y-4 text-right">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="badge">רשימת אנשי המקצוע</p>
-              <h1 className="text-3xl font-display text-ink">
-                אנשי המקצוע בתחום הפונדקאות בישראל החתומים על הקוד האתי
-              </h1>
-              <p className="text-stone mt-2">
-                כאן ניתן לראות את כל אנשי המקצוע החתומים, למיין לפי שם או תחום
-                מקצועי, ולחפש בקלות.
-              </p>
-            </div>
-            <Link
-              href="/"
-              className="text-sm text-clay underline-offset-4 hover:underline"
-            >
-              ← חזרה לעמוד הבית
-            </Link>
+          <div className="space-y-3">
+            <p className="badge">רשימת אנשי המקצוע</p>
+            <h1 className="text-3xl font-display text-ink">
+              אנשי המקצוע בתחום הפונדקאות בישראל החתומים על הקוד האתי
+            </h1>
+            <p className="text-stone">
+              כאן ניתן לראות את כל אנשי המקצוע החתומים, למיין לפי שם או תחום
+              מקצועי, ולחפש בקלות.
+            </p>
           </div>
         </section>
 

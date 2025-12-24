@@ -9,18 +9,17 @@ export async function TeamMembers() {
 
   if (members.length === 0) {
     return (
-      <section className="section-shell text-center">
+      <div className="text-center">
         <p className="text-stone">לא נמצאו חברי צוות.</p>
         <p className="text-sm text-stone/70 mt-2">
           אנא בדוק את הגדרות תיקיית Google Drive
         </p>
-      </section>
+      </div>
     );
   }
 
   return (
-    <section className="section-shell">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {members.map((member) => (
           <div
             key={member.imageId}
@@ -41,6 +40,5 @@ export async function TeamMembers() {
           </div>
         ))}
       </div>
-    </section>
   );
 }

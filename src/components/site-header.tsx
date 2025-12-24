@@ -6,10 +6,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { id: "about", label: "מי אנחנו" },
-  { id: "summary", label: "תמצית הקוד האתי" },
-  { id: "ethics", label: "הקוד האתי" },
-  { id: "signatories", label: "אנשי המקצוע החתומים" },
+  { id: "about", label: "מי אנחנו", href: "/team" },
+  { id: "signatories", label: "אנשי המקצוע החתומים", href: "/signatories" },
 ];
 
 export function SiteHeader() {
@@ -20,11 +18,8 @@ export function SiteHeader() {
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
 
-  const getNavHref = (id: string) => {
-    if (id === "signatories") {
-      return "/signatories";
-    }
-    return isHomePage ? `#${id}` : `/#${id}`;
+  const getNavHref = (item: { id: string; label: string; href: string }) => {
+    return item.href;
   };
 
   return (
@@ -49,17 +44,17 @@ export function SiteHeader() {
           {NAV_ITEMS.map((item) => (
             <a
               key={item.id}
-              href={getNavHref(item.id)}
+              href={getNavHref(item)}
               className="text-ink/80 transition hover:text-clay"
             >
               {item.label}
             </a>
           ))}
           <a
-            href={getNavHref("contact")}
+            href="/#contact"
             className="rounded-full bg-clay px-6 py-2 text-white text-sm shadow-card transition hover:bg-clay/90"
           >
-            צור קשר
+            צרו קשר
           </a>
         </nav>
 
@@ -83,7 +78,7 @@ export function SiteHeader() {
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.id}
-                href={getNavHref(item.id)}
+                href={getNavHref(item)}
                 className="border-b border-border/50 py-3 text-ink/80 last:border-none"
                 onClick={close}
               >
@@ -91,11 +86,11 @@ export function SiteHeader() {
               </a>
             ))}
             <a
-              href={getNavHref("contact")}
+              href="/#contact"
               className="py-3 font-semibold text-clay"
               onClick={close}
             >
-              צור קשר
+              צרו קשר
             </a>
           </div>
         </div>

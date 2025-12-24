@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useGoogleDoc } from "@/hooks/use-google-doc";
+import { PdfModal } from "@/components/pdf-modal";
 
 type DocPanelProps = {
   docId: string;
@@ -11,6 +12,9 @@ type DocPanelProps = {
   ctaLabel?: string;
   ctaHref?: string;
   ctaExternal?: boolean;
+  showPdfButton?: boolean;
+  showBadge?: boolean;
+  badgeText?: string;
 };
 
 export function DocPanel({
@@ -21,24 +25,31 @@ export function DocPanel({
   ctaHref,
   ctaLabel,
   ctaExternal,
+  showPdfButton = false,
+  showBadge = false,
+  badgeText,
 }: DocPanelProps) {
   const { html, error, isLoading } = useGoogleDoc(docId);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const isPreview = variant === "preview";
   const isExpandable = variant === "expandable";
   const labelId = `section-${docId}-title`;
 
   return (
     <section className="section-shell" aria-labelledby={labelId}>
-      <div className="space-y-2">
-        <p className="badge" id={labelId}>
+      <div className="max-w-3xl space-y-3">
+        {showBadge && badgeText && (
+          <p className="badge">{badgeText}</p>
+        )}
+        <h1 className="text-3xl font-display text-ink" id={labelId}>
           {title}
-        </p>
+        </h1>
         {description && (
           <p className="text-stone text-sm sm:text-base">{description}</p>
         )}
       </div>
-      <div className={`min-h-[120px] ${isPreview || (isExpandable && !isExpanded) ? "relative" : ""}`}>
+      <div className={`max-w-3xl min-h-[120px] ${isPreview || (isExpandable && !isExpanded) ? "relative" : ""}`}>
         {isLoading && <p className="text-stone">טוען תוכן...</p>}
         {error && <p className="text-danger">{error}</p>}
         {!isLoading && !error && (
@@ -55,34 +66,50 @@ export function DocPanel({
           </>
         )}
       </div>
-      {isExpandable && (
-        <div className="flex flex-wrap gap-3">
+      <div className="max-w-3xl">
+        {isExpandable && (
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="inline-flex items-center justify-center rounded-full bg-clay px-6 py-3 text-white shadow-card transition hover:bg-clay/90"
+            >
+              {isExpanded ? "הצג פחות" : "קרא עוד"}
+            </button>
+            {ctaHref && ctaLabel && (
+              <a
+                href={ctaHref}
+                className="inline-flex items-center justify-center rounded-full border border-clay px-6 py-3 text-clay shadow-card transition hover:bg-clay hover:text-white"
+                {...(ctaExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+              >
+                {ctaLabel}
+              </a>
+            )}
+          </div>
+        )}
+        {isPreview && ctaHref && ctaLabel && (
+          <a
+            href={ctaHref}
+            className="inline-flex items-center justify-center rounded-full bg-clay px-6 py-3 text-white shadow-card transition hover:bg-clay/90"
+            {...(ctaExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+          >
+            {ctaLabel}
+          </a>
+        )}
+        {showPdfButton && (
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={() => setIsPdfModalOpen(true)}
             className="inline-flex items-center justify-center rounded-full bg-clay px-6 py-3 text-white shadow-card transition hover:bg-clay/90"
           >
-            {isExpanded ? "הצג פחות" : "קרא עוד"}
+            צפו בקוד האתי המלא
           </button>
-          {ctaHref && ctaLabel && (
-            <a
-              href={ctaHref}
-              className="inline-flex items-center justify-center rounded-full border border-clay px-6 py-3 text-clay shadow-card transition hover:bg-clay hover:text-white"
-              {...(ctaExternal ? { target: "_blank", rel: "noreferrer" } : {})}
-            >
-              {ctaLabel}
-            </a>
-          )}
-        </div>
-      )}
-      {isPreview && ctaHref && ctaLabel && (
-        <a
-          href={ctaHref}
-          className="inline-flex items-center justify-center rounded-full bg-clay px-6 py-3 text-white shadow-card transition hover:bg-clay/90"
-          {...(ctaExternal ? { target: "_blank", rel: "noreferrer" } : {})}
-        >
-          {ctaLabel}
-        </a>
-      )}
+        )}
+      </div>
+      <PdfModal
+        isOpen={isPdfModalOpen}
+        onClose={() => setIsPdfModalOpen(false)}
+        pdfUrl="/TheEthicsCode.pdf"
+        title="הקוד האתי המלא"
+      />
     </section>
   );
 }
