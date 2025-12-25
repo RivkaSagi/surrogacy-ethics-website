@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SignatoriesTable } from "@/components/signatories-table";
 import { CONTENT_SOURCES } from "@/config/content";

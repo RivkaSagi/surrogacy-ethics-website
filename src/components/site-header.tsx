@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ITEMS = [
@@ -12,8 +11,6 @@ const NAV_ITEMS = [
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
@@ -50,6 +47,7 @@ export function SiteHeader() {
               {item.label}
             </a>
           ))}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/#contact"
             className="rounded-full bg-clay px-6 py-2 text-white text-sm shadow-card transition hover:bg-clay/90"
@@ -85,6 +83,7 @@ export function SiteHeader() {
                 {item.label}
               </a>
             ))}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/#contact"
               className="py-3 font-semibold text-clay"
