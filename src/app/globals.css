@@ -29,7 +29,7 @@ body {
 }
 
 .prose-content {
-  @apply prose prose-lg prose-slate max-w-none rtl text-right;
+  @apply prose prose-lg prose-slate max-w-none rtl text-justify;
 }
 
 /* Ensure Google Docs formatting is preserved */
