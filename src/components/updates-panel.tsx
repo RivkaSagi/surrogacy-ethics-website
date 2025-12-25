@@ -28,14 +28,14 @@ export function UpdatesPanel({ docId }: Props) {
 
   return (
     <section className="section-shell" id="updates">
-      <div className="max-w-3xl flex items-center justify-between gap-4">
+      <div className="max-w-3xl flex items-center justify-between gap-4 sm:pr-12">
         <div>
           <p className="badge">עדכונים</p>
         </div>
       </div>
 
-      {isLoading && <p className="max-w-3xl text-stone">טוען עדכונים...</p>}
-      {error && <p className="max-w-3xl text-danger">{error}</p>}
+      {isLoading && <p className="max-w-3xl text-stone sm:pr-12">טוען עדכונים...</p>}
+      {error && <p className="max-w-3xl text-danger sm:pr-12">{error}</p>}
 
       {!isLoading && !error && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -48,7 +48,7 @@ export function UpdatesPanel({ docId }: Props) {
               <div className="absolute top-0 right-0 h-16 w-16 bg-gradient-to-br from-clay/10 to-transparent rounded-bl-full" />
 
               <div
-                className="prose-content relative z-10 text-sm leading-relaxed text-ink"
+                className="prose-content relative z-10 text-sm leading-relaxed text-ink sm:pr-12"
                 dangerouslySetInnerHTML={{ __html: update }}
               />
             </div>

@@ -7,7 +7,7 @@ export function ContactCard() {
 
   return (
     <section className="section-shell scroll-mt-20" id="contact">
-      <div className="max-w-3xl">
+      <div className="max-w-3xl sm:pr-12">
         <p className="badge">צרו קשר</p>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-ink sm:text-3xl">נשמח לשמוע מכם</h2>

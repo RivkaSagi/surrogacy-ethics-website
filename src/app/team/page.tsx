@@ -17,7 +17,7 @@ export default function TeamPage() {
         />
 
         <section className="section-shell">
-          <div className="max-w-3xl space-y-2 mb-6">
+          <div className="max-w-3xl space-y-2 mb-6 sm:pr-12">
             <p className="badge">צוות הפורום</p>
             <h2 className="text-2xl font-semibold text-ink sm:text-3xl">
               השותפים בכתיבת ובעריכת הקוד האתי

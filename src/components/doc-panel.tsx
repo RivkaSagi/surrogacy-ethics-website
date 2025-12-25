@@ -38,7 +38,7 @@ export function DocPanel({
 
   return (
     <section className="section-shell" aria-labelledby={labelId}>
-      <div className="max-w-3xl space-y-3">
+      <div className="max-w-3xl space-y-3 sm:pr-12">
         {showBadge && badgeText && (
           <p className="badge">{badgeText}</p>
         )}
@@ -49,14 +49,14 @@ export function DocPanel({
           <p className="text-stone text-sm sm:text-base">{description}</p>
         )}
       </div>
-      <div className={`max-w-3xl min-h-[120px] ${isPreview || (isExpandable && !isExpanded) ? "relative" : ""}`}>
+      <div className={`max-w-3xl min-h-[120px] sm:pr-12 ${isPreview || (isExpandable && !isExpanded) ? "relative" : ""}`}>
         {isLoading && <p className="text-stone">טוען תוכן...</p>}
         {error && <p className="text-danger">{error}</p>}
         {!isLoading && !error && (
           <>
             <article
               className={`prose-content rtl-list ${
-                isPreview || (isExpandable && !isExpanded) ? "max-h-72 overflow-hidden pr-2" : ""
+                isPreview || (isExpandable && !isExpanded) ? "max-h-72 overflow-hidden" : ""
               }`}
               dangerouslySetInnerHTML={{ __html: html }}
             />
@@ -66,7 +66,7 @@ export function DocPanel({
           </>
         )}
       </div>
-      <div className="max-w-3xl">
+      <div className="max-w-3xl sm:pr-12">
         {isExpandable && (
           <div className="flex flex-wrap gap-3">
             <button
