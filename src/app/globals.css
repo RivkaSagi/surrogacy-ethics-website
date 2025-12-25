@@ -32,6 +32,36 @@ body {
   @apply prose prose-lg prose-slate max-w-none rtl text-right;
 }
 
+/* Ensure Google Docs formatting is preserved */
+.prose-content strong,
+.prose-content b,
+.prose-content [style*="font-weight:700"],
+.prose-content [style*="font-weight: 700"],
+.prose-content [style*="font-weight:bold"],
+.prose-content [style*="font-weight: bold"] {
+  font-weight: 700 !important;
+}
+
+.prose-content em,
+.prose-content i,
+.prose-content [style*="font-style:italic"],
+.prose-content [style*="font-style: italic"] {
+  font-style: italic !important;
+}
+
+.prose-content u,
+.prose-content [style*="text-decoration:underline"],
+.prose-content [style*="text-decoration: underline"] {
+  text-decoration: underline !important;
+}
+
+.prose-content s,
+.prose-content strike,
+.prose-content [style*="text-decoration:line-through"],
+.prose-content [style*="text-decoration: line-through"] {
+  text-decoration: line-through !important;
+}
+
 .rtl {
   direction: rtl;
 }

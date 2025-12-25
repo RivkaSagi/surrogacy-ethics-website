@@ -22,7 +22,54 @@ export async function fetchGoogleDocHtml(docId: string): Promise<string> {
   }
 
   const html = await response.text();
-  return DOMPurify.sanitize(html);
+
+  // Extract the <style> content from Google Docs HTML
+  const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+  const fullStyles = styleMatch ? styleMatch[1] : '';
+
+  // Filter styles to keep ONLY font-weight (bold) and font-style (italic)
+  // Remove all other styles that might interfere with site design
+  const filteredStyles = fullStyles
+    .split('}')
+    .map(rule => {
+      const [selector, properties] = rule.split('{');
+      if (!properties) return '';
+
+      // Extract only font-weight and font-style properties
+      const relevantProps = properties
+        .split(';')
+        .filter(prop => {
+          const trimmed = prop.trim().toLowerCase();
+          return trimmed.startsWith('font-weight') ||
+                 trimmed.startsWith('font-style');
+        })
+        .join(';');
+
+      // Only return the rule if it has relevant properties
+      return relevantProps ? `${selector}{${relevantProps}}` : '';
+    })
+    .filter(rule => rule.trim())
+    .join('');
+
+  // Configure DOMPurify with permissive settings
+  const sanitized = DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: [
+      'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'strike',
+      'span', 'div', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3',
+      'h4', 'h5', 'h6', 'blockquote', 'pre', 'code', 'table',
+      'tr', 'td', 'th', 'tbody', 'thead'
+    ],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id'],
+    KEEP_CONTENT: true,
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+  });
+
+  // Prepend only the filtered styles (bold/italic only)
+  if (filteredStyles) {
+    return `<style type="text/css">${filteredStyles}</style>${sanitized}`;
+  }
+
+  return sanitized;
 }
 
 export async function fetchGoogleSheetCsv(
