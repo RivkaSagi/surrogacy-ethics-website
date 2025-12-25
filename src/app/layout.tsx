@@ -19,7 +19,7 @@ const secular = Secular_One({
 export const metadata: Metadata = {
   title: "קוד אתי לפונדקאות",
   description:
-    "מידע, הקוד האתי ורשימת החותמות והחותמים על הקוד למען פונדקאות בישראל.",
+    "מידע, הקוד האתי ורשימת החותמות והחותמים על הקוד למען פונדקאות אתית בישראל.",
 };
 
 export default function RootLayout({
