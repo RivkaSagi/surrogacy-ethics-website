@@ -13,7 +13,6 @@ const sections = [
       <DocPanel
         docId={CONTENT_SOURCES.summaryDocId}
         title="תמצית הקוד האתי"
-        description="תמצית העקרונות המרכזיים של הקוד."
         showPdfButton={true}
       />
     ),
