@@ -11,7 +11,7 @@ export default function SignatoriesPage() {
         <section className="glass-panel p-6 sm:p-8 lg:p-10 space-y-4 text-right">
           <div className="space-y-3">
             <p className="badge">רשימת אנשי המקצוע</p>
-            <h1 className="text-3xl font-display text-ink">
+            <h1 className="text-3xl font-bold text-ink sm:text-4xl">
               אנשי המקצוע בתחום הפונדקאות בישראל החתומים על הקוד האתי
             </h1>
             <p className="text-stone">

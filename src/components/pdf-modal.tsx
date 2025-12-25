@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 type PdfModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -8,10 +10,25 @@ type PdfModalProps = {
 };
 
 export function PdfModal({ isOpen, onClose, pdfUrl, title }: PdfModalProps) {
+  useEffect(() => {
+    if (isOpen) {
+      // Scroll just enough to show the modal top aligned with viewport top
+      const summaryElement = document.getElementById('summary');
+      if (summaryElement) {
+        const rect = summaryElement.getBoundingClientRect();
+        const scrollTop = window.scrollY + rect.top;
+        window.scrollTo({
+          top: scrollTop,
+          behavior: "smooth"
+        });
+      }
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-4 z-50 flex items-center justify-center sm:inset-8">
+    <div className="fixed inset-4 z-50 flex items-start justify-center sm:inset-8">
       {/* Backdrop */}
       <div
         className="absolute inset-0 -m-4 bg-black/60 backdrop-blur-sm sm:-m-8"

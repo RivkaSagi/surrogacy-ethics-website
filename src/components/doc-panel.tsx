@@ -42,7 +42,7 @@ export function DocPanel({
         {showBadge && badgeText && (
           <p className="badge">{badgeText}</p>
         )}
-        <h1 className="text-3xl font-display text-ink" id={labelId}>
+        <h1 className="text-3xl font-bold text-ink sm:text-4xl" id={labelId}>
           {title}
         </h1>
         {description && (

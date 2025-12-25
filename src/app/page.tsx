@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/hero-section";
 import { DocPanel } from "@/components/doc-panel";
 import { UpdatesPanel } from "@/components/updates-panel";
 import { ContactCard } from "@/components/contact-card";
+import { HashScrollHandler } from "@/components/hash-scroll-handler";
 import { CONTENT_SOURCES } from "@/config/content";
 
 const sections = [
@@ -22,6 +23,7 @@ const sections = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-sand via-mist to-white">
+      <HashScrollHandler />
       <SiteHeader />
       <HeroSection />
       <main className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6 lg:gap-12">

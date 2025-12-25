@@ -6,11 +6,11 @@ export function ContactCard() {
   const mailto = `mailto:${CONTACT.email}?subject=${CONTACT.subject}`;
 
   return (
-    <section className="section-shell" id="contact">
+    <section className="section-shell scroll-mt-20" id="contact">
       <div className="max-w-3xl">
         <p className="badge">צרו קשר</p>
         <div className="space-y-4">
-          <p className="text-2xl font-display">נשמח לשמוע מכם</p>
+          <h2 className="text-2xl font-semibold text-ink sm:text-3xl">נשמח לשמוע מכם</h2>
           <p className="text-stone leading-relaxed">
             לחתימה על הקוד, הערות או יצירת קשר מוזמנים ומוזמנות לפנות
           </p>

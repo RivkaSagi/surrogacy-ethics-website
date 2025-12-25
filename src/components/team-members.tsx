@@ -34,7 +34,7 @@ export async function TeamMembers() {
               />
             </div>
             <div className="space-y-2 text-right">
-              <h3 className="text-xl font-display text-ink">{member.name}</h3>
+              <h3 className="text-xl font-semibold text-ink">{member.name}</h3>
               <p className="text-stone leading-relaxed">{member.description}</p>
             </div>
           </div>
