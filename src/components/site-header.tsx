@@ -9,7 +9,11 @@ const NAV_ITEMS = [
   { id: "signatories", label: "אנשי המקצוע החתומים", href: "/signatories" },
 ];
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  onHeaderClick?: () => void;
+};
+
+export function SiteHeader({ onHeaderClick }: SiteHeaderProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen((prev) => !prev);
@@ -20,15 +24,15 @@ export function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-20 bg-sand/80 backdrop-blur border-b border-border">
+    <header className="sticky top-0 z-20 bg-sand/80 backdrop-blur border-b border-border" onClick={onHeaderClick}>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <Link href="/" className="flex items-center gap-4">
           <Image
-            src="/logo.jpeg"
+            src="/LogoWOText.png"
             alt="לוגו הקוד האתי"
-            width={56}
-            height={56}
-            className="h-12 w-12 rounded-full border border-border object-cover"
+            width={48}
+            height={48}
+            className="h-12 w-auto object-contain"
           />
           <div className="text-right leading-tight">
             <p className="text-xs uppercase tracking-[0.2em] text-stone">

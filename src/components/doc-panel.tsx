@@ -15,6 +15,8 @@ type DocPanelProps = {
   showPdfButton?: boolean;
   showBadge?: boolean;
   badgeText?: string;
+  isPdfModalOpen?: boolean;
+  setIsPdfModalOpen?: (open: boolean) => void;
 };
 
 export function DocPanel({
@@ -28,10 +30,16 @@ export function DocPanel({
   showPdfButton = false,
   showBadge = false,
   badgeText,
+  isPdfModalOpen: externalIsPdfModalOpen,
+  setIsPdfModalOpen: externalSetIsPdfModalOpen,
 }: DocPanelProps) {
   const { html, error, isLoading } = useGoogleDoc(docId);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [internalIsPdfModalOpen, setInternalIsPdfModalOpen] = useState(false);
+
+  // Use external state if provided, otherwise use internal state
+  const isPdfModalOpen = externalIsPdfModalOpen ?? internalIsPdfModalOpen;
+  const setIsPdfModalOpen = externalSetIsPdfModalOpen ?? setInternalIsPdfModalOpen;
   const isPreview = variant === "preview";
   const isExpandable = variant === "expandable";
   const labelId = `section-${docId}-title`;

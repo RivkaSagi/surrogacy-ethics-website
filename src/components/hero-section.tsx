@@ -12,10 +12,10 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 sm:flex-row sm:items-center sm:px-6">
         <div className="flex-shrink-0">
           <Image
-            src="/Logo2.png"
+            src="/LogoWText.png"
             alt="לוגו קוד אתי לפונדקאות"
             width={200}
-            height={154}
+            height={200}
             className="object-contain"
             priority
           />

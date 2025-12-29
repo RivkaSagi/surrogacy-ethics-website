@@ -12,11 +12,11 @@ type PdfModalProps = {
 export function PdfModal({ isOpen, onClose, pdfUrl, title }: PdfModalProps) {
   useEffect(() => {
     if (isOpen) {
-      // Scroll just enough to show the modal top aligned with viewport top
+      // Scroll up to show the modal with some padding from the top
       const summaryElement = document.getElementById('summary');
       if (summaryElement) {
         const rect = summaryElement.getBoundingClientRect();
-        const scrollTop = window.scrollY + rect.top;
+        const scrollTop = window.scrollY + rect.top - 100;
         window.scrollTo({
           top: scrollTop,
           behavior: "smooth"
@@ -36,7 +36,7 @@ export function PdfModal({ isOpen, onClose, pdfUrl, title }: PdfModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative z-10 flex h-full w-full max-w-4xl flex-col rounded-xl border-4 border-clay/50 bg-white shadow-2xl">
+      <div className="relative z-10 flex h-[80vh] w-full max-w-4xl flex-col rounded-xl border-4 border-clay/50 bg-white shadow-2xl">
         {/* Header */}
         <div className="flex flex-shrink-0 items-center justify-between border-b-2 border-clay/30 bg-sand/50 px-4 py-3 sm:px-6 sm:py-4">
           <h2 className="text-lg font-display text-ink sm:text-xl">{title}</h2>

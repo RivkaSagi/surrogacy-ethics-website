@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { DocPanel } from "@/components/doc-panel";
@@ -6,24 +9,28 @@ import { ContactCard } from "@/components/contact-card";
 import { HashScrollHandler } from "@/components/hash-scroll-handler";
 import { CONTENT_SOURCES } from "@/config/content";
 
-const sections = [
-  {
-    id: "summary",
-    component: (
-      <DocPanel
-        docId={CONTENT_SOURCES.summaryDocId}
-        title="תמצית הקוד האתי"
-        showPdfButton={true}
-      />
-    ),
-  },
-];
-
 export default function Home() {
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+
+  const sections = [
+    {
+      id: "summary",
+      component: (
+        <DocPanel
+          docId={CONTENT_SOURCES.summaryDocId}
+          title="תמצית הקוד האתי"
+          showPdfButton={true}
+          isPdfModalOpen={isPdfModalOpen}
+          setIsPdfModalOpen={setIsPdfModalOpen}
+        />
+      ),
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sand via-mist to-white">
       <HashScrollHandler />
-      <SiteHeader />
+      <SiteHeader onHeaderClick={() => setIsPdfModalOpen(false)} />
       <HeroSection />
       <main className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6 lg:gap-12">
         <div className="space-y-8">
