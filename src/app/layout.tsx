@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "מידע, הקוד האתי ורשימת החותמות והחותמים על הקוד למען פונדקאות אתית בישראל.",
   icons: {
-    icon: "/LogoWOText.png",
+    icon: "/Logo-new-wo-text.png",
   },
 };
 

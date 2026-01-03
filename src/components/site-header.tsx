@@ -28,17 +28,12 @@ export function SiteHeader({ onHeaderClick }: SiteHeaderProps = {}) {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <Link href="/" className="flex items-center gap-4">
           <Image
-            src="/LogoWOText.png"
+            src="/Logo-new-w-text.png"
             alt="לוגו הקוד האתי"
-            width={48}
+            width={150}
             height={48}
             className="h-12 w-auto object-contain"
           />
-          <div className="text-right leading-tight">
-            <p className="text-xs uppercase tracking-[0.2em] text-stone">
-            פורום הקוד האתי לפונדקאות בישראל
-            </p>
-          </div>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
