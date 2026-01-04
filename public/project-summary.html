@@ -61,6 +61,7 @@
             gap: 30px;
             position: relative;
             z-index: 1;
+            flex-direction: row-reverse;
         }
 
         .logo {
@@ -101,7 +102,6 @@
             margin-bottom: 15px;
             text-align: center;
             padding-bottom: 8px;
-            border-bottom: 2px solid #c26c55;
         }
 
         .summary-list {
@@ -119,26 +119,6 @@
             border-radius: 8px;
             border: 1px solid #e2d7cf;
             box-shadow: 0 2px 6px rgba(30, 27, 22, 0.05);
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .summary-number {
-            flex-shrink: 0;
-            background: #c26c55;
-            color: white;
-            font-size: 13px;
-            font-weight: 700;
-            width: 26px;
-            height: 26px;
-            line-height: 26px;
-            text-align: center;
-            border-radius: 50%;
-        }
-
-        .summary-content {
-            flex: 1;
         }
 
         .summary-header {
@@ -246,83 +226,53 @@
 
             <ul class="summary-list">
                 <li class="summary-item">
-                    <span class="summary-number">1</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">שותפות</strong>
-                        <p class="summary-text">פונדקאיות והורים יבחרו זה בזה באופן חופשי ונטול לחצים מצד נותני שירותים. בחירת אנשי המקצוע המעורבים בתהליך, כולל רופאים, בתי חולים ואחרים תהיה <strong>בשותפות ובהסכמה</strong> בין ההורים המיועדים והפונדקאית. <strong>פונדקאיות לא יחויבו בתנאים כלשהם, לא בעל פה ולא בכתב, מול מלווה או סוכנות.</strong></p>
-                    </div>
+                    <strong class="summary-header">שותפות</strong>
+                    <p class="summary-text">פונדקאיות והורים יבחרו זה בזה באופן חופשי ונטול לחצים מצד נותני שירותים. בחירת אנשי המקצוע המעורבים בתהליך, כולל רופאים, בתי חולים ואחרים תהיה <strong>בשותפות ובהסכמה</strong> בין ההורים המיועדים והפונדקאית. <strong>פונדקאיות לא יחויבו בתנאים כלשהם, לא בעל פה ולא בכתב, מול מלווה או סוכנות.</strong></p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">2</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">אוטונומיה</strong>
-                        <p class="summary-text">לפונדקאית שמורה הזכות על גופה ופרטיותה בכל שלב ללא תנאי לפי הוראות חוק זכויות החולה. הגם שנכון לשאוף לקבל החלטות במשותף, נשמרת לה הזכות הבלעדית לקבל החלטות הנוגעות לגופה, גם אם זו תיחשב הפרת הסכם מצידה של הפונדקאית, עליה היא תישא באחריות על פי המפורט בהסכם.</p>
-                    </div>
+                    <strong class="summary-header">אוטונומיה</strong>
+                    <p class="summary-text">לפונדקאית שמורה הזכות על גופה ופרטיותה בכל שלב ללא תנאי לפי הוראות חוק זכויות החולה. הגם שנכון לשאוף לקבל החלטות במשותף, נשמרת לה הזכות הבלעדית לקבל החלטות הנוגעות לגופה, גם אם זו תיחשב הפרת הסכם מצידה של הפונדקאית, עליה היא תישא באחריות על פי המפורט בהסכם.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">3</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">מחויבות</strong>
-                        <p class="summary-text">אנשי המקצוע המעורבים מחויבים להורים המיועדים ולפונדקאית במידה שווה, גם בשגרה וגם במקרים של אי הסכמות בין השותפים, <strong>ולא תלות בגורם המשלם עבור השירות</strong>.</p>
-                    </div>
+                    <strong class="summary-header">מחויבות</strong>
+                    <p class="summary-text">אנשי המקצוע המעורבים מחויבים להורים המיועדים ולפונדקאית במידה שווה, גם בשגרה וגם במקרים של אי הסכמות בין השותפים, <strong>ולא תלות בגורם המשלם עבור השירות</strong>.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">4</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">מניעת מסחור</strong>
-                        <p class="summary-text">אנשי המקצוע מחויבים <strong>לשמור על סכום הפיצוי המקובל</strong> לפונדקאית, לא יציגו ויעשו שימוש ברכיב הפיצוי הסביר המקובל כתמריץ לכניסה להליך, ולא יציעו בעצמם הטבות כלכליות לפונדקאית לטובת גיוסה להליך.</p>
-                    </div>
+                    <strong class="summary-header">מניעת מסחור</strong>
+                    <p class="summary-text">אנשי המקצוע מחויבים <strong>לשמור על סכום הפיצוי המקובל</strong> לפונדקאית, לא יציגו ויעשו שימוש ברכיב הפיצוי הסביר המקובל כתמריץ לכניסה להליך, ולא יציעו בעצמם הטבות כלכליות לפונדקאית לטובת גיוסה להליך.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">5</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">פרטיות</strong>
-                        <p class="summary-text">מלווות, סוכניות וכל נותני השירותיםמחויבים לסודיות מלאה. <strong>לא יעבירו מידע אישי לגורם שלישי לרבות בין הפונדקאית להורים המיועדים - ללא הסכמה מראש</strong>. מידע אישי, מידע רפואי, אבחון פסיכולוגי וכד' שייך למטופל/ מאובחן ויועבר לידו ישירות ללא תלות בגורם המשלם, ולא יועבר לאחר בלא הסכמה מראש.</p>
-                    </div>
+                    <strong class="summary-header">פרטיות</strong>
+                    <p class="summary-text">מלווות, סוכניות וכל נותני השירותיםמחויבים לסודיות מלאה. <strong>לא יעבירו מידע אישי לגורם שלישי לרבות בין הפונדקאית להורים המיועדים - ללא הסכמה מראש</strong>. מידע אישי, מידע רפואי, אבחון פסיכולוגי וכד' שייך למטופל/ מאובחן ויועבר לידו ישירות ללא תלות בגורם המשלם, ולא יועבר לאחר בלא הסכמה מראש.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">6</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">תיאום ציפיות</strong>
-                        <p class="summary-text">אנשי המקצוע יעודדו תקשורת פתוחה וישירה בין השותפים להליך. מלווות וסוכניות מחויבות לוודא כי ההורים המיועדים והפונדקאית קיימו <strong>שיח תיאום ציפיות מקיפה ובלתי אמצעית, בטרם בחרו לשתף יחד פעולה</strong>, ובתוכם שיח על קבלת החלטות בנוגע לבדיקות, ובדבר החלטה על הפסקת הריון.</p>
-                    </div>
+                    <strong class="summary-header">תיאום ציפיות</strong>
+                    <p class="summary-text">אנשי המקצוע יעודדו תקשורת פתוחה וישירה בין השותפים להליך. מלווות וסוכניות מחויבות לוודא כי ההורים המיועדים והפונדקאית קיימו <strong>שיח תיאום ציפיות מקיפה ובלתי אמצעית, בטרם בחרו לשתף יחד פעולה</strong>, ובתוכם שיח על קבלת החלטות בנוגע לבדיקות, ובדבר החלטה על הפסקת הריון.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">7</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">שקיפות במידע</strong>
-                        <p class="summary-text">חובה על הרופאים לספק הן להורים המיועדים והן לפונדקאית הסבר מפורט על כל בדיקה או פעולה רפואית במסגרת הליך הפונדקאות, השלכותיה וכל מידע משמעותי שצפוי להשפיע על סיכויי הצלחת ההליך.</p>
-                    </div>
+                    <strong class="summary-header">שקיפות במידע</strong>
+                    <p class="summary-text">חובה על הרופאים לספק הן להורים המיועדים והן לפונדקאית הסבר מפורט על כל בדיקה או פעולה רפואית במסגרת הליך הפונדקאות, השלכותיה וכל מידע משמעותי שצפוי להשפיע על סיכויי הצלחת ההליך.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">8</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">כבוד</strong>
-                        <p class="summary-text">רופאים, צוות רפואי וכל נותני השירותיים יתנו הסבר הן להורים המיועדים והן לפונדקאית על כל מידע רלוונטי, בדיקה או פעולה במסגרת ההליך, <strong>באופן ישיר ולא "מעל ראשם" של מי מהשותפים להליך</strong>, ויוודאו הסכמה הדדית בכל החלטה הנוגעת להליך. בהקשר זה יוזכר כי הפונדקאית היא "המטופלת" על פי חוק זכויות החולה.</p>
-                    </div>
+                    <strong class="summary-header">כבוד</strong>
+                    <p class="summary-text">רופאים, צוות רפואי וכל נותני השירותיים יתנו הסבר הן להורים המיועדים והן לפונדקאית על כל מידע רלוונטי, בדיקה או פעולה במסגרת ההליך, <strong>באופן ישיר ולא "מעל ראשם" של מי מהשותפים להליך</strong>, ויוודאו הסכמה הדדית בכל החלטה הנוגעת להליך. בהקשר זה יוזכר כי הפונדקאית היא "המטופלת" על פי חוק זכויות החולה.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">9</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">גישור</strong>
-                        <p class="summary-text">בהקשרים של קונפליקטים בין ההורים המיועדים לפונדקאית הגורם המכריע יהיה המגשר הייעודי שהוסמך על ידי השותפים להליך מראש (רופא בורר/ מלווה/ נאמן הכספים) ותתאפשר בחירה של גורם מגשר נוסף במקרה של חוסר הסכמה.</p>
-                    </div>
+                    <strong class="summary-header">גישור</strong>
+                    <p class="summary-text">בהקשרים של קונפליקטים בין ההורים המיועדים לפונדקאית הגורם המכריע יהיה המגשר הייעודי שהוסמך על ידי השותפים להליך מראש (רופא בורר/ מלווה/ נאמן הכספים) ותתאפשר בחירה של גורם מגשר נוסף במקרה של חוסר הסכמה.</p>
                 </li>
 
                 <li class="summary-item">
-                    <span class="summary-number">10</span>
-                    <div class="summary-content">
-                        <strong class="summary-header">סיכום</strong>
-                        <p class="summary-text">חובה על מלווות וסוכניות ליזום <strong>מפגש סגירת מעגל אחרי הלידה</strong>, עם הנולד/ת וילדי הפונדקאית בכפוף לרצון הפונדקאית.</p>
-                    </div>
+                    <strong class="summary-header">סיכום</strong>
+                    <p class="summary-text">חובה על מלווות וסוכניות ליזום <strong>מפגש סגירת מעגל אחרי הלידה</strong>, עם הנולד/ת וילדי הפונדקאית בכפוף לרצון הפונדקאית.</p>
                 </li>
             </ul>
         </div>
