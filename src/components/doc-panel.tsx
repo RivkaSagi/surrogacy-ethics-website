@@ -44,12 +44,17 @@ export function DocPanel({
     if (localPath) {
       setLocalLoading(true);
       fetch(localPath)
-        .then((res) => res.text())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Failed to fetch: ${res.status}`);
+          }
+          return res.text();
+        })
         .then((html) => {
           setLocalHtml(html);
           setLocalLoading(false);
         })
-        .catch((err) => {
+        .catch(() => {
           setLocalError("שגיאה בטעינת תוכן");
           setLocalLoading(false);
         });
