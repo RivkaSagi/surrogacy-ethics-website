@@ -32,6 +32,15 @@ body {
   @apply prose prose-lg prose-slate max-w-none rtl text-justify;
 }
 
+/* Style for section summary headers - target the red color from Google Docs */
+/* Headers are now red and underlined (not bold) in the doc */
+/* Apply clay color, bold weight, and slightly larger font */
+.prose-content .c2 {
+  color: #c26c55 !important;
+  font-weight: 700 !important;
+  font-size: 1.125rem !important;
+}
+
 /* Ensure Google Docs formatting is preserved */
 .prose-content strong,
 .prose-content b,

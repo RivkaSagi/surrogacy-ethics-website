@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הקוד האתי לפונדקאות בישראל</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #fef9f4 0%, #f4ece4 100%);
+            color: #1e1b16;
+            line-height: 1.6;
+            direction: rtl;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #c26c55 0%, #d4826d 100%);
+            padding: 30px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 120%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(-5deg);
+            pointer-events: none;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            height: 70px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .header-title {
+            font-size: 38px;
+            font-weight: 700;
+            color: white;
+            text-align: right;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.3;
+        }
+
+        .content {
+            padding: 25px 50px;
+        }
+
+        .intro-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #6d5b4b;
+            margin-bottom: 18px;
+            text-align: justify;
+            padding: 15px 20px;
+            background: linear-gradient(to bottom, #fef9f4, #f4ece4);
+            border-radius: 8px;
+            border: 1px solid #e2d7cf;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #c26c55;
+            margin-bottom: 15px;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #c26c55;
+        }
+
+        .summary-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .summary-item {
+            background: white;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #e2d7cf;
+            box-shadow: 0 2px 6px rgba(30, 27, 22, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .summary-number {
+            flex-shrink: 0;
+            background: #c26c55;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .summary-content {
+            flex: 1;
+        }
+
+        .summary-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c26c55;
+            margin-bottom: 4px;
+            display: block;
+            text-decoration: underline;
+            text-decoration-color: #c26c55;
+            text-decoration-thickness: 1.5px;
+        }
+
+        .summary-text {
+            font-size: 10.5px;
+            line-height: 1.5;
+            color: #6d5b4b;
+            text-align: justify;
+        }
+
+        .summary-text strong {
+            font-weight: 700;
+            color: #1e1b16;
+        }
+
+        .footer {
+            background: linear-gradient(to left, #c26c55, #d4826d);
+            padding: 12px 50px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-text {
+            text-align: center;
+        }
+
+        .footer-note {
+            margin-top: 4px;
+            font-size: 11px;
+            opacity: 0.95;
+        }
+
+        .website {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .qr-code {
+            background: white;
+            padding: 6px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code img {
+            width: 60px;
+            height: 60px;
+            display: block;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .summary-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1 class="header-title">הקוד האתי לפונדקאות בישראל</h1>
+                <img src="Logo-new-wo-text.png" alt="לוגו הקוד האתי" class="logo">
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="intro-text">
+                <p>הקוד האתי נכתב על ידי פונדקאיות והורים מיועדים שחוו הליכי פונדקאות בישראל, בשיתוף אנשי מקצוע. הוא נועד לקדם ולשמור על הליכי פונדקאות מוסריים, מכבדים ואוטונומיים בקרב השותפים להליך, ולמסגר את החובות האתיות החלות על בעלי מקצוע ונותני שירותים העוסקים בתחום.</p>
+            </div>
+
+            <h2 class="section-title">סעיפים עיקריים מתוך הקוד:</h2>
+
+            <ul class="summary-list">
+                <li class="summary-item">
+                    <span class="summary-number">1</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">שותפות</strong>
+                        <p class="summary-text">פונדקאיות והורים יבחרו זה בזה באופן חופשי ונטול לחצים מצד נותני שירותים. בחירת אנשי המקצוע המעורבים בתהליך, כולל רופאים, בתי חולים ואחרים תהיה <strong>בשותפות ובהסכמה</strong> בין ההורים המיועדים והפונדקאית. <strong>פונדקאיות לא יחויבו בתנאים כלשהם, לא בעל פה ולא בכתב, מול מלווה או סוכנות.</strong></p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">2</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">אוטונומיה</strong>
+                        <p class="summary-text">לפונדקאית שמורה הזכות על גופה ופרטיותה בכל שלב ללא תנאי לפי הוראות חוק זכויות החולה. הגם שנכון לשאוף לקבל החלטות במשותף, נשמרת לה הזכות הבלעדית לקבל החלטות הנוגעות לגופה, גם אם זו תיחשב הפרת הסכם מצידה של הפונדקאית, עליה היא תישא באחריות על פי המפורט בהסכם.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">3</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">מחויבות</strong>
+                        <p class="summary-text">אנשי המקצוע המעורבים מחויבים להורים המיועדים ולפונדקאית במידה שווה, גם בשגרה וגם במקרים של אי הסכמות בין השותפים, <strong>ולא תלות בגורם המשלם עבור השירות</strong>.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">4</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">מניעת מסחור</strong>
+                        <p class="summary-text">אנשי המקצוע מחויבים <strong>לשמור על סכום הפיצוי המקובל</strong> לפונדקאית, לא יציגו ויעשו שימוש ברכיב הפיצוי הסביר המקובל כתמריץ לכניסה להליך, ולא יציעו בעצמם הטבות כלכליות לפונדקאית לטובת גיוסה להליך.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">5</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">פרטיות</strong>
+                        <p class="summary-text">מלווות, סוכניות וכל נותני השירותיםמחויבים לסודיות מלאה. <strong>לא יעבירו מידע אישי לגורם שלישי לרבות בין הפונדקאית להורים המיועדים - ללא הסכמה מראש</strong>. מידע אישי, מידע רפואי, אבחון פסיכולוגי וכד' שייך למטופל/ מאובחן ויועבר לידו ישירות ללא תלות בגורם המשלם, ולא יועבר לאחר בלא הסכמה מראש.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">6</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">תיאום ציפיות</strong>
+                        <p class="summary-text">אנשי המקצוע יעודדו תקשורת פתוחה וישירה בין השותפים להליך. מלווות וסוכניות מחויבות לוודא כי ההורים המיועדים והפונדקאית קיימו <strong>שיח תיאום ציפיות מקיפה ובלתי אמצעית, בטרם בחרו לשתף יחד פעולה</strong>, ובתוכם שיח על קבלת החלטות בנוגע לבדיקות, ובדבר החלטה על הפסקת הריון.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">7</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">שקיפות במידע</strong>
+                        <p class="summary-text">חובה על הרופאים לספק הן להורים המיועדים והן לפונדקאית הסבר מפורט על כל בדיקה או פעולה רפואית במסגרת הליך הפונדקאות, השלכותיה וכל מידע משמעותי שצפוי להשפיע על סיכויי הצלחת ההליך.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">8</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">כבוד</strong>
+                        <p class="summary-text">רופאים, צוות רפואי וכל נותני השירותיים יתנו הסבר הן להורים המיועדים והן לפונדקאית על כל מידע רלוונטי, בדיקה או פעולה במסגרת ההליך, <strong>באופן ישיר ולא "מעל ראשם" של מי מהשותפים להליך</strong>, ויוודאו הסכמה הדדית בכל החלטה הנוגעת להליך. בהקשר זה יוזכר כי הפונדקאית היא "המטופלת" על פי חוק זכויות החולה.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">9</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">גישור</strong>
+                        <p class="summary-text">בהקשרים של קונפליקטים בין ההורים המיועדים לפונדקאית הגורם המכריע יהיה המגשר הייעודי שהוסמך על ידי השותפים להליך מראש (רופא בורר/ מלווה/ נאמן הכספים) ותתאפשר בחירה של גורם מגשר נוסף במקרה של חוסר הסכמה.</p>
+                    </div>
+                </li>
+
+                <li class="summary-item">
+                    <span class="summary-number">10</span>
+                    <div class="summary-content">
+                        <strong class="summary-header">סיכום</strong>
+                        <p class="summary-text">חובה על מלווות וסוכניות ליזום <strong>מפגש סגירת מעגל אחרי הלידה</strong>, עם הנולד/ת וילדי הפונדקאית בכפוף לרצון הפונדקאית.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <div class="website">www.surrogacyethicsil.org</div>
+                </div>
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.surrogacyethicsil.org" alt="QR Code for www.surrogacyethicsil.org">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
