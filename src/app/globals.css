@@ -34,11 +34,11 @@ body {
 
 /* Style for section summary headers - target the red color from Google Docs */
 /* Headers are now red and underlined (not bold) in the doc */
-/* Apply clay color, bold weight, and slightly larger font */
+/* Apply darker clay color, bold weight, and larger font for more prominence */
 .prose-content .c2 {
-  color: #c26c55 !important;
-  font-weight: 700 !important;
-  font-size: 1.125rem !important;
+  color: #a85740 !important;
+  font-weight: 800 !important;
+  font-size: 1.25rem !important;
 }
 
 /* Ensure Google Docs formatting is preserved */
