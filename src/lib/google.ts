@@ -23,8 +23,22 @@ export async function fetchGoogleDocHtml(docId: string): Promise<string> {
 
   const html = await response.text();
 
+  // Add custom class to red colored text (summary headers) BEFORE sanitizing
+  // This ensures stable targeting regardless of Google Docs class names
+  const htmlWithCustomClass = html.replace(
+    /<span([^>]*style="[^"]*color:\s*#980000[^"]*"[^>]*)>/gi,
+    (match, attributes) => {
+      // Check if class attribute already exists
+      if (attributes.includes('class="')) {
+        return match.replace(/class="([^"]*)"/, 'class="$1 summary-header"');
+      } else {
+        return `<span${attributes} class="summary-header">`;
+      }
+    }
+  );
+
   // Extract the <style> content from Google Docs HTML
-  const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+  const styleMatch = htmlWithCustomClass.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
   const fullStyles = styleMatch ? styleMatch[1] : '';
 
   // Filter styles to keep ONLY font-weight (bold) and font-style (italic)
@@ -52,7 +66,7 @@ export async function fetchGoogleDocHtml(docId: string): Promise<string> {
     .join('');
 
   // Configure DOMPurify with permissive settings
-  const sanitized = DOMPurify.sanitize(html, {
+  const sanitized = DOMPurify.sanitize(htmlWithCustomClass, {
     ALLOWED_TAGS: [
       'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'strike',
       'span', 'div', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3',

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGoogleDoc } from "@/hooks/use-google-doc";
 import { PdfModal } from "@/components/pdf-modal";
 
 type DocPanelProps = {
-  docId: string;
+  docId?: string;
+  localPath?: string;
   title: string;
   description?: string;
   variant?: "default" | "preview" | "expandable";
@@ -21,6 +22,7 @@ type DocPanelProps = {
 
 export function DocPanel({
   docId,
+  localPath,
   title,
   description,
   variant = "default",
@@ -33,7 +35,32 @@ export function DocPanel({
   isPdfModalOpen: externalIsPdfModalOpen,
   setIsPdfModalOpen: externalSetIsPdfModalOpen,
 }: DocPanelProps) {
-  const { html, error, isLoading } = useGoogleDoc(docId);
+  // Fetch from local file if localPath is provided, otherwise use Google Docs
+  const [localHtml, setLocalHtml] = useState<string>("");
+  const [localError, setLocalError] = useState<string>("");
+  const [localLoading, setLocalLoading] = useState(false);
+
+  useEffect(() => {
+    if (localPath) {
+      setLocalLoading(true);
+      fetch(localPath)
+        .then((res) => res.text())
+        .then((html) => {
+          setLocalHtml(html);
+          setLocalLoading(false);
+        })
+        .catch((err) => {
+          setLocalError("שגיאה בטעינת תוכן");
+          setLocalLoading(false);
+        });
+    }
+  }, [localPath]);
+
+  const googleDoc = useGoogleDoc(docId || "");
+
+  const html = localPath ? localHtml : googleDoc.html;
+  const error = localPath ? localError : googleDoc.error;
+  const isLoading = localPath ? localLoading : googleDoc.isLoading;
   const [isExpanded, setIsExpanded] = useState(false);
   const [internalIsPdfModalOpen, setInternalIsPdfModalOpen] = useState(false);
 

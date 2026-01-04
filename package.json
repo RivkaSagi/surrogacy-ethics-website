@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run fetch-docs && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fetch-docs": "node scripts/fetch-docs.mjs"
   },
   "dependencies": {
     "isomorphic-dompurify": "^2.33.0",

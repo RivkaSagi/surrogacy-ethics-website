@@ -17,7 +17,7 @@ export default function Home() {
       id: "summary",
       component: (
         <DocPanel
-          docId={CONTENT_SOURCES.summaryDocId}
+          localPath="/docs/summary.html"
           title="תמצית הקוד האתי"
           showPdfButton={true}
           isPdfModalOpen={isPdfModalOpen}
