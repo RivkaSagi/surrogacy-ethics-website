@@ -55,7 +55,8 @@ export function DocPanel({
           setLocalLoading(false);
         })
         .catch(() => {
-          setLocalError("שגיאה בטעינת תוכן");
+          // Local file not available, will fallback to Google Docs
+          setLocalError("fallback");
           setLocalLoading(false);
         });
     }
@@ -63,9 +64,11 @@ export function DocPanel({
 
   const googleDoc = useGoogleDoc(docId || "");
 
-  const html = localPath ? localHtml : googleDoc.html;
-  const error = localPath ? localError : googleDoc.error;
-  const isLoading = localPath ? localLoading : googleDoc.isLoading;
+  // Use local file if available, otherwise fallback to Google Docs
+  const useLocalFile = localPath && localHtml && !localError;
+  const html = useLocalFile ? localHtml : googleDoc.html;
+  const error = useLocalFile ? "" : googleDoc.error;
+  const isLoading = localPath && !localError ? localLoading : googleDoc.isLoading;
   const [isExpanded, setIsExpanded] = useState(false);
   const [internalIsPdfModalOpen, setInternalIsPdfModalOpen] = useState(false);
 

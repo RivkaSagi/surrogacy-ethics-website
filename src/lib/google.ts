@@ -23,23 +23,25 @@ export async function fetchGoogleDocHtml(docId: string): Promise<string> {
 
   const html = await response.text();
 
-  // Add custom class to red colored text (summary headers) BEFORE sanitizing
-  // This ensures stable targeting regardless of Google Docs class names
-  const htmlWithCustomClass = html.replace(
-    /<span([^>]*style="[^"]*color:\s*#980000[^"]*"[^>]*)>/gi,
-    (match, attributes) => {
-      // Check if class attribute already exists
-      if (attributes.includes('class="')) {
-        return match.replace(/class="([^"]*)"/, 'class="$1 summary-header"');
-      } else {
-        return `<span${attributes} class="summary-header">`;
-      }
-    }
-  );
-
-  // Extract the <style> content from Google Docs HTML
-  const styleMatch = htmlWithCustomClass.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+  // Extract the <style> content from Google Docs HTML to find the red color class
+  const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
   const fullStyles = styleMatch ? styleMatch[1] : '';
+
+  // Find the class that has the red color (#980000) - these are the headers
+  const redColorClassMatch = fullStyles.match(/\.(c\d+)\{[^}]*color:\s*#980000[^}]*\}/);
+  const redColorClass = redColorClassMatch ? redColorClassMatch[1] : null;
+
+  // Add summary-header class to elements with the red color class
+  let htmlWithCustomClass = html;
+  if (redColorClass) {
+    const classRegex = new RegExp(`<span([^>]*)class="([^"]*${redColorClass}[^"]*)"([^>]*)>`, 'gi');
+    htmlWithCustomClass = html.replace(classRegex, (match, before, classes, after) => {
+      if (!classes.includes('summary-header')) {
+        return `<span${before}class="${classes} summary-header"${after}>`;
+      }
+      return match;
+    });
+  }
 
   // Filter styles to keep ONLY font-weight (bold) and font-style (italic)
   // Remove all other styles that might interfere with site design
