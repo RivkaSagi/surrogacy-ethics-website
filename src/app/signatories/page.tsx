@@ -13,10 +13,6 @@ export default function SignatoriesPage() {
             <h1 className="text-3xl font-bold text-ink sm:text-4xl">
               אנשי המקצוע בתחום הפונדקאות בישראל החתומים על הקוד האתי
             </h1>
-            <p className="text-stone">
-              כאן ניתן לראות את כל אנשי המקצוע החתומים, למיין לפי שם או תחום
-              מקצועי, ולחפש בקלות.
-            </p>
           </div>
         </section>
 
