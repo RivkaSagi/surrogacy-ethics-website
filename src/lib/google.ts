@@ -237,10 +237,35 @@ export async function fetchGoogleDriveFolder(
       };
     });
 
-    // Sort alphabetically in Hebrew
-    members.sort((a: TeamMember, b: TeamMember) =>
-      a.name.localeCompare(b.name, "he"),
-    );
+    // Sort alphabetically in Hebrew, ignoring prefixes like Dr., Prof., etc.
+    const stripPrefix = (name: string): string => {
+      // Remove common Hebrew title prefixes
+      const prefixes = [
+        'דוקטור',
+        'פרופסור'
+      ];
+
+      let cleaned = name.trim();
+      for (const prefix of prefixes) {
+        // Check if name starts with prefix (case insensitive)
+        if (cleaned.toLowerCase().startsWith(prefix.toLowerCase())) {
+          // Remove prefix and any following spaces or dots
+          cleaned = cleaned.substring(prefix.length).trim();
+          // Remove leading dot if present
+          if (cleaned.startsWith('.')) {
+            cleaned = cleaned.substring(1).trim();
+          }
+          break;
+        }
+      }
+      return cleaned;
+    };
+
+    members.sort((a: TeamMember, b: TeamMember) => {
+      const nameA = stripPrefix(a.name);
+      const nameB = stripPrefix(b.name);
+      return nameA.localeCompare(nameB, "he");
+    });
 
     return members;
   } catch (error) {

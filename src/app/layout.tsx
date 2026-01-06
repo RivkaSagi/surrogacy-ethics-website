@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Assistant, Secular_One } from "next/font/google";
+import { Rubik, Secular_One } from "next/font/google";
 import "./globals.css";
 
-const assistant = Assistant({
+const rubik = Rubik({
   subsets: ["hebrew", "latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-assistant",
+  variable: "--font-rubik",
   display: "swap",
 });
 
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${assistant.variable} ${secular.variable}`}>
+      <body className={`${rubik.variable} ${secular.variable}`}>
         {children}
       </body>
     </html>

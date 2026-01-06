@@ -21,7 +21,7 @@ export default {
         danger: "#b91c1c",
       },
       fontFamily: {
-        sans: ["var(--font-assistant)", ...defaultTheme.fontFamily.sans],
+        sans: ["var(--font-rubik)", ...defaultTheme.fontFamily.sans],
         display: ["var(--font-secular)", ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {

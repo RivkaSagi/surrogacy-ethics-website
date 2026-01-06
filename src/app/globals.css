@@ -9,6 +9,7 @@
 
 body {
   @apply bg-sand text-ink font-sans antialiased;
+  font-size: 14px;
 }
 
 #__next,
@@ -77,4 +78,56 @@ body {
 
 .rtl-list ul {
   @apply list-disc pr-6;
+}
+
+/* Adjust heading and title sizes */
+h1 {
+  font-size: 2.75rem !important;
+}
+
+h2 {
+  font-size: 1.625rem !important;
+}
+
+h3 {
+  font-size: 1.375rem !important;
+}
+
+/* Main title sizes - keep large */
+.text-6xl {
+  font-size: 3.5rem !important;
+}
+
+.text-5xl {
+  font-size: 2.75rem !important;
+}
+
+.text-4xl {
+  font-size: 2.75rem !important;
+}
+
+/* Section titles - keep as is */
+.text-3xl {
+  font-size: 1.625rem !important;
+}
+
+.text-2xl {
+  font-size: 1.375rem !important;
+}
+
+/* Body and menu text - reduce */
+.text-xl {
+  font-size: 1.125rem !important;
+}
+
+.text-lg {
+  font-size: 1rem !important;
+}
+
+.text-base {
+  font-size: 0.875rem !important;
+}
+
+.text-sm {
+  font-size: 1rem !important;
 }
