@@ -11,18 +11,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        sand: "#fef9f4",
-        ink: "#1e1b16",
-        clay: "#c26c55",
-        stone: "#6d5b4b",
-        mist: "#f4ece4",
-        border: "#e2d7cf",
-        success: "#15803d",
-        danger: "#b91c1c",
+        background: "#fff9f4",
+        primary: "#d0674e",
+        highlight: "#ffc5b2",
+        dark: "#1f1c1b",
+        border: "#e49c84",
+        text: "#000000",
       },
       fontFamily: {
-        sans: ["var(--font-rubik)", ...defaultTheme.fontFamily.sans],
-        display: ["var(--font-secular)", ...defaultTheme.fontFamily.sans],
+        sans: ["var(--font-heebo)", ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         card: "0 10px 40px rgba(30, 27, 22, 0.08)",
