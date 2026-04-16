@@ -12,19 +12,28 @@ body {
   font-size: 16px;
 }
 
-/* Typography based on Figma design */
+/* Typography based on Figma design - Mobile first */
 h1 {
-  @apply text-4xl font-normal;
+  @apply text-2xl md:text-4xl font-normal;
 }
 
 h2 {
-  @apply text-4xl font-normal;
-  font-size: 36px;
+  @apply text-2xl md:text-4xl font-normal;
 }
 
 h3 {
-  @apply text-lg font-bold;
-  font-size: 18px;
+  @apply text-base md:text-lg font-bold;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  section {
+    @apply px-4 py-6;
+  }
 }
 
 /* RTL Support */

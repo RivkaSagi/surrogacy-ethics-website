@@ -105,7 +105,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
 
   return (
     <section className="py-10 px-4 md:px-20" id="signatories">
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-4 max-w-4xl mx-auto">
         {isLoading && <p className="text-text/60">טוען רשימה...</p>}
         {error && <p className="text-red-600">{error}</p>}
         {!isLoading && !error && rows.length > 0 && (

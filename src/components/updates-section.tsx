@@ -86,11 +86,11 @@ export function UpdatesSection({ docId }: Props) {
   }
 
   return (
-    <section className="py-10 px-4 md:px-20" dir="rtl">
-      {/* Flex layout: cards are 400px fixed width, right-aligned for RTL */}
-      <div className="flex flex-wrap gap-8 items-stretch">
+    <section className="py-6 md:py-10 px-4 md:px-20" dir="rtl">
+      {/* Flex layout: cards are full width on mobile, 400px on desktop */}
+      <div className="flex flex-wrap gap-4 md:gap-8 items-stretch">
         {updates.map((update, index) => (
-          <div key={index} className="w-[400px] shrink-0 h-auto">
+          <div key={index} className="w-full md:w-[400px] shrink-0 h-auto">
             <UpdateCard content={update.content} link={update.link} />
           </div>
         ))}

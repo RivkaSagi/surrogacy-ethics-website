@@ -9,41 +9,41 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-background">
-      <div className="flex items-center justify-between px-8 py-4">
+    <header className="sticky top-0 z-50 bg-background" dir="rtl">
+      <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4">
         {/* Logo with text - Right side in RTL */}
-        <Link href="/" className="order-2 md:order-none">
+        <Link href="/">
           <Image
             src="/Logo-new-w-text.png"
             alt="הקוד האתי לפונדקאות"
             width={180}
             height={58}
-            className="h-14 w-auto"
+            className="h-10 md:h-14 w-auto"
           />
         </Link>
 
         {/* Navigation - Left side in RTL */}
-        <nav className="hidden md:flex items-center gap-8 order-1 md:order-none">
-          <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
-            צרו קשר
-          </PrimaryButton>
-          <Link
-            href="/signatories"
-            className="font-bold text-sm text-text hover:text-primary transition-colors"
-          >
-            אנשי המקצוע החתומים
-          </Link>
+        <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/team"
             className="font-bold text-sm text-text hover:text-primary transition-colors"
           >
             מי אנחנו
           </Link>
+          <Link
+            href="/signatories"
+            className="font-bold text-sm text-text hover:text-primary transition-colors"
+          >
+            אנשי המקצוע החתומים
+          </Link>
+          <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
+            צרו קשר
+          </PrimaryButton>
         </nav>
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 order-1"
+          className="md:hidden p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
