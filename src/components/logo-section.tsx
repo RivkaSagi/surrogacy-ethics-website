@@ -5,10 +5,10 @@ import Image from "next/image";
 export function LogoSection() {
   return (
     <section className="flex flex-col items-center gap-10 px-5 pt-8">
-      {/* Logo placeholder for scroll animation - will be implemented later */}
-      <div className="relative w-64 h-52" id="animated-logo">
+      {/* Logo from Figma design */}
+      <div className="relative w-64 h-32" id="animated-logo">
         <Image
-          src="/Logo-new-wo-text.png"
+          src="/logo-main.svg"
           alt="לוגו הקוד האתי לפונדקאות"
           fill
           className="object-contain"
