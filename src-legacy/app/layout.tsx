@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Heebo } from "next/font/google";
+import { Rubik, Secular_One } from "next/font/google";
 import "./globals.css";
 
-const heebo = Heebo({
+const rubik = Rubik({
   subsets: ["hebrew", "latin"],
-  weight: ["400", "700"],
-  variable: "--font-heebo",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-rubik",
+  display: "swap",
+});
+
+const secular = Secular_One({
+  subsets: ["hebrew", "latin"],
+  weight: "400",
+  variable: "--font-secular",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "הקוד האתי לפונדקאות בישראל",
+  title: "קוד אתי לפונדקאות",
   description:
     "מידע, הקוד האתי ורשימת החותמות והחותמים על הקוד למען פונדקאות אתית בישראל.",
   icons: {
@@ -25,7 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${heebo.variable} font-sans`}>{children}</body>
+      <body className={`${rubik.variable} ${secular.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

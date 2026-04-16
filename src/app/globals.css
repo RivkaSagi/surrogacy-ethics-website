@@ -8,126 +8,50 @@
 }
 
 body {
-  @apply bg-sand text-ink font-sans antialiased;
-  font-size: 14px;
+  @apply bg-background text-text font-sans antialiased;
+  font-size: 16px;
 }
 
-#__next,
-#root {
-  min-height: 100%;
+/* Typography based on Figma design */
+h1 {
+  @apply text-4xl font-normal;
 }
 
-.glass-panel {
-  @apply bg-white/85 backdrop-blur border border-border rounded-3xl shadow-card;
+h2 {
+  @apply text-4xl font-normal;
+  font-size: 36px;
 }
 
-.section-shell {
-  @apply glass-panel p-6 sm:p-8 lg:p-10 space-y-4 animate-fade;
+h3 {
+  @apply text-lg font-bold;
+  font-size: 18px;
 }
 
-.badge {
-  @apply inline-flex items-center gap-2 rounded-full bg-clay/10 px-4 py-1 text-sm text-clay font-medium;
-}
-
-.prose-content {
-  @apply prose prose-lg prose-slate max-w-none rtl text-justify;
-}
-
-/* Style for section summary headers - custom class added in google.ts */
-/* Targets red colored text (#980000) from Google Docs with stable class name */
-/* Apply darker clay color, bold weight, and larger font for more prominence */
-.prose-content .summary-header {
-  color: #a85740 !important;
-  font-weight: 800 !important;
-  font-size: 1.25rem !important;
-}
-
-/* Ensure Google Docs formatting is preserved */
-.prose-content strong,
-.prose-content b,
-.prose-content [style*="font-weight:700"],
-.prose-content [style*="font-weight: 700"],
-.prose-content [style*="font-weight:bold"],
-.prose-content [style*="font-weight: bold"] {
-  font-weight: 700 !important;
-}
-
-.prose-content em,
-.prose-content i,
-.prose-content [style*="font-style:italic"],
-.prose-content [style*="font-style: italic"] {
-  font-style: italic !important;
-}
-
-.prose-content u,
-.prose-content [style*="text-decoration:underline"],
-.prose-content [style*="text-decoration: underline"] {
-  text-decoration: underline !important;
-}
-
-.prose-content s,
-.prose-content strike,
-.prose-content [style*="text-decoration:line-through"],
-.prose-content [style*="text-decoration: line-through"] {
-  text-decoration: line-through !important;
-}
-
+/* RTL Support */
 .rtl {
   direction: rtl;
 }
 
-.rtl-list ul {
-  @apply list-disc pr-6;
+/* Section divider */
+.section-border {
+  @apply border-b border-border;
 }
 
-/* Adjust heading and title sizes */
-h1 {
-  font-size: 2.75rem !important;
+/* Update card styles */
+.update-card {
+  @apply bg-white rounded-lg p-6 transition-all duration-200;
 }
 
-h2 {
-  font-size: 1.625rem !important;
+.update-card:hover {
+  @apply border-b-4 border-highlight;
 }
 
-h3 {
-  font-size: 1.375rem !important;
+/* Prose content for Google Docs */
+.prose-content {
+  @apply prose prose-lg max-w-none text-right;
 }
 
-/* Main title sizes - keep large */
-.text-6xl {
-  font-size: 3.5rem !important;
-}
-
-.text-5xl {
-  font-size: 2.75rem !important;
-}
-
-.text-4xl {
-  font-size: 2.75rem !important;
-}
-
-/* Section titles - keep as is */
-.text-3xl {
-  font-size: 1.625rem !important;
-}
-
-.text-2xl {
-  font-size: 1.375rem !important;
-}
-
-/* Body and menu text - reduce */
-.text-xl {
-  font-size: 1.125rem !important;
-}
-
-.text-lg {
-  font-size: 1rem !important;
-}
-
-.text-base {
-  font-size: 0.875rem !important;
-}
-
-.text-sm {
-  font-size: 1rem !important;
+.prose-content strong,
+.prose-content b {
+  @apply font-bold;
 }
