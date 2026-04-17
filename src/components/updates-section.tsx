@@ -86,7 +86,7 @@ export function UpdatesSection({ docId }: Props) {
   }
 
   return (
-    <section className="py-6 md:py-10 px-4 md:px-20" dir="rtl">
+    <section className="py-8 md:py-10 px-5 md:px-20" dir="rtl">
       {/* Flex layout: cards are full width on mobile, 400px on desktop */}
       <div className="flex flex-wrap gap-4 md:gap-8 items-stretch">
         {updates.map((update, index) => (
