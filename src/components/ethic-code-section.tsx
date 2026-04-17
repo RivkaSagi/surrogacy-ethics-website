@@ -41,7 +41,7 @@ function formatDescription(principle: EthicalPrinciple): ReactNode {
 
 export function EthicCodeSection() {
   return (
-    <section className="flex flex-col gap-16 items-center py-20 px-4 md:px-20 border-b border-border">
+    <section className="flex flex-col gap-10 md:gap-16 items-center py-12 md:py-20 px-5 md:px-20 border-b border-border">
       {/* Subtitle */}
       <Subtitle text="תמצית הקוד האתי" />
 

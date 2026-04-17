@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-background" dir="rtl">
-      <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4">
+      <div className="flex items-center justify-between px-5 md:px-8 py-2 md:py-3">
         {/* Logo with text - Right side in RTL */}
         <Link href="/">
           <Image
@@ -18,7 +18,7 @@ export function Header() {
             alt="הקוד האתי לפונדקאות"
             width={180}
             height={58}
-            className="h-10 md:h-14 w-auto"
+            className="h-16 md:h-20 w-auto"
           />
         </Link>
 

@@ -58,15 +58,15 @@ export function UpdateCard({ content, link }: UpdateCardProps) {
   // All cards have hover effect, cards with links also show arrow
   // Figma: w-[400px] min-w-[320px] items-end (RTL right aligned), border-b-12 on hover
   const CardContent = (
-    <div className="relative bg-white rounded-lg p-6 h-full text-right transition-all duration-200 border-b-[12px] border-transparent group-hover:border-highlight flex flex-col items-end">
+    <div className="relative bg-white rounded-lg p-4 md:p-6 h-full text-right transition-all duration-200 border-b-[12px] border-transparent group-hover:border-highlight flex flex-col items-end">
       <div className="w-full text-text leading-normal">
         {parsed ? (
           <>
             {parsed.headline && (
-              <span className="font-bold text-lg block mb-2 text-text">{parsed.headline}</span>
+              <span className="font-bold text-base md:text-lg block mb-2 text-text">{parsed.headline}</span>
             )}
             {parsed.body && (
-              <span className="text-base text-text/80">{parsed.body}</span>
+              <span className="text-sm md:text-base text-text/80">{parsed.body}</span>
             )}
           </>
         ) : (
