@@ -1,10 +1,10 @@
-import { Header } from "@/components/header";
-import { LogoSection } from "@/components/logo-section";
-import { BGHalfCircle } from "@/components/bg-half-circle";
-import { EthicCodeSection } from "@/components/ethic-code-section";
-import { PartnersSection } from "@/components/partners-section";
-import { UpdatesSection } from "@/components/updates-section";
-import { ContactSection } from "@/components/contact-section";
+import { Header } from "@/components/v1/header";
+import { LogoSection } from "@/components/v1/logo-section";
+import { BGHalfCircle } from "@/components/v1/bg-half-circle";
+import { EthicCodeSection } from "@/components/v1/ethic-code-section";
+import { PartnersSection } from "@/components/v1/partners-section";
+import { UpdatesSection } from "@/components/v1/updates-section";
+import { ContactSection } from "@/components/v1/contact-section";
 import { CONTENT_SOURCES } from "@/config/content";
 
 export default function V1Page() {
