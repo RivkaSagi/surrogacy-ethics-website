@@ -169,7 +169,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                                         setShowFilterDropdown(false)
                                       }
                                     />
-                                    <div className="fixed left-auto right-auto z-50 mt-1 w-64 rounded-lg border border-border bg-white p-3 shadow-xl">
+                                    <div className="fixed left-4 right-4 md:left-auto md:right-0 md:absolute z-50 mt-1 md:w-64 rounded-lg border border-border bg-white p-3 shadow-xl top-auto">
                                       <div className="mb-2 flex items-center justify-between">
                                         <span className="text-sm font-semibold text-text">
                                           סינון
