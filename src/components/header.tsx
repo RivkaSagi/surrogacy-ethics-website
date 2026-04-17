@@ -36,6 +36,13 @@ export function Header() {
           >
             אנשי המקצוע החתומים
           </Link>
+          <Link
+            href="/TheEthicsCode.pdf"
+            target="_blank"
+            className="font-bold text-sm text-text hover:text-primary transition-colors"
+          >
+            הקוד האתי המלא
+          </Link>
           <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
             צרו קשר
           </PrimaryButton>
@@ -89,6 +96,14 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               אנשי המקצוע החתומים
+            </Link>
+            <Link
+              href="/TheEthicsCode.pdf"
+              target="_blank"
+              className="font-bold text-sm text-text hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              הקוד האתי המלא
             </Link>
             <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
               צרו קשר
