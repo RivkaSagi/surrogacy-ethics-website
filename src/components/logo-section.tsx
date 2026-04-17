@@ -1,19 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import { AnimatedLogo } from "./animated-logo";
 
 export function LogoSection() {
   return (
-    <section className="flex flex-col items-center gap-10 px-5 pt-8">
-      {/* Logo from Figma design */}
-      <div className="relative w-64 h-32" id="animated-logo">
-        <Image
-          src="/logo-main.svg"
-          alt="לוגו הקוד האתי לפונדקאות"
-          fill
-          className="object-contain"
-          priority
-        />
+    <section className="flex flex-col items-center gap-10 px-5 pt-[25vh] md:pt-[30vh]">
+      {/* Animated logo with scroll-based balance scale */}
+      <div className="w-64 h-32" id="animated-logo">
+        <AnimatedLogo />
       </div>
 
       {/* Title */}
