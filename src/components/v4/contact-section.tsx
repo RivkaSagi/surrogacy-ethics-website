@@ -1,72 +1,63 @@
 import Link from "next/link";
 import { Subtitle } from "./subtitle";
 import { PrimaryButton } from "./primary-button";
-import { FooterAnimation } from "./footer-animation";
 
 export function ContactSection() {
   return (
     <footer className="bg-dark" dir="rtl">
       {/* Main footer content */}
       <div className="py-10 md:py-16 px-5 md:px-20">
-        {/* Desktop: Text right (RTL), Animation left | Mobile: Text top, Animation bottom */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-12">
-          {/* Text columns - right side in RTL */}
-          <div className="flex flex-col md:flex-row gap-10 md:gap-16 flex-1">
-            {/* Contact column */}
-            <div className="flex flex-col gap-6 items-start">
-              <Subtitle text="צרו קשר" light />
-              <div className="flex flex-col gap-2 items-start text-right">
-                <h2 className="text-xl md:text-2xl text-highlight">
-                  נשמח לשמוע מכם
-                </h2>
-                <div className="text-white text-base leading-relaxed">
-                  <p>לחתימה על הקוד, הערות או יצירת קשר:</p>
-                  <p className="font-bold mt-1" dir="ltr" style={{ textAlign: "right" }}>
-                    surrogacy.ethics.il@gmail.com
-                  </p>
-                </div>
+        {/* Two columns layout */}
+        <div className="flex flex-col md:flex-row gap-10 md:gap-20">
+          {/* Contact column */}
+          <div className="flex flex-col gap-6 items-start">
+            <Subtitle text="צרו קשר" light />
+            <div className="flex flex-col gap-2 items-start text-right">
+              <h2 className="text-xl md:text-2xl text-highlight">
+                נשמח לשמוע מכם
+              </h2>
+              <div className="text-white text-base leading-relaxed">
+                <p>לחתימה על הקוד, הערות או יצירת קשר:</p>
+                <p className="font-bold mt-1" dir="ltr" style={{ textAlign: "right" }}>
+                  surrogacy.ethics.il@gmail.com
+                </p>
               </div>
-              <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
-                כתבו לנו
-              </PrimaryButton>
             </div>
-
-            {/* Quick links column */}
-            <div className="flex flex-col gap-6 items-start">
-              <Subtitle text="ניווט מהיר" light />
-              <nav className="flex flex-col gap-3">
-                <Link
-                  href="/"
-                  className="text-white hover:text-highlight transition-colors"
-                >
-                  עמוד הבית
-                </Link>
-                <Link
-                  href="/team"
-                  className="text-white hover:text-highlight transition-colors"
-                >
-                  מי אנחנו
-                </Link>
-                <Link
-                  href="/signatories"
-                  className="text-white hover:text-highlight transition-colors"
-                >
-                  אנשי המקצוע החתומים
-                </Link>
-                <Link
-                  href="/TheEthicsCode.pdf"
-                  target="_blank"
-                  className="text-white hover:text-highlight transition-colors"
-                >
-                  הקוד האתי המלא
-                </Link>
-              </nav>
-            </div>
+            <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
+              כתבו לנו
+            </PrimaryButton>
           </div>
 
-          {/* Animation column - left side */}
-          <div className="w-full md:w-1/3 flex items-center justify-center">
-            <FooterAnimation />
+          {/* Quick links column */}
+          <div className="flex flex-col gap-6 items-start">
+            <Subtitle text="ניווט מהיר" light />
+            <nav className="flex flex-col gap-3">
+              <Link
+                href="/"
+                className="text-white hover:text-highlight transition-colors"
+              >
+                עמוד הבית
+              </Link>
+              <Link
+                href="/team"
+                className="text-white hover:text-highlight transition-colors"
+              >
+                מי אנחנו
+              </Link>
+              <Link
+                href="/signatories"
+                className="text-white hover:text-highlight transition-colors"
+              >
+                אנשי המקצוע החתומים
+              </Link>
+              <Link
+                href="/TheEthicsCode.pdf"
+                target="_blank"
+                className="text-white hover:text-highlight transition-colors"
+              >
+                הקוד האתי המלא
+              </Link>
+            </nav>
           </div>
         </div>
       </div>
