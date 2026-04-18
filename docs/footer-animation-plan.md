@@ -1,242 +1,367 @@
-# Footer Animation Plan
+# Footer Animation Plan (Updated v3)
 
-## Logo Symbolism
+## Animation Type: Physics-Based Frame Animation
 
-The logo represents the surrogacy journey with meaningful elements:
-
-| Element | Symbol | Role in Animation |
-|---------|--------|-------------------|
-| **Big circle** | Surrogate mother | Grows during formation, shrinks during separation |
-| **Upper circle** | Parents | Starts as TWO circles, merges to ONE, splits back to TWO |
-| **Small filled circle** | Baby | Appears at connection, grows throughout, continues growing after exit |
-| **Balance line + small circles** | Equal rights | Represents the balance of rights in this shared journey |
+The animation tells the surrogacy journey story through **45 sequential key frames** with **natural physics** - bouncing, gravity, rolling, and realistic movement. Direction: **Left to Right**.
 
 ---
 
-## V2 Logo Specifications (Base for Animation)
+## Element Symbols
 
-**ViewBox:** `20 28 270 158`
-
-| Element | Position | Radius | Notes |
-|---------|----------|--------|-------|
-| **Surrogate (Big circle)** | cx=127, cy=120 | r=60 | Grows/shrinks during animation |
-| **Parent (Upper circle)** | cx=176, cy=73 | r=39 | Splits into 2 circles, merges back |
-| **Baby (Filled dot)** | cx=157.9, cy=99.9 | r=7 | At intersection, grows throughout |
-| **Balance line** | (28, 103) → (287, 180) | - | Diagonal line |
-| **Balance left circle** | cx=44.5, cy=92.3 | r=6 | Stroked circle |
-| **Balance right circle** | cx=280, cy=163 | r=6 | Stroked circle (just above line) |
-| **Pivot point** | (180, 148) | - | Where line crosses surrogate circle |
+| Symbol | Meaning | Visual |
+|--------|---------|--------|
+| **p1, p2** | Two parent circles (separate) | Outline circles |
+| **p** | Parents merged | Single outline circle |
+| **s** | Surrogate mother | Outline circle (larger) |
+| **b** | Balance line | Horizontal line with curves |
+| **pi** | Parent's interests | Small outline circle |
+| **si** | Surrogate's interests | Small outline circle |
+| **bb** | Baby | Small WHITE FILLED circle |
 
 ---
 
-## Animation Flow (Scroll-Driven)
+## Placement & Display
 
-### Phase 1: ENTRY (0-15% scroll)
-**Elements entering from left with irregular bouncing rhythm**
+### Desktop
+- **Position**: ABOVE the footer section
+- **Footer acts as background** - visible behind/below animation
+- **Size/proportion**: According to Figma images (1665px x 395px)
 
-- [ ] Two parent circles bounce in (staggered, organic timing)
-- [ ] Surrogate circle bounces in separately
-- [ ] Balance line with its two small end circles enters
-- [ ] All elements bounce on the "ground" (line above copyright)
-- [ ] Rhythm is NOT constant - varies like playful balls
+### Mobile
+- **Position**: Below the content, above footer
+- **Adapted proportions** for smaller screens
 
-**Technical notes:**
-- Use varying spring tensions for different elements
-- Stagger delays with non-linear timing
-- Elements start off-screen left (x: -100%)
-
----
-
-### Phase 2: CONNECTION (15-35% scroll)
-**Circles come together, baby appears**
-
-- [ ] Two parent circles move toward each other
-- [ ] Parent circles MERGE into single upper circle
-- [ ] Surrogate circle moves to connect with merged parent circle
-- [ ] **Intersection area NOW exists** (overlap between surrogate & parent)
-- [ ] Baby (small filled circle) APPEARS at the parent circle
-- [ ] Baby rolls along parent circle edge toward the NEW intersection area
-- [ ] Baby grows slightly as it rolls
-
-**Technical notes:**
-- Parent merge: scale two circles down while scaling one up at center
-- Surrogate connects BEFORE baby appears
-- Intersection area is created by the overlap of the two circles
-- Baby appears with opacity: 0 → 1 and scale: 0 → small
-- Rolling: animate position along circular arc path (only after intersection exists)
+### During Pause
+- Animation remains visible as background
+- Footer buttons/links remain clickable
 
 ---
 
-### Phase 3: FORMATION & GROWTH (35-50% scroll)
-**Logo takes shape**
+## Complete Story Breakdown (45 Frames)
 
-- [ ] Baby settles at intersection point (between circles)
-- [ ] Surrogate circle GROWS to full logo size
-- [ ] Baby grows to logo-appropriate size
-- [ ] Balance line attaches at pivot point (where line crosses surrogate circle)
-- [ ] Complete logo is now formed
+### Phase 1: Parent Entry (Frames s1-s6)
+**Elements**: p1, p2, pi
 
-**Technical notes:**
-- Surrogate scale: 0.7 → 1.0
-- Baby scale: reaches its "logo size"
-- Balance line connects with smooth transition
+| Frame | Action |
+|-------|--------|
+| s1 | Empty - starting point |
+| s2 | p1, p2 enter from LEFT with pi bouncing in |
+| s3 | Parents approaching each other |
+| s4 | Parents getting closer |
+| s5 | Parents even closer |
+| s6 | Parents almost touching |
 
----
-
-### Phase 4: BALANCE DANCE (50-65% scroll)
-**Weeble movement representing equal rights**
-
-- [ ] Entire logo assembly does weeble motion (tilt left-right)
-- [ ] Balance line rotates around pivot point
-- [ ] Motion is organic, breathing-like
-- [ ] Represents the balance of rights in surrogacy journey
-
-**Technical notes:**
-- Rotation: -15deg → +15deg → -10deg → +10deg → 0
-- Easing: ease-in-out with varying durations
-- Subtle scale breathing effect
+**Physics**: Circles bounce in with gravity, roll toward center
 
 ---
 
-### Phase 5: SEPARATION (65-85% scroll)
-**Elements begin to part**
+### Phase 2: Parent Connection (Frames s7-s11) - SLOW/PAUSE
+**Elements**: p1, p2, pi
 
-- [ ] Balance line detaches and moves away
-- [ ] Baby rolls BACK toward parent circle (along surrogate edge)
-- [ ] Baby continues to parent circle
-- [ ] Baby rolls OUT of parent circle (exits the formation)
-- [ ] Baby continues GROWING (representing child growing up)
-- [ ] Surrogate circle SHRINKS back to smaller size
-- [ ] Parent circle SPLITS back into TWO separate circles
+| Frame | Action |
+|-------|--------|
+| s7 | Parents spread apart wide (tension) |
+| s8 | **Parents come together - connection moment** |
+| s9 | Parents overlapping |
+| s10 | More overlap |
+| s11 | Full overlap |
 
-**Technical notes:**
-- Baby path: intersection → along surrogate → to parent → out of parent → exit
-- Baby scale continues increasing even after exiting circles
-- Surrogate scale: 1.0 → 0.7
-- Parent split: one circle becomes two with smooth animation
+**Physics**: Slow rolling toward each other, gentle collision
 
 ---
 
-### Phase 6: PLAYFUL EXIT (85-100% scroll)
-**All elements leave with connected playfulness**
+### Phase 3: Parent Merge (Frame s12)
+**Elements**: p, pi
 
-- [ ] Elements bounce away from each other
-- [ ] They interact/play while exiting (occasional touches/bounces)
-- [ ] Rhythm varies - organic, not mechanical
-- [ ] **Desktop**: elements exit to the LEFT
-- [ ] **Mobile**: elements exit to the RIGHT
-- [ ] Baby is now visibly LARGER than when it appeared
+| Frame | Action |
+|-------|--------|
+| s12 | **p1 + p2 MERGE into single "p"** |
 
-**Technical notes:**
-- Use spring physics for bouncy exits
-- Random-ish delays between elements
-- Check `window.innerWidth` for direction
-- Elements end off-screen
+**Physics**: Circles merge smoothly into one
 
 ---
 
-## Technical Implementation Strategy
+### Phase 4: Surrogate Entry (Frames s13-s22)
+**Elements**: p, s, pi, si
 
-### Library Choice: **Framer Motion**
+| Frame | Action |
+|-------|--------|
+| s13 | **Surrogate "s" enters from LEFT with "si"** - starts small |
+| s14-s16 | Surrogate approaches parents, **S starts GROWING** |
+| s17 | Surrogate getting close (KEY FRAME) - PAUSE before connection |
+| s18 | **Surrogate connects with parents** |
+| s19-s22 | All rolling together, forming connection, **S continues growing** |
 
-Reasons:
-- Native React integration
-- `useScroll` + `useTransform` for scroll-driven animation
-- Spring physics built-in
-- Good performance with `will-change` optimization
+**Physics**: Surrogate rolls in, approaches parents slowly
+**Size**: Surrogate (s) GROWS continuously from entry until birth (s34)
 
-### Key Framer Motion Features to Use:
+---
+
+### Phase 5: Balance Line Appears (Frames s23-s26)
+**Elements**: p, s, b, pi, si
+
+| Frame | Action |
+|-------|--------|
+| s23 | **Balance line "b" GROWS from "s"** |
+| s24 | Balance line extends |
+| s25 | Balance line reaches full length |
+| s26 | pi and si JUMP onto balance line ends |
+
+**Physics**: Line grows outward from S, small circles bounce onto ends
+
+---
+
+### Phase 6: Baby Appears (Frames s27-s33) - KEY MOMENT
+**Elements**: p, s, bb, b, pi, si
+
+| Frame | Action |
+|-------|--------|
+| s27 | **BABY "bb" APPEARS** - tiny white filled circle inside overlap |
+| s28-s30 | Baby grows slightly |
+| s31-s33 | Full logo formation complete |
+
+**Physics**: Baby appears with subtle bounce/pop animation
+
+---
+
+### Phase 7: Birth - The Slide (Frames s34-s37) - KEY MOMENT
+**Elements**: p, s, bb, b, pi, si
+
+| Frame | Action |
+|-------|--------|
+| s34 | **BIRTH moment** - Parent (p) with baby (bb) starts rolling on balance line like a SLIDE |
+| s35 | p+bb roll outward on the balance line |
+| s36 | p+bb scroll back slightly |
+| s37 | **Baby (bb) exits from parent** - separates out |
+
+**Physics**:
+- Parent+baby roll on balance line like going down a slide
+- Then scroll/roll back a bit
+- Baby separates from parent with natural physics
+- **Surrogate (s) SHRINKS after birth** (was growing until now)
+
+---
+
+### Phase 8: Separation (Frames s39-s43) - SLOW/PHYSICS
+**Elements**: p1, p2, s, bb, b, pi, si
+
+| Frame | Action |
+|-------|--------|
+| s39 | **Parents SPLIT back to p1 + p2** - moment of letting go |
+| s40 | **Parents separate by ROLLING apart, baby (bb) starts BOUNCING** |
+| s41 | Parents continue rolling apart, baby bouncing |
+| s42 | Balance line rotating like a roller |
+| s43 | Balance line detaching |
+
+**Physics**:
+- Parents roll apart (separate by rolling motion)
+- Baby starts bouncing with gravity (newly "born" - first independent movement)
+- Balance rotates with physics-based momentum
+
+---
+
+### Phase 9: Exit (Frames s44-s45)
+**Elements**: p1, p2, s, bb, pi, si, b
+
+| Frame | Action |
+|-------|--------|
+| s44 | Balance (b) exits to LEFT with rolling rotation |
+| s45 | All other elements bouncing and playing with each other |
+
+**Physics**:
+- **Balance line (b)**: Rolls/exits to LEFT side independently
+- **All other elements (p1, p2, s, bb, pi, si)**: Bounce and PLAY with each other
+- Elements move **above the LOWER part of the footer text** (on desktop)
+- Then all elements **scroll out** of view
+- Playful, bouncing interaction between circles before final exit
+
+---
+
+## Key Timing Moments
+
+| Frame | Duration | Type | Description |
+|-------|----------|------|-------------|
+| s1-s6 | 200ms each | Normal | Parent entry with bouncing |
+| s7-s10 | 250ms each | Normal | Parents approaching |
+| **s11** | **500ms** | **PAUSE** | **Before parents merge** |
+| s12 | 300ms | Normal | Parents merge |
+| s13-s16 | 350ms each | **SLOW - Pregnancy begins** | Surrogate approach, growing |
+| **s17** | **600ms** | **PAUSE** | **Before merging with surrogate** |
+| s18-s26 | 400ms each | **SLOW - Pregnancy** | Connection & balance, surrogate growing |
+| s27-s32 | 450ms each | **SLOW - Late pregnancy** | Baby appears, logo forms |
+| **s33** | **700ms** | **PAUSE** | **Before birth (separation)** |
+| **s34-s37** | **500ms each** | **SLOW** | **Birth - sliding, baby exits** |
+| s38-s43 | 300ms each | Normal | Separation continues |
+| s44-s45 | 350ms each | Normal | Exit with playful bouncing |
+
+**Total duration**: ~15-18 seconds (natural, slow pace)
+
+---
+
+## Physics & Movement Rules
+
+### Bouncing
+- Circles bounce naturally with gravity at ENTRY (frames 1-6)
+- Circles bounce at EXIT (frames 44-45)
+- When not on "ground" level, bouncing occurs
+- Each bounce loses energy (realistic damping)
+
+### Rolling
+- Direction: LEFT to RIGHT throughout
+- Circles roll (not slide) toward each other
+- Rolling speed varies based on "slope" and momentum
+- Contact moments have natural deceleration
+
+### Balance Line
+- **GROWS FROM the "s" (surrogate) circle**
+- pi and si JUMP onto balance line ends
+- At exit, balance rotates like a roller (physics-based)
+- Exits to LEFT with rotation
+
+### Rotation
+- Elements rotate based on their movement direction
+- Balance line tilts naturally based on weight distribution
+- Exit rotation follows physics (±15-30 degrees)
+
+### Surrogate Size Changes
+- **Entry (s13)**: Surrogate starts at smaller size
+- **Growth (s13-s33)**: Surrogate GROWS continuously (representing pregnancy)
+- **Peak (s33)**: Surrogate at maximum size before birth
+- **Shrink (s34+)**: After birth, surrogate SHRINKS back to original size
+
+### The Slide Physics (s34-s37)
+- Parent (p) with baby (bb) inside rolls on balance line like a SLIDE
+- Uses gravity and momentum
+- Rolls outward, then scrolls back slightly
+- Baby separates from parent with natural physics (like coming out)
+
+**Baby Position During Slide**:
+- Baby (bb) grows continuously throughout animation
+- During sliding (s34-s36), baby **STICKS to same relative position** on parent circle
+- Like a point on a rolling wheel - baby rotates WITH the parent
+- Maintains consistent position relative to parent's center
+
+**Baby Separation (s37-s39)**:
+- Movement direction: LEFT
+- Parent and baby both move LEFT but at **DIFFERENT SPEEDS**
+- Baby moves slower/faster than parent, causing gradual separation
+- This speed difference makes the baby naturally "come out"
+- Should feel like natural physics - not a sudden pop, but velocity-based separation
+
+---
+
+## Technical Implementation
+
+### Component Structure
 
 ```tsx
-// Scroll tracking
-const { scrollYProgress } = useScroll({
-  target: containerRef,
-  offset: ["start end", "end start"]
-});
+// src/components/footer-story-animation.tsx
+"use client";
 
-// Transform scroll progress to animation values
-const parentX = useTransform(scrollYProgress, [0, 0.15], [-200, 0]);
-const babyScale = useTransform(scrollYProgress, [0.2, 1], [0.3, 1.5]);
+import { useState, useEffect, useRef } from "react";
+import { motion, useSpring } from "framer-motion";
 
-// Spring for bouncy effects
-const springConfig = { stiffness: 300, damping: 20 };
-```
+// Frame timing configuration
+const FRAME_TIMING: Record<number, number> = {
+  11: 300,                   // PAUSE: Before parents merge
+  17: 300,                   // PAUSE: Before merging with surrogate
+  33: 300,                   // PAUSE: Before birth (separation)
+  34: 200, 35: 200, 36: 200, 37: 200,  // SLOW: The slide (birth physics)
+};
 
-### SVG Structure (based on v2 logo):
+const DEFAULT_DURATION = 100;
 
-```jsx
-<svg viewBox="20 28 270 158">
-  <!-- Ground line (static - above copyright) -->
-  <line id="ground" x1="20" y1="186" x2="290" y2="186" stroke="black" strokeWidth="2" />
+// Element positions for each frame (extracted from Figma)
+const FRAME_POSITIONS = {
+  // Will be populated with exact positions from Figma
+};
 
-  <!-- Surrogate mother - big circle -->
-  <motion.circle id="surrogate" cx="127" cy="120" r="60" />
+export function FooterStoryAnimation() {
+  const [currentFrame, setCurrentFrame] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
 
-  <!-- Parents - starts as two, merges to one -->
-  <motion.g id="parents">
-    <motion.circle id="parent-1" cx="156" cy="73" r="39" /> {/* left parent */}
-    <motion.circle id="parent-2" cx="196" cy="73" r="39" /> {/* right parent */}
-    <motion.circle id="parent-merged" cx="176" cy="73" r="39" /> {/* merged */}
-  </motion.g>
+  // Trigger 1 second after scroll to bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
 
-  <!-- Baby - appears during connection -->
-  <motion.circle id="baby" cx="157.9" cy="99.9" r="7" fill="black" />
+      if (scrollBottom >= docHeight - 100 && !hasTriggered) {
+        setTimeout(() => {
+          setHasTriggered(true);
+          setIsPlaying(true);
+        }, 1000);
+      }
+    };
 
-  <!-- Balance scale -->
-  <motion.g id="balance">
-    <motion.line x1="28" y1="103" x2="287" y2="180" />
-    <motion.circle id="balance-left" cx="44.5" cy="92.3" r="6" />
-    <motion.circle id="balance-right" cx="280" cy="163" r="6" />
-  </motion.g>
-</svg>
-```
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasTriggered]);
 
-### File Structure:
+  // Pause on footer hover
+  const handleFooterEnter = () => setIsPlaying(false);
+  const handleFooterLeave = () => setIsPlaying(true);
 
-```
-src/components/v3/
-├── footer-animation.tsx    # Main animation component
-├── contact-section.tsx     # Updated to include animation
-└── animation-paths.ts      # SVG path calculations for rolling
+  // Frame advancement with variable timing
+  useEffect(() => {
+    if (!isPlaying || currentFrame >= 44) return;
+
+    const duration = FRAME_TIMING[currentFrame] || DEFAULT_DURATION;
+    const timer = setTimeout(() => {
+      setCurrentFrame(prev => prev + 1);
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [isPlaying, currentFrame]);
+
+  return (
+    <div className="story-animation-wrapper">
+      <div className="animation-stage">
+        {/* Render elements based on currentFrame */}
+        {/* Use Framer Motion for physics-based interpolation */}
+      </div>
+
+      <footer
+        onMouseEnter={handleFooterEnter}
+        onMouseLeave={handleFooterLeave}
+      >
+        {/* Footer content */}
+      </footer>
+    </div>
+  );
+}
 ```
 
 ---
 
-## Animation Easing & Timing
+## SVG Elements (Exported to /public/animation/)
 
-To achieve **non-constant rhythm**:
+| File | Element | ViewBox | Type |
+|------|---------|---------|------|
+| `p.svg` | Parent circle (p, p1, p2) | 80x80 | Outline stroke |
+| `s.svg` | Surrogate circle | 102x102 | Outline stroke |
+| `b.svg` | Balance line | 34x12 | Line stroke |
+| `interest.svg` | Interest circles (pi, si) | 14x14 | Outline stroke |
+| `bb.svg` | Baby circle | 25x25 | **Filled** white |
 
-| Element | Entry Delay | Spring Stiffness | Spring Damping |
-|---------|-------------|------------------|----------------|
-| Parent 1 | 0ms | 400 | 25 |
-| Parent 2 | 150ms | 350 | 22 |
-| Surrogate | 300ms | 300 | 20 |
-| Balance line | 450ms | 280 | 18 |
-
-Different spring configs create natural, varied bouncing.
-
----
-
-## Responsive Behavior
-
-```tsx
-const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-// Exit direction
-const exitX = isMobile ? 200 : -200; // right for mobile, left for desktop
-```
+All SVGs use CSS variables for colors:
+- Stroke: `var(--stroke-0, white)`
+- Fill (bb only): `var(--fill-0, white)`
 
 ---
 
 ## Next Steps
 
-1. [ ] Review and approve this plan
-2. [ ] Install framer-motion
-3. [ ] Create basic component structure
-4. [ ] Implement Phase 1 (Entry) and test
-5. [ ] Implement Phase 2-3 (Connection & Formation)
-6. [ ] Implement Phase 4 (Balance dance)
-7. [ ] Implement Phase 5-6 (Separation & Exit)
-8. [ ] Fine-tune timing and rhythm
-9. [ ] Test responsive behavior
-10. [ ] Commit and push
+1. [x] Analyze all 45 frames from Figma
+2. [x] Identify when baby (bb) first appears - **Frame s27**
+3. [x] Document the complete exit sequence - **Frames s39-s45**
+4. [ ] Export SVG elements from Figma
+5. [ ] Extract exact positions for each frame
+6. [ ] Create physics-based animation component
+7. [ ] Implement variable timing for pauses
+8. [ ] Add scroll trigger and hover pause
+9. [ ] Position above footer with proper layering
+10. [ ] Test physics feel and adjust
+11. [ ] Mobile adaptation
+12. [ ] Commit and push
