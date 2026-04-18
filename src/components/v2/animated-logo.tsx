@@ -8,7 +8,7 @@ export function AnimatedLogo() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const maxScroll = window.innerHeight * 0.5; // Animation over 50vh
+      const maxScroll = window.innerHeight * 0.35; // Animation over 35vh
 
       const progress = Math.min(scrollY / maxScroll, 1);
       const newRotation = -(progress * 35); // 0 to -35 degrees (more rotation)
