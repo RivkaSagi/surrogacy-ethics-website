@@ -10,6 +10,7 @@
     "fetch-docs": "node scripts/fetch-docs.mjs"
   },
   "dependencies": {
+    "framer-motion": "^12.38.0",
     "isomorphic-dompurify": "^2.33.0",
     "next": "^15.1.7",
     "papaparse": "^5.5.3",

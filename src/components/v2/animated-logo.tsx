@@ -61,8 +61,8 @@ export function AnimatedLogo() {
         />
         {/* Left small circle */}
         <circle cx="44.5" cy="92.3" r="6" stroke="black" strokeWidth="2" />
-        {/* Right small circle */}
-        <circle cx="273" cy="159" r="6" stroke="black" strokeWidth="2" />
+        {/* Right small circle - just above the line */}
+        <circle cx="280" cy="163" r="6" stroke="black" strokeWidth="2" />
       </g>
     </svg>
   );
