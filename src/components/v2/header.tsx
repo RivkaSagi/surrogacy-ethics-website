@@ -5,6 +5,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { PrimaryButton } from "./primary-button";
 
+function scrollToFooter() {
+  const footer = document.getElementById("footer");
+  if (footer) {
+    footer.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -43,7 +50,7 @@ export function Header() {
           >
             הקוד האתי המלא
           </Link>
-          <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
+          <PrimaryButton onClick={scrollToFooter}>
             צרו קשר
           </PrimaryButton>
         </nav>
@@ -105,7 +112,7 @@ export function Header() {
             >
               הקוד האתי המלא
             </Link>
-            <PrimaryButton href="mailto:surrogacy.ethics.il@gmail.com">
+            <PrimaryButton onClick={() => { setMobileMenuOpen(false); scrollToFooter(); }}>
               צרו קשר
             </PrimaryButton>
           </nav>

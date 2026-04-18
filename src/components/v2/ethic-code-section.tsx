@@ -1,46 +1,10 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { Subtitle } from "./subtitle";
 import { BulletItem } from "./bullet-item";
 import { PrimaryButton } from "./primary-button";
 import { FadeInOnScroll } from "./fade-in-on-scroll";
-import {
-  ethicalPrinciples,
-  type EthicalPrinciple,
-} from "@/data/ethical-principles";
-
-function formatDescription(principle: EthicalPrinciple): ReactNode {
-  const description = principle.description;
-
-  if (principle.boldParts.length === 0) {
-    return description;
-  }
-
-  const parts: ReactNode[] = [];
-  let remaining = description;
-
-  principle.boldParts.forEach((boldPart, index) => {
-    const splitIndex = remaining.indexOf(boldPart);
-    if (splitIndex !== -1) {
-      if (splitIndex > 0) {
-        parts.push(remaining.substring(0, splitIndex));
-      }
-      parts.push(
-        <strong key={index} className="font-bold">
-          {boldPart}
-        </strong>
-      );
-      remaining = remaining.substring(splitIndex + boldPart.length);
-    }
-  });
-
-  if (remaining) {
-    parts.push(remaining);
-  }
-
-  return <>{parts}</>;
-}
+import { ethicalPrinciples } from "@/data/ethical-principles";
 
 export function EthicCodeSection() {
   return (
@@ -50,13 +14,13 @@ export function EthicCodeSection() {
         <Subtitle text="תמצית הקוד האתי" />
       </FadeInOnScroll>
 
-      {/* Principles - each fades in with staggered delay */}
-      <div className="flex flex-col gap-12 items-center w-full">
+      {/* Principles - each fades in with staggered delay, 64px gap between items */}
+      <div className="flex flex-col gap-16 items-center w-full">
         {ethicalPrinciples.map((principle, index) => (
           <FadeInOnScroll key={index} delay={index * 100}>
             <BulletItem
               title={principle.title}
-              description={formatDescription(principle)}
+              description={principle.description}
             />
           </FadeInOnScroll>
         ))}

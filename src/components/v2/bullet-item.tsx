@@ -5,7 +5,7 @@ interface BulletItemProps {
 
 export function BulletItem({ title, description }: BulletItemProps) {
   return (
-    <div className="relative flex flex-col gap-2 items-end max-w-[620px] w-full">
+    <div className="relative flex flex-col gap-3 items-end max-w-[620px] w-full">
       {/* Decorative circle - peachy/salmon color #FFC5B2 */}
       <div className="absolute -right-3 md:-right-5 -top-2 md:-top-3 w-10 md:w-14 h-10 md:h-14 rounded-full bg-[#FFC5B2]" />
 

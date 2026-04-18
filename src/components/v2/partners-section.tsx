@@ -11,9 +11,10 @@ export function PartnersSection() {
     <section className="flex flex-col gap-8 md:gap-10 items-center py-12 md:py-20 px-5 md:px-20 border-b border-border">
       <Subtitle text="שותפים" />
 
-      <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+      {/* Grid on mobile (2 columns), flex on desktop */}
+      <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-8 md:gap-16">
         {partners.map((partner) => (
-          <div key={partner.name} className="relative h-20 w-48">
+          <div key={partner.name} className="relative h-16 w-36 md:h-20 md:w-48 mx-auto">
             <Image
               src={partner.logo}
               alt={partner.name}
