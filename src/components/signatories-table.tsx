@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { useSignatories } from "@/hooks/use-signatories";
 
 type Props = {
@@ -102,6 +102,33 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
   };
 
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [flipDropdown, setFlipDropdown] = useState(false);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
+
+  const calculateFlip = useCallback(() => {
+    if (filterButtonRef.current) {
+      const rect = filterButtonRef.current.getBoundingClientRect();
+      const dropdownWidth = 256; // w-64 = 16rem = 256px
+      const hasSpaceOnLeft = rect.left >= dropdownWidth;
+      setFlipDropdown(!hasSpaceOnLeft);
+    }
+  }, []);
+
+  const handleFilterClick = useCallback(() => {
+    if (!showFilterDropdown) {
+      calculateFlip();
+    }
+    setShowFilterDropdown(!showFilterDropdown);
+  }, [showFilterDropdown, calculateFlip]);
+
+  // Recalculate flip on window resize when dropdown is open
+  useEffect(() => {
+    if (!showFilterDropdown) return;
+
+    const handleResize = () => calculateFlip();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [showFilterDropdown, calculateFlip]);
 
   return (
     <section className="py-10 px-4 md:px-20" id="signatories">
@@ -111,7 +138,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
         {!isLoading && !error && rows.length > 0 && (
           <>
             <div className={showFullPageLink ? "relative" : ""}>
-              <div className="overflow-x-auto rounded-2xl border border-border bg-white/70">
+              <div className="overflow-visible rounded-2xl border border-border bg-white/70">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-border bg-background/50">
@@ -153,9 +180,8 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                             {uniqueColumn4Values.length > 0 && (
                               <div className="relative">
                                 <button
-                                  onClick={() =>
-                                    setShowFilterDropdown(!showFilterDropdown)
-                                  }
+                                  ref={filterButtonRef}
+                                  onClick={handleFilterClick}
                                   className="rounded p-1 text-text transition hover:bg-primary/10"
                                   title="סינון"
                                 >
@@ -169,7 +195,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                                         setShowFilterDropdown(false)
                                       }
                                     />
-                                    <div className="fixed left-4 right-4 md:left-auto md:right-0 md:absolute z-50 mt-1 md:w-64 rounded-lg border border-border bg-white p-3 shadow-xl top-auto">
+                                    <div className={`absolute w-64 z-[100] mt-1 rounded-lg border border-border bg-white p-3 shadow-xl top-auto ${flipDropdown ? 'left-0 right-auto' : 'right-0 left-auto'}`}>
                                       <div className="mb-2 flex items-center justify-between">
                                         <span className="text-sm font-semibold text-text">
                                           סינון
