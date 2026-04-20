@@ -2,11 +2,15 @@ import Link from "next/link";
 import { Subtitle } from "./subtitle";
 import { PrimaryButton } from "./primary-button";
 
-export function ContactSection() {
+interface ContactSectionProps {
+  compact?: boolean;
+}
+
+export function ContactSection({ compact = false }: ContactSectionProps) {
   return (
     <footer id="footer" className="bg-dark" dir="rtl">
       {/* Main footer content */}
-      <div className="py-10 md:py-16 px-5 md:px-20">
+      <div className={compact ? "py-5 md:py-8 px-5 md:px-20" : "py-10 md:py-16 px-5 md:px-20"}>
         {/* Single column - contact info with links */}
         <div className="flex flex-col gap-6 items-start">
           <Subtitle text="צרו קשר" light />

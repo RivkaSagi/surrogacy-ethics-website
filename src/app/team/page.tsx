@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Header } from "@/components/header";
 import { Subtitle } from "@/components/subtitle";
 import { ContactSection } from "@/components/contact-section";
 import { TeamMembers } from "@/components/team-members";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 // About content from ~/my/about.md
 const aboutContent = {

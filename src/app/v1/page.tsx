@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/v1/header";
 import { LogoSection } from "@/components/v1/logo-section";
 import { BGHalfCircle } from "@/components/v1/bg-half-circle";
@@ -6,6 +7,13 @@ import { PartnersSection } from "@/components/v1/partners-section";
 import { UpdatesSection } from "@/components/v1/updates-section";
 import { ContactSection } from "@/components/v1/contact-section";
 import { CONTENT_SOURCES } from "@/config/content";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function V1Page() {
   return (
