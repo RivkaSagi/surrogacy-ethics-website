@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${heebo.variable} font-sans`}>{children}</body>
+      <body className={`${heebo.variable} font-sans`} suppressHydrationWarning>{children}</body>
     </html>
   );
 }
