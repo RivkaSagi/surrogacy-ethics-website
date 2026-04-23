@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Header } from "@/components/header";
 import { Subtitle } from "@/components/subtitle";
 import { ContactSection } from "@/components/contact-section";
@@ -21,11 +22,38 @@ export default function SignatoriesPage() {
           <Subtitle text="אנשי המקצוע החתומים" />
         </section>
 
-        {/* Placeholder Note */}
+        {/* Description */}
+        <section className="flex justify-center px-4 pb-8" dir="rtl">
+          <div className="max-w-4xl text-center">
+            <div className="text-lg text-foreground/80 leading-relaxed space-y-4">
+              <p>
+                תהליך הפונדקאות בישראל מפוקח על ידי משרד הבריאות וכולל דרישות שונות המפורטות{" "}
+                <Link
+                  href="https://www.gov.il/he/service/embryo-carrying"
+                  target="_blank"
+                  className="text-primary underline hover:opacity-80"
+                >
+                  באתר הממשלתי
+                </Link>
+                .
+              </p>
+              <p>
+                חלק מהדרישות בתהליך כגון הערכה פסיכולוגית או ייצוג משפטי מחייבות היעזרות באיש מקצוע,
+                <br />
+                לחלופין אנשי מקצוע אחרים מציעים שירותים כמו ליווי או תכלול התהליך (סוכנויות) לטובת השותפים על אף ששירותים אלו לא נדרשים על פי החוק.
+              </p>
+              <p>
+                בפרויקט זה אנחנו מזמינים כל איש מקצוע שמשיק לתחום ורואה את עצמו מחויב לקוד האתי לחתום על מחויבות להתנהל על פיו ואנו מרכזים כאן את רשימת החותמים.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Coming Soon Note */}
         <section className="flex justify-center px-4 pb-16">
           <div className="max-w-4xl text-center">
-            <p className="text-lg text-foreground/80 leading-relaxed">
-              אנשי המקצוע החתומים על הקוד האתי ופרטי הקשר שלהם יופיעו בדף הזה החל מה-20 במאי.
+            <p className="text-lg text-foreground/80 leading-relaxed font-bold">
+              אנשי המקצוע החתומים על הקוד האתי ופרטי הקשר שלהם יופיעו בדף הזה החל מה-20 במאי 2026,
               <br />
               עד אז מוזמנים לקרוא את הקוד וליצור קשר לחתימה או לשאלות.
             </p>
