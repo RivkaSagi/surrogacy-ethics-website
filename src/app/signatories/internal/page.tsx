@@ -24,28 +24,20 @@ export default function InternalSignatoriesPage() {
           <Subtitle text="אנשי המקצוע החתומים" />
         </section>
 
-        {/* Description */}
+        {/* Description - disclaimer style */}
         <section className="flex justify-center px-4 pb-10" dir="rtl">
-          <div className="max-w-4xl text-right">
-            <div className="text-lg text-foreground/80 leading-relaxed space-y-4">
-              <p>
-                תהליך הפונדקאות בישראל מפוקח על ידי משרד הבריאות וכולל דרישות שונות המפורטות{" "}
-                <Link
-                  href="https://www.gov.il/he/service/embryo-carrying"
-                  target="_blank"
-                  className="text-primary underline hover:opacity-80"
-                >
-                  באתר הממשלתי
-                </Link>
-                .
-              </p>
-              <p>
-                חלק מהדרישות בתהליך כגון הערכה פסיכולוגית או ייצוג משפטי מחייבות היעזרות באיש מקצוע, לחלופין אנשי מקצוע אחרים מציעים שירותים כמו ליווי או תכלול התהליך (סוכנויות) לטובת השותפים על אף ששירותים אלו לא הכרחיים על פי החוק.
-              </p>
-              <p>
-                בפרויקט זה אנחנו מזמינים כל איש מקצוע שמשיק לתחום ורואה את עצמו מחויב לקוד האתי לחתום על מחויבות להתנהל על פיו ואנו מרכזים כאן את רשימת החותמים.
-              </p>
-            </div>
+          <div className="max-w-3xl text-center">
+            <p className="text-base text-foreground/70 leading-loose">
+              הליכי פונדקאות בישראל מפוקחים על ידי משרד הבריאות, ודרישות החוק והנחיות הוועדה מפורטות{" "}
+              <Link
+                href="https://www.gov.il/he/service/embryo-carrying"
+                target="_blank"
+                className="text-primary underline hover:opacity-80"
+              >
+                באתר הממשלתי
+              </Link>
+              . אישור ההליך מחייב התקשרות עם גורמי מקצוע כגון רופא/ה, פסיכולוג/ית ועורך/ת דין, אך ליווי ותיווך אינם מתחייבים לפי חוק. במסגרת הקוד האתי לפונדקאות, כלל אנשי המקצוע הרלוונטיים מוזמנים להתחייב לקוד האתי ולהיכלל ברשימת החותמים.
+            </p>
           </div>
         </section>
 
