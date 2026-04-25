@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { Subtitle } from "./subtitle";
 import { PrimaryButton } from "./primary-button";
+import { FooterAnimation } from "../footer-animation";
 
 export function ContactSection() {
   return (
     <footer id="footer" className="bg-dark" dir="rtl">
-      {/* Main footer content */}
-      <div className="py-10 md:py-16 px-5 md:px-20">
+      {/* Main footer content with animation background */}
+      <div className="relative py-10 md:py-16 px-5 md:px-20">
+        {/* Background animation - positioned above the copyright line */}
+        <FooterAnimation />
         {/* Single column - contact info with links */}
-        <div className="flex flex-col gap-6 items-start">
+        <div className="relative z-10 flex flex-col gap-6 items-start">
           <Subtitle text="צרו קשר" light />
 
           {/* Contact info - 14px text, 8px gap, #FFC5B2 color */}

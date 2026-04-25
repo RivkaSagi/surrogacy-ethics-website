@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Subtitle } from "./subtitle";
 import { PrimaryButton } from "./primary-button";
+import { FooterAnimation } from "./footer-animation";
 
 interface ContactSectionProps {
   compact?: boolean;
@@ -8,9 +9,12 @@ interface ContactSectionProps {
 
 export function ContactSection({ compact = false }: ContactSectionProps) {
   return (
-    <footer id="footer" className="bg-dark" dir="rtl">
+    <footer id="footer" className="bg-dark relative overflow-hidden" dir="rtl">
+      {/* Background animation */}
+      <FooterAnimation />
+
       {/* Main footer content */}
-      <div className={compact ? "py-5 md:py-8 px-5 md:px-20" : "py-10 md:py-16 px-5 md:px-20"}>
+      <div className={`relative z-10 ${compact ? "py-5 md:py-8 px-5 md:px-20" : "py-10 md:py-16 px-5 md:px-20"}`}>
         {/* Single column - contact info with links */}
         <div className="flex flex-col gap-6 items-start">
           <Subtitle text="צרו קשר" light />
@@ -65,7 +69,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
       </div>
 
       {/* Copyright bar */}
-      <div className="border-t border-white/20 py-4 px-5 md:px-20">
+      <div className="relative z-10 border-t border-white/20 py-4 px-5 md:px-20">
         <p className="text-white/60 text-sm text-center">
           © {new Date().getFullYear()} הקוד האתי לפונדקאות בישראל. כל הזכויות שמורות.
         </p>
