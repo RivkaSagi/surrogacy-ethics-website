@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/Logo-new-wo-text.png",
   },
+  metadataBase: new URL("https://www.surrogacyethicsil.org"),
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
