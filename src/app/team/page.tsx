@@ -1,16 +1,7 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Header } from "@/components/header";
 import { Subtitle } from "@/components/subtitle";
 import { ContactSection } from "@/components/contact-section";
 import { TeamMembers } from "@/components/team-members";
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 // About content from ~/my/about.md
 const aboutContent = {
@@ -41,13 +32,7 @@ export default function TeamPage() {
 
         {/* Team Grid */}
         <section className="py-10 px-4 md:px-20 max-w-6xl mx-auto">
-          <Suspense
-            fallback={
-              <div className="text-center text-text/60">טוען חברי צוות...</div>
-            }
-          >
-            <TeamMembers />
-          </Suspense>
+          <TeamMembers />
         </section>
 
         <ContactSection />

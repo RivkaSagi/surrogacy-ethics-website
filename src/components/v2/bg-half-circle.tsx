@@ -12,7 +12,7 @@ export function BGHalfCircle() {
       className="absolute pointer-events-none z-0 left-0 right-0 flex justify-center"
       style={{
         top: "200px", // Positioned 200px from top per design specs
-        bottom: "400px", // Stop before footer (footer height + buffer)
+        bottom: "300px", // Stop exactly at top of footer
       }}
     >
       <div

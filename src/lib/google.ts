@@ -136,6 +136,11 @@ export type TeamMember = {
   imageUrl: string;
 };
 
+// Name corrections mapping (from Google Drive filename to correct display name)
+const NAME_CORRECTIONS: Record<string, string> = {
+  "אורית הורביץ ברעם": "אורית הורוביץ בר-עם",
+};
+
 type DriveFile = {
   id: string;
   name: string;
@@ -209,7 +214,9 @@ export async function fetchGoogleDriveFolder(
       // Remove file extension from name
       const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
       // Clean up the name (replace underscores, hyphens with spaces)
-      const cleanName = nameWithoutExt.replace(/[_-]/g, " ").trim();
+      const rawName = nameWithoutExt.replace(/[_-]/g, " ").trim();
+      // Apply name corrections if available
+      const cleanName = NAME_CORRECTIONS[rawName] || rawName;
 
       // Try to find matching description
       let description = docMap.get(cleanName);

@@ -1,28 +1,20 @@
 import Image from "next/image";
-import { fetchGoogleDriveFolder } from "@/lib/google";
-import { CONTENT_SOURCES } from "@/config/content";
+import { teamMembers } from "@/config/team";
 
-export async function TeamMembers() {
-  const members = await fetchGoogleDriveFolder(
-    CONTENT_SOURCES.teamDriveFolderId,
-  );
-
-  if (members.length === 0) {
+export function TeamMembers() {
+  if (teamMembers.length === 0) {
     return (
       <div className="text-center">
         <p className="text-text/60">לא נמצאו חברי צוות.</p>
-        <p className="text-sm text-text/40 mt-2">
-          אנא בדוק את הגדרות תיקיית Google Drive
-        </p>
       </div>
     );
   }
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {members.map((member) => (
+      {teamMembers.map((member) => (
         <div
-          key={member.imageId}
+          key={member.imageUrl}
           className="group flex flex-col gap-4 rounded-2xl border border-border/60 bg-white/50 p-6 transition hover:border-primary/40 hover:shadow-lg"
         >
           <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-highlight/30">

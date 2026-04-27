@@ -1,42 +1,24 @@
-import Image from "next/image";
-import { BGHalfCircle } from "@/components/bg-half-circle";
+import { Header } from "@/components/v2/header";
+import { LogoSection } from "@/components/v2/logo-section";
+import { BGHalfCircle } from "@/components/v2/bg-half-circle";
+import { EthicCodeSection } from "@/components/v2/ethic-code-section";
+import { PartnersSection } from "@/components/v2/partners-section";
+import { UpdatesSection } from "@/components/v2/updates-section";
+import { ContactSection } from "@/components/v2/contact-section";
+import { CONTENT_SOURCES } from "@/config/content";
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative flex items-center justify-center" dir="rtl">
+    <div className="min-h-screen relative">
       <BGHalfCircle />
+      <Header />
 
-      <main className="relative z-10 flex flex-col items-center gap-8 px-5 text-center">
-        {/* Logo */}
-        <Image
-          src="/Logo-new-w-text.png"
-          alt="הקוד האתי לפונדקאות"
-          width={200}
-          height={65}
-          className="h-16 md:h-20 w-auto"
-        />
-
-        {/* Title */}
-        <h1 className="text-2xl md:text-4xl font-bold text-text">
-          הקוד האתי לפונדקאות בישראל
-        </h1>
-
-        {/* Coming soon message */}
-        <p className="text-lg md:text-xl text-text/70">
-          האתר לקראת השקה במאי 2026
-        </p>
-
-        {/* Contact */}
-        <div className="flex flex-col items-center gap-2 mt-4">
-          <p className="text-base text-text/60">ליצירת קשר:</p>
-          <a
-            href="mailto:surrogacy.ethics.il@gmail.com"
-            className="text-primary hover:text-primary/80 transition-colors font-medium"
-            dir="ltr"
-          >
-            surrogacy.ethics.il@gmail.com
-          </a>
-        </div>
+      <main className="relative z-10">
+        <LogoSection />
+        <EthicCodeSection />
+        <PartnersSection />
+        <UpdatesSection docId={CONTENT_SOURCES.updatesDocId} />
+        <ContactSection />
       </main>
     </div>
   );

@@ -1,15 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/header";
 import { Subtitle } from "@/components/subtitle";
 import { ContactSection } from "@/components/contact-section";
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 export default function SignatoriesPage() {
   return (
