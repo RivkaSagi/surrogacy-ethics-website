@@ -32,7 +32,7 @@ export const teamMembers: TeamMember[] = [
     imageUrl: "/team/rivka-sagi.jpg",
   },
   {
-    name: "שחר ראובן",
+    name: "שחר ראובן צבע",
     description: "פיזיותרפיסטית, אקטיביסטית בתחום בריאות האישה ופונדקאית.",
     imageUrl: "/team/shahar-reuven.jpeg",
   },
