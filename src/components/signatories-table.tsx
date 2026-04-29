@@ -142,36 +142,39 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-border bg-background/50">
-                      <th className="px-4 py-3 text-right">
+                      <th scope="col" className="px-4 py-3 text-right">
                         <button
                           onClick={() => handleSort("name")}
                           className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
+                          aria-label={`מיין לפי ${headers[0] || "שם"}`}
                         >
                           <span>{headers[0] || "שם"}</span>
-                          <span className="text-xs">{getSortIcon("name")}</span>
+                          <span className="text-xs" aria-hidden="true">{getSortIcon("name")}</span>
                         </button>
                       </th>
-                      <th className="px-4 py-3 text-right">
+                      <th scope="col" className="px-4 py-3 text-right">
                         <button
                           onClick={() => handleSort("field")}
                           className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
+                          aria-label={`מיין לפי ${headers[1] || "תחום מקצועי"}`}
                         >
                           <span>{headers[1] || "תחום מקצועי"}</span>
-                          <span className="text-xs">{getSortIcon("field")}</span>
+                          <span className="text-xs" aria-hidden="true">{getSortIcon("field")}</span>
                         </button>
                       </th>
-                      <th className="px-4 py-3 text-right">
+                      <th scope="col" className="px-4 py-3 text-right">
                         <button
                           onClick={() => handleSort("column3")}
                           className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
+                          aria-label={`מיין לפי ${headers[2] || "עמודה 3"}`}
                         >
                           <span>{headers[2] || "עמודה 3"}</span>
-                          <span className="text-xs">
+                          <span className="text-xs" aria-hidden="true">
                             {getSortIcon("column3")}
                           </span>
                         </button>
                       </th>
-                      <th className="px-4 py-3 text-right relative">
+                      <th scope="col" className="px-4 py-3 text-right relative">
                         <div className="flex w-full items-center justify-between">
                           <span className="font-semibold text-text">
                             {headers[3] || "עמודה 4"}
@@ -183,7 +186,9 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                                   ref={filterButtonRef}
                                   onClick={handleFilterClick}
                                   className="rounded p-1 text-text transition hover:bg-primary/10"
-                                  title="סינון"
+                                  aria-label="סינון"
+                                  aria-expanded={showFilterDropdown}
+                                  aria-haspopup="true"
                                 >
                                   <span className="text-lg">⋮</span>
                                 </button>

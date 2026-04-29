@@ -13,7 +13,7 @@ export default function Home() {
       <BGHalfCircle />
       <Header />
 
-      <main className="relative z-10">
+      <main id="main-content" className="relative z-10">
         <LogoSection />
         <EthicCodeSection />
         <PartnersSection />

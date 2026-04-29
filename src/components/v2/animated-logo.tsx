@@ -34,6 +34,8 @@ export function AnimatedLogo() {
       xmlns="http://www.w3.org/2000/svg"
       className="w-full h-full"
       style={{ overflow: "visible" }}
+      role="img"
+      aria-label="לוגו מאזניים - סמל האיזון האתי"
     >
       {/* Static elements - main circles from Figma */}
       {/* Big circle: center (127, 120), r=60 */}

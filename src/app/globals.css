@@ -58,3 +58,19 @@ p {
 .prose-content b {
   @apply font-bold;
 }
+
+/* Accessibility - Focus styles for keyboard navigation (IS 5568 / WCAG 2.0 AA) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
+
+/* High contrast focus for dark backgrounds */
+.bg-dark a:focus-visible,
+.bg-dark button:focus-visible {
+  @apply outline-highlight;
+}

@@ -55,10 +55,10 @@ export function UpdateCard({ content, link }: UpdateCardProps) {
 
   const hasLink = Boolean(link);
 
-  // All cards have hover effect, cards with links also show arrow
-  // Figma: w-[400px] min-w-[320px] items-end (RTL right aligned), border-b-12 on hover
+  // All cards have hover/focus effect, cards with links also show arrow
+  // Figma: w-[400px] min-w-[320px] items-end (RTL right aligned), border-b-12 on hover/focus
   const CardContent = (
-    <div className="relative bg-white rounded-lg p-4 md:p-6 h-full text-right transition-all duration-200 border-b-[12px] border-transparent group-hover:border-highlight flex flex-col items-end">
+    <div className="relative bg-white rounded-lg p-4 md:p-6 h-full text-right transition-all duration-200 border-b-[12px] border-transparent group-hover:border-highlight group-focus:border-highlight group-focus-visible:border-highlight flex flex-col items-end">
       <div className="w-full text-text leading-normal">
         {parsed ? (
           <>
@@ -75,7 +75,7 @@ export function UpdateCard({ content, link }: UpdateCardProps) {
       </div>
 
       {hasLink && (
-        <div className="absolute left-[14px] bottom-[14px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <div className="absolute left-[14px] bottom-[14px] opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200">
           <ArrowIcon className="text-text w-6 h-6" />
         </div>
       )}
@@ -84,11 +84,26 @@ export function UpdateCard({ content, link }: UpdateCardProps) {
 
   if (hasLink) {
     return (
-      <a href={link} target="_blank" rel="noopener noreferrer" className="w-full group cursor-pointer h-full">
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full group cursor-pointer h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        aria-label={parsed?.headline || "קישור לעדכון"}
+      >
         {CardContent}
       </a>
     );
   }
 
-  return <div className="w-full h-full group">{CardContent}</div>;
+  // Cards without links - make them focusable for screen readers to read content
+  return (
+    <article
+      className="w-full h-full group rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      tabIndex={0}
+      aria-label={parsed?.headline || "עדכון"}
+    >
+      {CardContent}
+    </article>
+  );
 }

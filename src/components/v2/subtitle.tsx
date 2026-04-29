@@ -12,13 +12,13 @@ export function Subtitle({ text, className = "", light = false }: SubtitleProps)
           light ? "bg-primary" : "bg-highlight"
         }`}
       />
-      <h3
+      <h2
         className={`relative font-bold text-lg ${
           light ? "text-white" : "text-text"
         }`}
       >
         {text}
-      </h3>
+      </h2>
     </div>
   );
 }
