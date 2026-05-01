@@ -149,6 +149,9 @@ export default function ConferenceV2() {
               <span>|</span>
               <span>המרכז האקדמי רופין</span>
             </div>
+            <p className="text-white/50 text-sm mt-4">
+              לוח הזמנים המפורט יפורסם בדף זה בקרוב
+            </p>
           </div>
 
           {/* Error message */}
