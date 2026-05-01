@@ -3,6 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 
+/**
+ * Conference registration page with side-by-side layout
+ * Image on right, form on left (RTL)
+ */
+
 const connectionOptions = [
   "הורים מיועדים / הורים לילדים שנולדו בעזרת פונדקאית",
   "פונדקאית",
@@ -13,79 +18,109 @@ const connectionOptions = [
   "אחר",
 ];
 
+type SubmitStatus = "idle" | "loading" | "success" | "error";
+
 export default function ConferencePage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    connection: "",
+    connections: [] as string[],
     otherConnection: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleConnectionToggle = (option: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      connections: prev.connections.includes(option)
+        ? prev.connections.filter((c) => c !== option)
+        : [...prev.connections, option],
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError("");
-
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.connection) {
-      setError("נא למלא את כל השדות הנדרשים");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError("נא להזין כתובת מייל תקינה");
-      setIsSubmitting(false);
-      return;
-    }
+    setSubmitStatus("loading");
+    setErrorMessage("");
 
     try {
-      // Submit to Google Forms
-      const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeNvf_LzTdxB3qwXhnOR5osh2cNWIeBxWy2_5I6721-Nt4bHA/formResponse";
-
-      const formBody = new URLSearchParams();
-      formBody.append("entry.1234567890", formData.name); // Replace with actual entry IDs
-      formBody.append("entry.1234567891", formData.email);
-      formBody.append("entry.1234567892", formData.phone);
-      formBody.append("entry.1234567893", formData.connection === "אחר" ? formData.otherConnection : formData.connection);
-
-      // Note: Google Forms CORS may block this. Consider using a server action or API route.
-      await fetch(googleFormUrl, {
+      const response = await fetch("/api/conference-register", {
         method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: formBody.toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
-      setIsSubmitted(true);
-    } catch {
-      setError("אירעה שגיאה בשליחת הטופס. נא לנסות שוב.");
-    } finally {
-      setIsSubmitting(false);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "שגיאה בשליחת הטופס");
+      }
+
+      setSubmitStatus("success");
+    } catch (error) {
+      setSubmitStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "שגיאה בשליחת הטופס");
     }
   };
 
-  if (isSubmitted) {
+  // Success screen
+  if (submitStatus === "success") {
     return (
-      <div className="min-h-screen bg-background" dir="rtl">
-        <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <div className="text-6xl mb-4">&#10003;</div>
-            <h1 className="text-2xl font-bold text-text mb-4">תודה על ההרשמה!</h1>
-            <p className="text-text/70 mb-6">
-              קיבלנו את פרטיך ונשלח אישור למייל שהזנת.
-            </p>
-            <p className="text-text/70">
-              נתראה בכנס ב-04.06.2026 במרכז האקדמי רופין!
-            </p>
+      <div className="min-h-screen" style={{ backgroundColor: "#f8f0ed" }} dir="rtl">
+        <div className="max-w-6xl mx-auto px-4 py-8 md:py-16">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+            <div className="w-full lg:w-3/5 lg:sticky lg:top-8">
+              <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden shadow-2xl" style={{ backgroundColor: "#f8f0ed" }}>
+                <Image
+                  src="/conference-invitation.jpg"
+                  alt="הזמנה לכנס השקה"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <p className="text-center mt-4 text-text/70">
+                <a
+                  href="https://www.surrogacyethicsil.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline font-medium"
+                >
+                  אתר הקוד האתי לפונדקאות בישראל
+                </a>
+              </p>
+            </div>
+
+            <div className="w-full lg:w-2/5">
+              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl text-center">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
+                  <svg
+                    className="w-10 h-10 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <h2 className="text-3xl font-bold text-text mb-4">ההרשמה התקבלה!</h2>
+                <p className="text-text/70 mb-6">
+                  תודה על הרשמתך לכנס. נשלח אלייך מייל אישור עם פרטי הכנס.
+                </p>
+                <div className="bg-background rounded-xl p-6 text-right">
+                  <h3 className="text-primary font-bold mb-3">פרטי הכנס:</h3>
+                  <p className="text-text/70">תאריך: 04.06.2026</p>
+                  <p className="text-text/70">שעות: 09:30-13:00</p>
+                  <p className="text-text/70">מיקום: המרכז האקדמי רופין, אולם הכנסים</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -93,141 +128,187 @@ export default function ConferencePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
-      <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
-        {/* Invitation Image */}
-        <div className="mb-8 md:mb-12">
-          <div className="relative w-full max-w-lg mx-auto aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
-            <Image
-              src="/conference-invitation.jpg"
-              alt="הזמנה לכנס השקה - הקוד האתי לפונדקאות בישראל"
-              fill
-              className="object-contain"
-              priority
-            />
+    <div className="min-h-screen" style={{ backgroundColor: '#f8f0ed' }} dir="rtl">
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-16">
+        {/* Two column layout on desktop */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+          {/* Right side - Invitation image (RTL) - LARGER */}
+          <div className="w-full lg:w-3/5 lg:sticky lg:top-8">
+            <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden shadow-2xl" style={{ backgroundColor: '#f8f0ed' }}>
+              <Image
+                src="/conference-invitation.jpg"
+                alt="הזמנה לכנס השקה"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <p className="text-center mt-4 text-text/70">
+              <a
+                href="https://www.surrogacyethicsil.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                אתר הקוד האתי לפונדקאות בישראל
+              </a>
+            </p>
           </div>
-        </div>
 
-        {/* Registration Form */}
-        <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg max-w-lg mx-auto">
-          <h1 className="text-2xl font-bold text-text mb-2 text-center">
-            הרשמה לכנס ההשקה
-          </h1>
-          <p className="text-text/70 text-center mb-6">
-            הקוד האתי וספרה של פרופ׳ תימן
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-bold text-text mb-1">
-                שם <span className="text-primary">*</span>
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
-                required
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-bold text-text mb-1">
-                כתובת מייל <span className="text-primary">*</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
-                dir="ltr"
-                required
-              />
-            </div>
-
-            {/* Phone */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-bold text-text mb-1">
-                טלפון
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
-                dir="ltr"
-              />
-            </div>
-
-            {/* Connection to field */}
-            <div>
-              <label className="block text-sm font-bold text-text mb-2">
-                הקשר שלי לתחום <span className="text-primary">*</span>
-              </label>
-              <div className="space-y-2">
-                {connectionOptions.map((option) => (
-                  <label
-                    key={option}
-                    className="flex items-center gap-3 cursor-pointer group"
-                  >
-                    <input
-                      type="radio"
-                      name="connection"
-                      value={option}
-                      checked={formData.connection === option}
-                      onChange={(e) => setFormData({ ...formData, connection: e.target.value })}
-                      className="w-4 h-4 text-primary border-border focus:ring-primary/50"
-                    />
-                    <span className="text-text group-hover:text-primary transition">
-                      {option}
-                    </span>
-                  </label>
-                ))}
+          {/* Left side - Form (RTL) */}
+          <div className="w-full lg:w-2/5">
+            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl">
+              <div className="mb-6">
+                <h1 className="text-3xl font-bold text-text mb-2">
+                  הרשמה לכנס ההשקה
+                </h1>
+                <p className="text-text/60">
+                  הקוד האתי לפונדקאות וספרה של פרופ׳ אלי תימן ״מעשה בשתי פונדקאיות״
+                </p>
+                <div className="flex items-center gap-4 mt-4 text-sm text-text/70">
+                  <span>04.06.2026</span>
+                  <span>|</span>
+                  <span>09:30-13:00</span>
+                  <span>|</span>
+                  <span>המרכז האקדמי רופין</span>
+                </div>
+                <p className="text-text/50 text-sm mt-4">
+                  לוח הזמנים המפורט יפורסם בדף זה בקרוב
+                </p>
               </div>
 
-              {/* Other input */}
-              {formData.connection === "אחר" && (
-                <input
-                  type="text"
-                  value={formData.otherConnection}
-                  onChange={(e) => setFormData({ ...formData, otherConnection: e.target.value })}
-                  placeholder="נא לפרט..."
-                  className="w-full mt-3 px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
-                />
+              {/* Error message */}
+              {submitStatus === "error" && (
+                <div className="mb-6 p-4 bg-red-100 border border-red-300 rounded-lg text-red-700 text-center">
+                  {errorMessage}
+                </div>
               )}
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Name */}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-bold text-text mb-1">
+                    שם מלא <span className="text-primary">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
+                    required
+                    disabled={submitStatus === "loading"}
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-bold text-text mb-1">
+                    כתובת מייל <span className="text-primary">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
+                    dir="ltr"
+                    required
+                    disabled={submitStatus === "loading"}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-bold text-text mb-1">
+                    טלפון <span className="text-text/40 font-normal">(לא חובה)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
+                    dir="ltr"
+                    disabled={submitStatus === "loading"}
+                  />
+                </div>
+
+                {/* Connection - Checkboxes */}
+                <div>
+                  <label className="block text-sm font-bold text-text mb-3">
+                    הקשר שלי לתחום <span className="text-primary">*</span>
+                    <span className="text-text/40 font-normal mr-2">(ניתן לבחור יותר מאחד)</span>
+                  </label>
+                  <div className="space-y-2 bg-background/30 rounded-lg p-4">
+                    {connectionOptions.map((option) => (
+                      <label
+                        key={option}
+                        className={`flex items-center gap-3 cursor-pointer group p-2 rounded-lg hover:bg-white transition ${submitStatus === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={formData.connections.includes(option)}
+                          onChange={() => handleConnectionToggle(option)}
+                          className="w-5 h-5 rounded border-border text-primary focus:ring-primary/50"
+                          disabled={submitStatus === "loading"}
+                        />
+                        <span className="text-text group-hover:text-primary transition">
+                          {option}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+
+                  {formData.connections.includes("אחר") && (
+                    <input
+                      type="text"
+                      value={formData.otherConnection}
+                      onChange={(e) => setFormData({ ...formData, otherConnection: e.target.value })}
+                      placeholder="נא לפרט..."
+                      className="w-full mt-3 px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"
+                      disabled={submitStatus === "loading"}
+                    />
+                  )}
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={submitStatus === "loading" || formData.connections.length === 0}
+                  className="w-full bg-primary text-white font-bold py-4 px-6 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 transition text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {submitStatus === "loading" ? (
+                    <>
+                      <svg
+                        className="animate-spin h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      שולח...
+                    </>
+                  ) : (
+                    "הרשמה לכנס"
+                  )}
+                </button>
+              </form>
             </div>
-
-            {/* Error message */}
-            {error && (
-              <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">
-                {error}
-              </div>
-            )}
-
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "שולח..." : "הרשמה לכנס"}
-            </button>
-          </form>
-
-          <p className="text-xs text-text/50 text-center mt-4">
-            * שדות חובה
-          </p>
-        </div>
-
-        {/* Event details */}
-        <div className="mt-8 text-center text-text/70">
-          <p className="mb-1">04.06.2026 | 09:30-13:00</p>
-          <p>המרכז האקדמי רופין, אולם הכנסים</p>
+          </div>
         </div>
       </div>
     </div>
