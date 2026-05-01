@@ -79,7 +79,17 @@ async function sendConfirmationEmail(data: RegistrationData) {
         </div>
 
         <p>נשמח לראותך!</p>
-        <p>בברכה,<br>צוות פורום הקוד האתי לפונדקאות בישראל</p>
+
+        <table style="width: 100%; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+          <tr>
+            <td style="width: 50%; text-align: center; padding: 10px;">
+              <img src="https://www.surrogacyethicsil.org/Logo-new-w-text.png" alt="הקוד האתי לפונדקאות בישראל" style="height: 60px;" />
+            </td>
+            <td style="width: 50%; text-align: center; padding: 10px;">
+              <img src="https://www.surrogacyethicsil.org/ruppin-logo.png" alt="המרכז האקדמי רופין" style="height: 60px;" />
+            </td>
+          </tr>
+        </table>
       </div>
     `,
   });
