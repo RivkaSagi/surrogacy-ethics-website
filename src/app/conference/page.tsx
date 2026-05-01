@@ -275,7 +275,7 @@ export default function ConferencePage() {
                 {/* Submit */}
                 <button
                   type="submit"
-                  disabled={submitStatus === "loading" || formData.connections.length === 0}
+                  disabled={submitStatus === "loading" || formData.connections.length === 0 || (formData.connections.includes("אחר") && !formData.otherConnection.trim())}
                   className="w-full bg-primary text-white font-bold py-4 px-6 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 transition text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {submitStatus === "loading" ? (
