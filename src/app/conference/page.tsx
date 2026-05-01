@@ -163,7 +163,7 @@ export default function ConferencePage() {
                   הרשמה לכנס ההשקה
                 </h1>
                 <p className="text-text/60">
-                  הקוד האתי לפונדקאות וספרה של פרופ׳ אלי תימן ״מעשה בשתי פונדקאיות״
+                  הקוד האתי לפונדקאות וספרן של פרופ׳ אלי תימן וז׳וז׳ה ברנד ״מעשה בשתי פונדקאיות״
                 </p>
                 <div className="flex items-center gap-4 mt-4 text-sm text-text/70">
                   <span>04.06.2026</span>

@@ -67,7 +67,7 @@ async function sendConfirmationEmail(data: RegistrationData) {
     html: `
       <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #1a1a1a;">שלום ${data.name},</h2>
-        <p>תודה על הרשמתך לכנס ההשקה של הקוד האתי לפונדקאות בישראל וספרה של פרופ׳ אלי תימן ״מעשה בשתי פונדקאיות״.</p>
+        <p>תודה על הרשמתך לכנס ההשקה של הקוד האתי לפונדקאות בישראל וספרן של פרופ׳ אלי תימן וז׳וז׳ה ברנד ״מעשה בשתי פונדקאיות״.</p>
 
         <div style="background: #f8f0ed; padding: 20px; border-radius: 10px; margin: 20px 0;">
           <h3 style="margin-top: 0;">פרטי הכנס:</h3>

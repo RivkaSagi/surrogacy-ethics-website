@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  openGraph: {
+    title: "הקוד האתי לפונדקאות בישראל",
+    description:
+      "מידע, הקוד האתי ורשימת החותמות והחותמים על הקוד למען פונדקאות אתית בישראל.",
+    images: ["/Logo-new-wo-text.png"],
+  },
 };
 
 export default function RootLayout({
