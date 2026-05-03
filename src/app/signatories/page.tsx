@@ -35,7 +35,7 @@ export default function SignatoriesPage() {
         <section className="flex justify-center px-4 pb-16">
           <div className="max-w-4xl text-center">
             <p className="text-lg text-foreground/80 leading-relaxed font-bold">
-              אנשי המקצוע החתומים על הקוד האתי ופרטי הקשר שלהם יופיעו בדף הזה החל מה-20 במאי 2026,
+              אנשי המקצוע החתומים על הקוד האתי ופרטי הקשר שלהם יופיעו בדף הזה החל מה-11 ביוני 2026,
               <br />
               עד אז מוזמנים לקרוא את הקוד וליצור קשר לחתימה או לשאלות.
             </p>
