@@ -32,7 +32,7 @@ const schedule: ScheduleSection[] = [
               <span className="font-bold">מנהלת המושב:</span> ד״ר תמר עילם גינדין
             </p>
             <p>
-              <span className="font-bold">מגיבים:</span> פרופ׳ אלי תימן, אורית הורוביץ ברעם, פרופ׳ חגי בועז ופרופ׳ אפרת בן זאב
+              <span className="font-bold">מגיבים:</span> פרופ׳ אלי תימן, אורית הורביץ בר-עם, פרופ׳ חגי בועז ופרופ׳ אפרת בן זאב
             </p>
           </>
         ),
