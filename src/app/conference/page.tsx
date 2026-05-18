@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { ConferenceSchedule } from "@/components/conference-schedule";
 
 /**
  * Conference registration page with side-by-side layout
@@ -122,6 +123,11 @@ export default function ConferencePage() {
               </div>
             </div>
           </div>
+
+          {/* Conference schedule */}
+          <div className="mt-12 md:mt-16">
+            <ConferenceSchedule />
+          </div>
         </div>
       </div>
     );
@@ -143,12 +149,12 @@ export default function ConferencePage() {
                 priority
               />
             </div>
-            <p className="text-center mt-4 text-text/70">
+            <p className="text-center mt-4 lg:mt-12 text-text/70">
               <a
                 href="https://www.surrogacyethicsil.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline font-medium"
+                className="text-primary hover:underline font-bold text-lg md:text-xl"
               >
                 אתר הקוד האתי לפונדקאות בישראל
               </a>
@@ -172,8 +178,13 @@ export default function ConferencePage() {
                   <span>|</span>
                   <span>המרכז האקדמי רופין</span>
                 </div>
-                <p className="text-text/50 text-sm mt-4">
-                  לוח הזמנים המפורט יפורסם בדף זה בקרוב
+                <p className="text-center mt-4">
+                  <a
+                    href="#schedule"
+                    className="text-primary font-bold text-base hover:underline transition"
+                  >
+                    ללוח הזמנים המלא ↓
+                  </a>
                 </p>
               </div>
 
@@ -309,6 +320,11 @@ export default function ConferencePage() {
               </form>
             </div>
           </div>
+        </div>
+
+        {/* Conference schedule - full width below the form/image */}
+        <div id="schedule" className="mt-12 md:mt-16 scroll-mt-8">
+          <ConferenceSchedule />
         </div>
       </div>
     </div>
