@@ -75,7 +75,7 @@ export function ConferenceSchedule() {
   return (
     <section className="bg-white rounded-2xl p-6 md:p-10 shadow-xl">
       <div className="mb-8 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-text mb-2">לוח הזמנים</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-text mb-2">סדר יום</h2>
         <div className="inline-block">
           <div className="h-1 w-16 bg-highlight rounded-full mx-auto" />
         </div>
