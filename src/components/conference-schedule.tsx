@@ -16,7 +16,7 @@ type ScheduleSection = {
 const schedule: ScheduleSection[] = [
   {
     items: [
-      { time: "9:30", title: "התכנסות וכיבוד" },
+      { time: "9:30", title: "התכנסות, קפה ומאפה" },
       {
         time: "10:00",
         title: "דברי פתיחה וברכות",
@@ -57,7 +57,7 @@ const schedule: ScheduleSection[] = [
           </>
         ),
       },
-      { time: "11:10", title: "הפסקה" },
+      { time: "11:10", title: "הפסקה, כיבוד" },
     ],
   },
   {
