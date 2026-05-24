@@ -24,7 +24,7 @@ const schedule: ScheduleSection[] = [
           <ul className="list-disc pr-5 space-y-1">
             <li><span className="font-bold">פרופ׳ מימי אייזנשטדט</span>, נשיאת המרכז האקדמי רופין</li>
             <li><span className="font-bold">ד״ר מיכל מורג</span>, ראש המחלקה למדעי ההתנהגות, המרכז האקדמי רופין</li>
-            <li><span className="font-bold">רבקה שגיא</span>, פונדקאית, פורום הקוד האתי לפונדקאות בישראל</li>
+            <li><span className="font-bold">גב׳ רבקה שגיא</span>, פונדקאית, פורום הקוד האתי לפונדקאות בישראל</li>
           </ul>
         ),
       },
@@ -66,7 +66,7 @@ const schedule: ScheduleSection[] = [
     items: [
       {
         time: "11:30",
-        title: "דברי שר הבריאות לשעבר, ניצן הורוביץ",
+        title: "דברי שר הבריאות לשעבר, מר ניצן הורוביץ",
       },
       {
         time: "11:40",
@@ -79,14 +79,14 @@ const schedule: ScheduleSection[] = [
         description: (
           <>
             <p>
-              <span className="font-bold">מנחה:</span> <span className="font-bold">אדם רינגל</span>, דובר פוליטי, אב לילד שנולד בהליך פונדקאות
+              <span className="font-bold">מנחה:</span> <span className="font-bold">מר אדם רינגל</span>, דובר פוליטי, אב לילד שנולד בהליך פונדקאות
             </p>
             <div>
               <p className="font-bold">משתתפות:</p>
               <ul className="list-disc pr-5 space-y-1 mt-1">
                 <li><span className="font-bold">ד״ר אורית צ׳רני גולן</span>, ביואתיקאית, חוקרת פוריות ומדיניות בריאות, המרכז האקדמי עמק יזרעאל</li>
-                <li><span className="font-bold">רבקה שגיא</span>, מהנדסת תוכנה, פונדקאית</li>
-                <li><span className="font-bold">שרה טנקמן</span>, מייסדת ומנהלת קרן בריאה, אמא לילדה שנולדה בהליך פונדקאות</li>
+                <li><span className="font-bold">גב׳ רבקה שגיא</span>, מהנדסת תוכנה, פונדקאית</li>
+                <li><span className="font-bold">גב׳ שרה טנקמן</span>, מייסדת ומנהלת קרן בריאה, אמא לילדה שנולדה בהליך פונדקאות</li>
               </ul>
             </div>
           </>
@@ -94,7 +94,7 @@ const schedule: ScheduleSection[] = [
       },
       {
         time: "12:50",
-        title: "דברי סיכום: שלי דקל, פסיכולוגית קלינית, פונדקאית",
+        title: "דברי סיכום: גב׳ שלי דקל, פסיכולוגית קלינית, פונדקאית",
       },
     ],
   },
