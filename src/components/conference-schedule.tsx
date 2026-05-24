@@ -84,7 +84,7 @@ const schedule: ScheduleSection[] = [
             <div>
               <p className="font-bold">משתתפות:</p>
               <ul className="list-disc pr-5 space-y-1 mt-1">
-                <li><span className="font-bold">ד״ר אורית צ׳רני גולן</span>, ביואתיקאית, חוקרת פוריות ומדיניות בריאות, המרכז האקדמי עמק יזרעאל</li>
+                <li><span className="font-bold">ד״ר אורית צ׳רני גולן</span>, ביואתיקאית, חוקרת פוריות ומדיניות בריאות, המכללה האקדמית עמק יזרעאל</li>
                 <li><span className="font-bold">גב׳ רבקה שגיא</span>, מהנדסת תוכנה, פונדקאית</li>
                 <li><span className="font-bold">גב׳ שרה טנקמן</span>, מייסדת ומנהלת קרן בריאה, אמא לילדה שנולדה בהליך פונדקאות</li>
               </ul>
