@@ -2,8 +2,9 @@ import React from "react";
 
 type ScheduleItem = {
   time: string;
-  title: string;
+  title: React.ReactNode;
   description?: React.ReactNode;
+  highlight?: boolean;
 };
 
 type ScheduleSection = {
@@ -16,7 +17,17 @@ const schedule: ScheduleSection[] = [
   {
     items: [
       { time: "9:30", title: "התכנסות וכיבוד" },
-      { time: "10:00", title: "דברי פתיחה וברכות" },
+      {
+        time: "10:00",
+        title: "דברי פתיחה וברכות",
+        description: (
+          <ul className="list-disc pr-5 space-y-1">
+            <li><span className="font-bold">פרופ׳ מימי אייזנשטדט</span>, נשיאת המרכז האקדמי רופין</li>
+            <li><span className="font-bold">ד״ר מיכל מורג</span>, ראש המחלקה למדעי ההתנהגות, המרכז האקדמי רופין</li>
+            <li><span className="font-bold">רבקה שגיא</span>, פונדקאית, פורום הקוד האתי לפונדקאות בישראל</li>
+          </ul>
+        ),
+      },
     ],
   },
   {
@@ -25,15 +36,24 @@ const schedule: ScheduleSection[] = [
     items: [
       {
         time: "10:20",
+        highlight: true,
         title: "מושב תגובות להשקת הרומן הגרפי של פרופ׳ אלי תימן וז׳וז׳ה ברנד",
         description: (
           <>
             <p>
-              <span className="font-bold">מנהלת המושב:</span> ד״ר תמר עילם גינדין
+              <span className="font-bold">יושבת ראש המושב:</span> <span className="font-bold">ד״ר תמר עילם גינדין</span>, בלשנית ומומחית לפרסית ולאיראן, פונדקאית
             </p>
             <p>
-              <span className="font-bold">מגיבים:</span> פרופ׳ אלי תימן, אורית הורוביץ בר-עם, פרופ׳ חגי בועז ופרופ׳ אפרת בן זאב
+              <span className="font-bold">פתיחה:</span> <span className="font-bold">פרופ׳ אלי תימן</span>, פרופ׳ חבר במחלקה למדעי ההתנהגות, המרכז האקדמי רופין
             </p>
+            <div>
+              <p className="font-bold">מגיבים:</p>
+              <ul className="list-disc pr-5 space-y-1 mt-1">
+                <li><span className="font-bold">גב׳ אורית הורוביץ בר-עם</span>, דוקטורנטית במחלקה לסוציולוגיה ואנתרופולוגיה, אוניברסיטת בן גוריון, פונדקאית</li>
+                <li><span className="font-bold">פרופ׳ חגי בועז</span>, מכון ון ליר בירושלים, המחלקה לפוליטיקה וממשל באוניברסיטת בן גוריון</li>
+                <li><span className="font-bold">פרופ׳ אפרת בן זאב</span>, פרופ׳ חבר במחלקה למדעי ההתנהגות, המרכז האקדמי רופין</li>
+              </ul>
+            </div>
           </>
         ),
       },
@@ -54,19 +74,28 @@ const schedule: ScheduleSection[] = [
       },
       {
         time: "11:55",
+        highlight: true,
         title: "פאנל: אתיקה בפונדקאות בישראל — מבט על הקונפליקטים בתהליך",
         description: (
           <>
             <p>
-              <span className="font-bold">מנחה:</span> אדם רינגל
+              <span className="font-bold">מנחה:</span> <span className="font-bold">אדם רינגל</span>, דובר פוליטי, אב לילד שנולד בהליך פונדקאות
             </p>
-            <p>
-              <span className="font-bold">משתתפות:</span> ד״ר אורית צ׳רני גולן, רבקה שגיא ושרה טנקמן
-            </p>
+            <div>
+              <p className="font-bold">משתתפות:</p>
+              <ul className="list-disc pr-5 space-y-1 mt-1">
+                <li><span className="font-bold">ד״ר אורית צ׳רני גולן</span>, ביואתיקאית, חוקרת פוריות ומדיניות בריאות, המרכז האקדמי עמק יזרעאל</li>
+                <li><span className="font-bold">רבקה שגיא</span>, מהנדסת תוכנה, פונדקאית</li>
+                <li><span className="font-bold">שרה טנקמן</span>, מייסדת ומנהלת קרן בריאה, אמא לילדה שנולדה בהליך פונדקאות</li>
+              </ul>
+            </div>
           </>
         ),
       },
-      { time: "12:50", title: "דברי סיכום" },
+      {
+        time: "12:50",
+        title: "דברי סיכום: שלי דקל, פסיכולוגית קלינית, פונדקאית",
+      },
     ],
   },
 ];
@@ -110,7 +139,14 @@ export function ConferenceSchedule() {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <p className="text-text font-bold text-base md:text-lg leading-relaxed">
+                    <p
+                      className={
+                        "font-bold text-base md:text-lg leading-relaxed " +
+                        (item.highlight
+                          ? "inline-block bg-highlight/40 text-text px-3 py-1.5 rounded-md"
+                          : "text-text")
+                      }
+                    >
                       {item.title}
                     </p>
                     {item.description && (

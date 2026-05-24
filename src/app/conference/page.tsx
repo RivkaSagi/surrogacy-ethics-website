@@ -102,17 +102,17 @@ export default function ConferencePage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f8f0ed" }} dir="rtl">
-      <div className="max-w-6xl mx-auto px-4 py-8 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-16">
         {/* Top row: schedule (left) + invitation image (right, sticky) */}
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-          {/* Right side - Invitation image (RTL, sticky on desktop) */}
-          <div className="w-full lg:w-1/2 lg:sticky lg:top-8">
-            <p className="text-center mb-4">
+          {/* Right side - Invitation image (RTL, sticky on desktop) — narrower, pushed down to emphasize the site link */}
+          <div className="w-full lg:w-[36%] lg:sticky lg:top-8 lg:mr-auto lg:mt-10">
+            <p className="text-center mb-6 lg:mb-8">
               <a
                 href="https://www.surrogacyethicsil.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline font-bold text-lg md:text-xl"
+                className="text-primary hover:underline font-bold text-lg md:text-xl lg:text-2xl"
               >
                 אתר הקוד האתי לפונדקאות בישראל
               </a>
@@ -128,8 +128,8 @@ export default function ConferencePage() {
             </div>
           </div>
 
-          {/* Left side - Schedule */}
-          <div className="w-full lg:w-1/2">
+          {/* Left side - Schedule — wider */}
+          <div className="w-full lg:w-[64%]">
             <ConferenceSchedule />
           </div>
         </div>
