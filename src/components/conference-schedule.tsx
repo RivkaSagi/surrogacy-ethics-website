@@ -57,6 +57,10 @@ const schedule: ScheduleSection[] = [
           </>
         ),
       },
+    ],
+  },
+  {
+    items: [
       { time: "11:10", title: "הפסקה, כיבוד" },
     ],
   },
