@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
+import { SignaturePad } from "./signature-pad";
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
 
@@ -31,13 +32,18 @@ export function SignForm() {
   const [regions, setRegions] = useState<Region[]>([]);
   const [regionOther, setRegionOther] = useState("");
   const [date, setDate] = useState(todayIsoDate());
+  const [signatureMode, setSignatureMode] = useState<"draw" | "type">("draw");
   const [signature, setSignature] = useState("");
+  const [drawnSignature, setDrawnSignature] = useState<string | null>(null);
   const [consent, setConsent] = useState(false);
 
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [error, setError] = useState("");
 
   const printRef = useRef<HTMLDivElement>(null);
+
+  const hasSignature =
+    signatureMode === "type" ? Boolean(signature.trim()) : Boolean(drawnSignature);
 
   const canSubmit =
     name.trim() &&
@@ -47,7 +53,7 @@ export function SignForm() {
     regions.length > 0 &&
     (!regions.includes("אחר") || regionOther.trim()) &&
     date &&
-    signature.trim() &&
+    hasSignature &&
     consent &&
     status !== "loading";
 
@@ -88,7 +94,7 @@ export function SignForm() {
           .map((r) => (r === "אחר" ? `אחר - ${regionOther.trim()}` : r))
           .join(", "),
         date: formatHebrewDate(date),
-        signature: signature.trim(),
+        signature: signatureMode === "type" ? signature.trim() : "(חתימה בציור)",
         screenshot,
       };
       const res = await fetch("/api/sign", {
@@ -176,11 +182,29 @@ export function SignForm() {
           <SignedField label="שם בעל המקצוע / חברה / מרפאה" value={name} />
           <SignedField label="עיסוק / תפקיד החותם" value={role} />
           <SignedField label="תאריך" value={formatHebrewDate(date)} />
-          <SignedField
-            label="חתימה"
-            value={signature}
-            valueClassName="font-signature text-2xl italic"
-          />
+          {signatureMode === "type" ? (
+            <SignedField
+              label="חתימה"
+              value={signature}
+              valueClassName="font-signature text-2xl italic"
+            />
+          ) : (
+            <div className="flex items-baseline gap-3 border-b border-text/30 pb-1">
+              <span className="text-text/70 text-sm md:text-base shrink-0">חתימה:</span>
+              <span className="flex-1">
+                {drawnSignature ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={drawnSignature}
+                    alt="חתימה ביד"
+                    className="h-20 inline-block"
+                  />
+                ) : (
+                  " "
+                )}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -286,18 +310,52 @@ export function SignForm() {
         </div>
 
         <div>
-          <label htmlFor="signature" className="block text-sm font-bold text-text mb-1">
+          <label className="block text-sm font-bold text-text mb-2">
             חתימה <span className="text-primary">*</span>
-            <span className="text-text/40 font-normal mr-2">(הקלידו את שמכם המלא כחתימה)</span>
           </label>
-          <input
-            id="signature"
-            type="text"
-            value={signature}
-            onChange={(e) => setSignature(e.target.value)}
-            required
-            className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition text-lg"
-          />
+
+          {/* Mode picker */}
+          <div className="inline-flex rounded-lg border border-border bg-background/40 p-1 mb-3">
+            <button
+              type="button"
+              onClick={() => setSignatureMode("draw")}
+              aria-pressed={signatureMode === "draw"}
+              className={`px-4 py-1.5 text-sm font-bold rounded-md transition ${
+                signatureMode === "draw"
+                  ? "bg-primary text-white"
+                  : "text-text/70 hover:text-text"
+              }`}
+            >
+              ציור
+            </button>
+            <button
+              type="button"
+              onClick={() => setSignatureMode("type")}
+              aria-pressed={signatureMode === "type"}
+              className={`px-4 py-1.5 text-sm font-bold rounded-md transition ${
+                signatureMode === "type"
+                  ? "bg-primary text-white"
+                  : "text-text/70 hover:text-text"
+              }`}
+            >
+              הקלדה
+            </button>
+          </div>
+
+          {signatureMode === "type" ? (
+            <>
+              <p className="text-xs text-text/60 mb-2">הקלידו את שמכם המלא כחתימה</p>
+              <input
+                id="signature"
+                type="text"
+                value={signature}
+                onChange={(e) => setSignature(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition text-lg"
+              />
+            </>
+          ) : (
+            <SignaturePad onChange={setDrawnSignature} />
+          )}
         </div>
 
         <label className="flex items-start gap-3 cursor-pointer group">

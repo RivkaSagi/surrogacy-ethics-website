@@ -15,7 +15,7 @@ export function SignCallout() {
         <p className="text-base md:text-lg text-text/80 leading-relaxed">
           אנשי מקצוע בתחום הפונדקאות בישראל: מלוות, סוכנויות, עורכי דין,
           פסיכולוגיות, רופאים ועוד, מוזמנים להצטרף לרשימת החותמים על הקוד האתי
-          ולהתחייב לפעול ברוחו.
+          ולהתחייב לפעול על פיו.
         </p>
         <Link
           href="/sign"
