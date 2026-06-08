@@ -101,7 +101,7 @@ export default function ConferencePage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#f8f0ed" }} dir="rtl">
+    <main id="main-content" tabIndex={-1} className="min-h-screen focus:outline-none" style={{ backgroundColor: "#f8f0ed" }} dir="rtl">
       <div className="max-w-7xl mx-auto px-4 py-8 md:py-16">
         {/* Top row: schedule (left) + invitation image (right, sticky) */}
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
@@ -283,6 +283,6 @@ export default function ConferencePage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

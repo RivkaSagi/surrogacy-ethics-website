@@ -18,7 +18,7 @@ export default function InternalSignatoriesPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main>
+      <main id="main-content" tabIndex={-1} className="focus:outline-none">
         {/* Page Title */}
         <section className="flex flex-col items-center py-16 px-4">
           <Subtitle text="אנשי המקצוע החתומים" />

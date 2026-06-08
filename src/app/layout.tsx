@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Heebo } from "next/font/google";
+import { Heebo, Caveat } from "next/font/google";
 import Script from "next/script";
+import { SkipLink } from "@/components/skip-link";
 import "./globals.css";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
   weight: ["400", "700"],
   variable: "--font-heebo",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -51,14 +59,9 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${heebo.variable} font-sans`} suppressHydrationWarning>
+      <body className={`${heebo.variable} ${caveat.variable} font-sans`} suppressHydrationWarning>
         {/* Skip to main content link for keyboard navigation - IS 5568 / WCAG 2.0 AA */}
-        <a
-          href="#main-content"
-          className="absolute -top-10 right-4 z-[100] bg-primary text-white font-bold px-4 py-2 rounded-lg transition-all focus:top-4 focus:outline-2 focus:outline-offset-2 focus:outline-highlight"
-        >
-          דלג לתוכן הראשי
-        </a>
+        <SkipLink />
         {children}
       </body>
     </html>

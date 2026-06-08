@@ -4,6 +4,7 @@ import { BGHalfCircle } from "@/components/v2/bg-half-circle";
 import { EthicCodeSection } from "@/components/v2/ethic-code-section";
 import { PartnersSection } from "@/components/v2/partners-section";
 import { UpdatesSection } from "@/components/v2/updates-section";
+import { SignCallout } from "@/components/v2/sign-callout";
 import { ContactSection } from "@/components/v2/contact-section";
 import { CONTENT_SOURCES } from "@/config/content";
 
@@ -13,11 +14,12 @@ export default function Home() {
       <BGHalfCircle />
       <Header />
 
-      <main id="main-content" className="relative z-10">
+      <main id="main-content" tabIndex={-1} className="relative z-10 focus:outline-none">
         <LogoSection />
         <EthicCodeSection />
         <PartnersSection />
         <UpdatesSection docId={CONTENT_SOURCES.updatesDocId} />
+        <SignCallout />
         <ContactSection />
       </main>
     </div>

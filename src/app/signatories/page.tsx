@@ -8,7 +8,7 @@ export default function SignatoriesPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {/* Page Title */}
         <section className="flex flex-col items-center py-16 px-4">
           <Subtitle text="אנשי המקצוע החתומים" />

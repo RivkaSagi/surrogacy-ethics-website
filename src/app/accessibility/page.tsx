@@ -17,7 +17,7 @@ export default function AccessibilityPage() {
   return (
     <div className="min-h-screen" dir="rtl">
       <Header />
-      <main id="main-content" className="py-12 px-5 md:px-20 max-w-4xl mx-auto">
+      <main id="main-content" tabIndex={-1} className="py-12 px-5 md:px-20 max-w-4xl mx-auto focus:outline-none">
         <h1 className="text-3xl font-bold mb-8">הצהרת נגישות</h1>
 
         <div className="space-y-8 text-text leading-relaxed">

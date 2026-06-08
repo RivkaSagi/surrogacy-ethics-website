@@ -21,7 +21,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
               {/* Contact info - 14px text, 8px gap, #FFC5B2 color */}
               <div className="flex flex-col gap-2 items-start">
                 <p className="text-[14px] leading-relaxed" style={{ color: "#FFC5B2" }}>
-                  לחתימה על הקוד, הערות או יצירת קשר:
+                  להערות, שאלות או יצירת קשר:
                 </p>
                 <p className="text-[14px] font-bold" dir="ltr" style={{ color: "#FFC5B2", textAlign: "right" }}>
                   surrogacy.ethics.il@gmail.com

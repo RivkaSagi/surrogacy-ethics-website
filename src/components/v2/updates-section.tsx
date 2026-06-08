@@ -47,10 +47,12 @@ export function UpdatesSection({ docId }: Props) {
           content = content.replace(/&lt;https?:\/\/[^&]+&gt;/g, "").trim();
         }
 
-        const plainUrlMatch = content.match(/(https?:\/\/[^\s<>"]+)\s*$/);
+        // Match a plain-text URL anywhere in the content (Google Docs leaves
+        // URLs unwrapped inside <span>, so a trailing-$ regex misses them).
+        const plainUrlMatch = content.match(/(https?:\/\/[^\s<>"]+)/);
         if (!link && plainUrlMatch) {
           link = plainUrlMatch[1];
-          content = content.replace(/(https?:\/\/[^\s<>"]+)\s*$/, "").trim();
+          content = content.replace(/https?:\/\/[^\s<>"]+/g, "").trim();
         }
 
         return { content, link };

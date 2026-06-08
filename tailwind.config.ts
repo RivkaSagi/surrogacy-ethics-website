@@ -20,6 +20,7 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-heebo)", ...defaultTheme.fontFamily.sans],
+        signature: ["var(--font-caveat)", "cursive"],
       },
       boxShadow: {
         card: "0 10px 40px rgba(30, 27, 22, 0.08)",
