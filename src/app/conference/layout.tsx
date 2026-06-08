@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "כנס השקה",
   description:
     "הרשמה לכנס ההשקה של הקוד האתי לפונדקאות וספרן של פרופ׳ אלי תימן וז׳וז׳ה ברנד ״מעשה בשתי פונדקאיות״ | 04.06.2026 | המרכז האקדמי רופין",
+  robots: { index: false, follow: false },
   openGraph: {
     title: "כנס השקה",
     description:
