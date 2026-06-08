@@ -26,7 +26,7 @@ export default function InternalSignatoriesPage() {
 
         {/* Description - disclaimer style */}
         <section className="flex justify-center px-4 pb-10" dir="rtl">
-          <div className="max-w-3xl text-center">
+          <div className="max-w-3xl text-center flex flex-col gap-4">
             <p className="text-base text-foreground/70 leading-loose">
               הליכי פונדקאות בישראל מפוקחים על ידי משרד הבריאות, ודרישות החוק והנחיות הוועדה מפורטות{" "}
               <Link
@@ -37,6 +37,12 @@ export default function InternalSignatoriesPage() {
                 באתר הממשלתי
               </Link>
               . אישור ההליך מחייב התקשרות עם גורמי מקצוע כגון רופא/ה, פסיכולוג/ית ועורך/ת דין, אך ליווי ותיווך אינם מתחייבים לפי חוק. במסגרת הקוד האתי לפונדקאות, כלל אנשי המקצוע הרלוונטיים מוזמנים להתחייב לקוד האתי ולהיכלל ברשימת החותמים.
+            </p>
+            <p className="text-sm text-foreground/60 leading-loose italic">
+              הופעת איש מקצוע ברשימה זו משקפת את התחייבותו האישית לפעול על פי הקוד האתי. הפורום אינו ערב לעמידה של מי מהחתומים בעקרונות הקוד, אך מקבל פניות בנוגע להפרות מהותיות ופועל בהתאם למנגנון הבדיקה שגובש להסרתם מהרשימה.
+            </p>
+            <p className="text-sm text-foreground/60 leading-loose italic">
+              כמו כן, הקוד וההתחייבות מתייחסים להליכי פונדקאות המתקיימים בישראל. הפורום אינו עוסק בהליכים המתבצעים מחוץ לישראל ולא ניתן ללמוד מרשימה זו על אופי הליכים אלה.
             </p>
           </div>
         </section>
