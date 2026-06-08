@@ -138,11 +138,11 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
         {!isLoading && !error && rows.length > 0 && (
           <>
             <div className={showFullPageLink ? "relative" : ""}>
-              <div className="overflow-visible rounded-2xl border border-border bg-white/70">
-                <table className="w-full">
+              <div className="rounded-2xl border border-border bg-white/70 overflow-x-auto md:overflow-visible">
+                <table className="w-full min-w-[640px]">
                   <thead>
                     <tr className="border-b border-border bg-background/50">
-                      <th scope="col" className="px-4 py-3 text-right">
+                      <th scope="col" className="px-3 md:px-4 py-3 text-right">
                         <button
                           onClick={() => handleSort("name")}
                           className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
@@ -152,7 +152,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                           <span className="text-xs" aria-hidden="true">{getSortIcon("name")}</span>
                         </button>
                       </th>
-                      <th scope="col" className="px-4 py-3 text-right">
+                      <th scope="col" className="px-3 md:px-4 py-3 text-right">
                         <button
                           onClick={() => handleSort("field")}
                           className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
@@ -162,7 +162,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                           <span className="text-xs" aria-hidden="true">{getSortIcon("field")}</span>
                         </button>
                       </th>
-                      <th scope="col" className="px-4 py-3 text-right">
+                      <th scope="col" className="px-3 md:px-4 py-3 text-right">
                         <button
                           onClick={() => handleSort("column3")}
                           className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
@@ -174,7 +174,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                           </span>
                         </button>
                       </th>
-                      <th scope="col" className="px-4 py-3 text-right relative">
+                      <th scope="col" className="px-3 md:px-4 py-3 text-right relative">
                         <div className="flex w-full items-center justify-between">
                           <span className="font-semibold text-text">
                             {headers[3] || "עמודה 4"}
@@ -263,16 +263,16 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                         key={`${person.name}-${person.field}-${index}`}
                         className="border-b border-border/40 last:border-b-0 transition hover:bg-background/30"
                       >
-                        <td className="px-4 py-3 text-right font-medium text-text">
+                        <td className="px-3 md:px-4 py-3 text-right font-medium text-text">
                           {person.name}
                         </td>
-                        <td className="px-4 py-3 text-right text-text/80">
+                        <td className="px-3 md:px-4 py-3 text-right text-text/80">
                           {person.field || "—"}
                         </td>
-                        <td className="px-4 py-3 text-right text-text/80">
+                        <td className="px-3 md:px-4 py-3 text-right text-text/80">
                           {person.column3 || "—"}
                         </td>
-                        <td className="px-4 py-3 text-right text-text/80">
+                        <td className="px-3 md:px-4 py-3 text-right text-text/80">
                           {person.column4 || "—"}
                         </td>
                       </tr>
