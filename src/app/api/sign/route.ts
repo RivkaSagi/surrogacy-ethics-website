@@ -11,6 +11,7 @@ interface SignPayload {
   date: string;
   signature: string;
   screenshot: string; // data URL: "data:image/png;base64,..."
+  drawnSignature?: string | null; // optional standalone signature PNG data URL
 }
 
 export async function POST(request: NextRequest) {
@@ -32,6 +33,20 @@ export async function POST(request: NextRequest) {
 
     const base64 = data.screenshot.replace(/^data:image\/png;base64,/, "");
     const screenshotBuffer = Buffer.from(base64, "base64");
+
+    // Optional standalone drawn-signature PNG (sent separately to survive
+    // the iOS Safari html-to-image race condition that can blank inline imgs)
+    let drawnSignatureBuffer: Buffer | null = null;
+    if (
+      data.drawnSignature &&
+      data.drawnSignature.startsWith("data:image/")
+    ) {
+      const sigBase64 = data.drawnSignature.replace(
+        /^data:image\/png;base64,/,
+        ""
+      );
+      drawnSignatureBuffer = Buffer.from(sigBase64, "base64");
+    }
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -84,13 +99,24 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    const attachments = [
+    const attachments: Array<{
+      filename: string;
+      content: Buffer;
+      contentType: string;
+    }> = [
       {
         filename: "signed-declaration.png",
         content: screenshotBuffer,
         contentType: "image/png",
       },
     ];
+    if (drawnSignatureBuffer) {
+      attachments.push({
+        filename: "signature.png",
+        content: drawnSignatureBuffer,
+        contentType: "image/png",
+      });
+    }
 
     // 1. Notification to organizers
     await transporter.sendMail({

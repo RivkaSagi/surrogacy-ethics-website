@@ -50,6 +50,12 @@ export function Header() {
           >
             הקוד האתי המלא
           </Link>
+          <Link
+            href="/sign"
+            className="font-bold text-sm text-text hover:text-primary transition-colors"
+          >
+            חתימה על הקוד
+          </Link>
           <PrimaryButton onClick={scrollToFooter}>
             צרו קשר
           </PrimaryButton>
@@ -111,6 +117,13 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               הקוד האתי המלא
+            </Link>
+            <Link
+              href="/sign"
+              className="font-bold text-sm text-text hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              חתימה על הקוד
             </Link>
             <PrimaryButton onClick={() => { setMobileMenuOpen(false); scrollToFooter(); }}>
               צרו קשר

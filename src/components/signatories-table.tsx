@@ -21,6 +21,8 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
   const total = rows.length;
   const showFullPageLink = limit && total > limit;
 
+  const COUNTRYWIDE = "כל הארץ";
+
   const uniqueColumn4Values = useMemo(() => {
     const values = new Set<string>();
     rows.forEach((row) => {
@@ -31,6 +33,9 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
         });
       }
     });
+    // "כל הארץ" is implicit — it always shows up when any region is filtered,
+    // so it doesn't need its own filter checkbox.
+    values.delete(COUNTRYWIDE);
     return Array.from(values).sort((a, b) => a.localeCompare(b, "he"));
   }, [rows]);
 
@@ -39,7 +44,9 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
     return rows.filter((row) => {
       if (!row.column4) return false;
       const splitValues = row.column4.split(",").map((v) => v.trim());
-      return splitValues.some((v) => column4Filters.has(v));
+      return splitValues.some(
+        (v) => v === COUNTRYWIDE || column4Filters.has(v)
+      );
     });
   }, [rows, column4Filters]);
 

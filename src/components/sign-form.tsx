@@ -76,14 +76,32 @@ export function SignForm() {
     setError("");
 
     try {
-      // 1. Render the printable area to PNG (data URL)
+      // 1. Make sure any <img> inside the printable area is fully decoded
+      // before rasterizing — iOS Safari otherwise produces a blank canvas
+      // when html-to-image runs before the inline data-URL image is ready.
       if (!printRef.current) throw new Error("שגיאה פנימית");
+      const imgs = printRef.current.querySelectorAll("img");
+      await Promise.all(
+        Array.from(imgs).map((img) => {
+          if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+          return new Promise<void>((resolve) => {
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          });
+        })
+      );
+
+      // 2. Render the printable area to PNG (data URL). Use pixelRatio 1.5 to
+      // stay under iOS Safari's per-canvas pixel cap (~16.7M total pixels).
       const screenshot = await toPng(printRef.current, {
         backgroundColor: "#ffffff",
-        pixelRatio: 2,
+        pixelRatio: 1.5,
+        cacheBust: true,
       });
 
-      // 2. POST to /api/sign
+      // 3. POST to /api/sign — include the raw drawn signature too, so the
+      // server can attach it as a separate PNG even if the screenshot fails
+      // to inline it (iOS Safari bug).
       const payload = {
         name: name.trim(),
         role: role.trim(),
@@ -96,6 +114,7 @@ export function SignForm() {
         date: formatHebrewDate(date),
         signature: signatureMode === "type" ? signature.trim() : "(חתימה בציור)",
         screenshot,
+        drawnSignature: signatureMode === "draw" ? drawnSignature : null,
       };
       const res = await fetch("/api/sign", {
         method: "POST",
