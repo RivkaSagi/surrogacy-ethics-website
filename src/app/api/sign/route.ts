@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import sharp from "sharp";
+
+interface SignatureSlot {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 interface SignPayload {
   name: string;
@@ -12,6 +20,7 @@ interface SignPayload {
   signature: string;
   screenshot: string; // data URL: "data:image/png;base64,..."
   drawnSignature?: string | null; // optional standalone signature PNG data URL
+  signatureSlot?: SignatureSlot | null; // where to overlay the signature
 }
 
 export async function POST(request: NextRequest) {
@@ -34,8 +43,10 @@ export async function POST(request: NextRequest) {
     const base64 = data.screenshot.replace(/^data:image\/png;base64,/, "");
     const screenshotBuffer = Buffer.from(base64, "base64");
 
-    // Optional standalone drawn-signature PNG (sent separately to survive
-    // the iOS Safari html-to-image race condition that can blank inline imgs)
+    // Optional standalone drawn-signature PNG. When present, composite it
+    // into the screenshot server-side so the final attachment contains
+    // both the filled form and the signature as one page (this avoids the
+    // iOS Safari html-to-image race that can blank inline imgs).
     let drawnSignatureBuffer: Buffer | null = null;
     if (
       data.drawnSignature &&
@@ -46,6 +57,46 @@ export async function POST(request: NextRequest) {
         ""
       );
       drawnSignatureBuffer = Buffer.from(sigBase64, "base64");
+    }
+
+    // Compose final declaration PNG with signature baked in.
+    let finalBuffer: Buffer = screenshotBuffer;
+    if (drawnSignatureBuffer && data.signatureSlot) {
+      const slot = data.signatureSlot;
+      try {
+        // Resize the signature to fit the slot while preserving aspect ratio.
+        const sigResized = sharp(drawnSignatureBuffer).resize({
+          width: slot.width,
+          height: slot.height,
+          fit: "inside",
+          withoutEnlargement: false,
+        });
+        const meta = await sigResized.metadata();
+        const sigWidth = meta.width ?? slot.width;
+        const sigHeight = meta.height ?? slot.height;
+        // Place the signature toward the label (right side in RTL) and toward
+        // the bottom of the slot (sitting on the underline).
+        const leftoverX = Math.max(0, slot.width - sigWidth);
+        const leftoverY = Math.max(0, slot.height - sigHeight);
+        // leftoverX puts the signature at the slot's right edge (closest to
+        // the "חתימה:" label in RTL); add an extra nudge further toward it.
+        const left = slot.x + leftoverX + Math.round(slot.width * 0.35);
+        const top = slot.y + Math.round((leftoverY * 4) / 5);
+        const sigBuffer = await sigResized.png().toBuffer();
+        finalBuffer = (await sharp(screenshotBuffer)
+          .composite([
+            {
+              input: sigBuffer,
+              top,
+              left,
+            },
+          ])
+          .png()
+          .toBuffer()) as Buffer;
+      } catch (e) {
+        // Fall back to plain screenshot if the composite fails for any reason
+        console.error("Signature composite failed, sending plain screenshot:", e);
+      }
     }
 
     const transporter = nodemailer.createTransport({
@@ -106,17 +157,10 @@ export async function POST(request: NextRequest) {
     }> = [
       {
         filename: "signed-declaration.png",
-        content: screenshotBuffer,
+        content: finalBuffer,
         contentType: "image/png",
       },
     ];
-    if (drawnSignatureBuffer) {
-      attachments.push({
-        filename: "signature.png",
-        content: drawnSignatureBuffer,
-        contentType: "image/png",
-      });
-    }
 
     // 1. Notification to organizers
     await transporter.sendMail({

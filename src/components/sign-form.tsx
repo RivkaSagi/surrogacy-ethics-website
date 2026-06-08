@@ -41,6 +41,9 @@ export function SignForm() {
   const [error, setError] = useState("");
 
   const printRef = useRef<HTMLDivElement>(null);
+  // Wraps just the signature value cell inside the printable area so the
+  // server knows exactly where to composite the drawn signature.
+  const signatureSlotRef = useRef<HTMLSpanElement>(null);
 
   const hasSignature =
     signatureMode === "type" ? Boolean(signature.trim()) : Boolean(drawnSignature);
@@ -91,17 +94,31 @@ export function SignForm() {
         })
       );
 
-      // 2. Render the printable area to PNG (data URL). Use pixelRatio 1.5 to
+      // 2. Measure where the signature slot lives inside the printable area
+      // so the server can overlay the signature PNG at the right spot.
+      const printRect = printRef.current.getBoundingClientRect();
+      const PIXEL_RATIO = 1.5;
+      let signatureSlot: { x: number; y: number; width: number; height: number } | null = null;
+      if (signatureMode === "draw" && signatureSlotRef.current) {
+        const slotRect = signatureSlotRef.current.getBoundingClientRect();
+        signatureSlot = {
+          x: Math.round((slotRect.left - printRect.left) * PIXEL_RATIO),
+          y: Math.round((slotRect.top - printRect.top) * PIXEL_RATIO),
+          width: Math.round(slotRect.width * PIXEL_RATIO),
+          height: Math.round(slotRect.height * PIXEL_RATIO),
+        };
+      }
+
+      // 3. Render the printable area to PNG (data URL). Use pixelRatio 1.5 to
       // stay under iOS Safari's per-canvas pixel cap (~16.7M total pixels).
       const screenshot = await toPng(printRef.current, {
         backgroundColor: "#ffffff",
-        pixelRatio: 1.5,
+        pixelRatio: PIXEL_RATIO,
         cacheBust: true,
       });
 
-      // 3. POST to /api/sign — include the raw drawn signature too, so the
-      // server can attach it as a separate PNG even if the screenshot fails
-      // to inline it (iOS Safari bug).
+      // 4. POST to /api/sign — include the drawn signature and its placement
+      // so the server can composite it into the screenshot before attaching.
       const payload = {
         name: name.trim(),
         role: role.trim(),
@@ -115,6 +132,7 @@ export function SignForm() {
         signature: signatureMode === "type" ? signature.trim() : "(חתימה בציור)",
         screenshot,
         drawnSignature: signatureMode === "draw" ? drawnSignature : null,
+        signatureSlot,
       };
       const res = await fetch("/api/sign", {
         method: "POST",
@@ -210,18 +228,14 @@ export function SignForm() {
           ) : (
             <div className="flex items-baseline gap-3 border-b border-text/30 pb-1">
               <span className="text-text/70 text-sm md:text-base shrink-0">חתימה:</span>
-              <span className="flex-1">
-                {drawnSignature ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={drawnSignature}
-                    alt="חתימה ביד"
-                    className="h-20 inline-block"
-                  />
-                ) : (
-                  " "
-                )}
-              </span>
+              {/* Empty slot — the server overlays the drawn signature here when
+                  generating the final image, so we don't render the <img> in
+                  the screenshot to avoid a duplicate signature. */}
+              <span
+                ref={signatureSlotRef}
+                aria-hidden="true"
+                className="flex-1 inline-block h-20 align-middle"
+              />
             </div>
           )}
         </div>
