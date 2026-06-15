@@ -285,7 +285,7 @@ export function SignForm() {
 
         <div>
           <label htmlFor="publicContact" className="block text-sm font-bold text-text mb-1">
-            פרטי קשר לאתר <span className="text-text/40 font-normal">(יוצגו ברשימה הציבורית)</span>
+            פרטי קשר להצגה באתר הקוד האתי <span className="text-text/40 font-normal">(יוצגו ברשימה הציבורית)</span>
           </label>
           <input
             id="publicContact"

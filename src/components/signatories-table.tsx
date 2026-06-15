@@ -277,7 +277,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                           {person.field || "—"}
                         </td>
                         <td className="px-3 md:px-4 py-3 text-right text-text/80">
-                          {person.column3 || "—"}
+                          {renderContactDetails(person.column3)}
                         </td>
                         <td className="px-3 md:px-4 py-3 text-right text-text/80">
                           {person.column4 || "—"}
@@ -306,4 +306,75 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
       </div>
     </section>
   );
+}
+
+// Split contact details ("0501234567\nfoo@bar.com\nfoo.com") into separate
+// auto-linked lines so they don't run together in the table cell.
+function renderContactDetails(raw: string | undefined): React.ReactNode {
+  if (!raw) return "—";
+  const parts = raw
+    .split(/[\n;|]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length === 0) return "—";
+  return (
+    <ul className="space-y-0.5 list-none">
+      {parts.map((part, i) => (
+        <li key={i}>{linkifyContact(part)}</li>
+      ))}
+    </ul>
+  );
+}
+
+function linkifyContact(rawValue: string): React.ReactNode {
+  // Strip invisible Unicode bidi/directional control characters
+  // (‎ LRM, ‏ RLM, ‪-‮, ⁦-⁩) — Google Sheets
+  // sometimes inserts them around mixed-direction text and they break the
+  // phone/URL regex matches below.
+  const value = rawValue
+    .replace(/[‎‏‪-‮⁦-⁩]/g, "")
+    .trim();
+  if (!value) return rawValue;
+
+  // Email
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    return (
+      <a
+        href={`mailto:${value}`}
+        dir="ltr"
+        className="text-primary hover:underline"
+      >
+        {value}
+      </a>
+    );
+  }
+  // Phone (Israeli format: digits, +, -, spaces; at least 7 digits)
+  const phoneDigits = value.replace(/[^0-9]/g, "");
+  if (/^[+\d\s\-()]+$/.test(value) && phoneDigits.length >= 7) {
+    return (
+      <a
+        href={`tel:${phoneDigits}`}
+        dir="ltr"
+        className="text-primary hover:underline"
+      >
+        {value}
+      </a>
+    );
+  }
+  // Web URL (with or without protocol)
+  if (/^(https?:\/\/|www\.|[\w-]+\.[a-z]{2,})/i.test(value)) {
+    const href = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        dir="ltr"
+        className="text-primary hover:underline"
+      >
+        {value}
+      </a>
+    );
+  }
+  return value;
 }

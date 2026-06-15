@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
           <tr><td style="padding: 8px 12px;"><strong>עיסוק / תפקיד:</strong></td><td style="padding: 8px 12px;">${escapeHtml(data.role)}</td></tr>
           <tr><td style="padding: 8px 12px;"><strong>מייל:</strong></td><td style="padding: 8px 12px;" dir="ltr">${escapeHtml(data.email)}</td></tr>
           <tr><td style="padding: 8px 12px;"><strong>טלפון:</strong></td><td style="padding: 8px 12px;" dir="ltr">${escapeHtml(data.phone)}</td></tr>
-          <tr><td style="padding: 8px 12px;"><strong>פרטי קשר לאתר:</strong></td><td style="padding: 8px 12px;">${escapeHtml(data.publicContact || "—")}</td></tr>
+          <tr><td style="padding: 8px 12px;"><strong>פרטי קשר להצגה באתר הקוד האתי:</strong></td><td style="padding: 8px 12px;">${escapeHtml(data.publicContact || "—")}</td></tr>
           <tr><td style="padding: 8px 12px;"><strong>אזור:</strong></td><td style="padding: 8px 12px;">${escapeHtml(data.region)}</td></tr>
           <tr><td style="padding: 8px 12px;"><strong>תאריך חתימה:</strong></td><td style="padding: 8px 12px;">${escapeHtml(data.date)}</td></tr>
           <tr><td style="padding: 8px 12px;"><strong>חתימה (שם מודפס):</strong></td><td style="padding: 8px 12px; font-style: italic;">${escapeHtml(data.signature)}</td></tr>
