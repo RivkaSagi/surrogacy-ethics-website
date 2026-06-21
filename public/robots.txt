@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /signatories/internal
 Disallow: /conference/print
 
 Sitemap: https://www.surrogacyethicsil.org/sitemap.xml

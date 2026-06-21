@@ -10,7 +10,7 @@ type Props = {
   limit?: number;
 };
 
-type SortField = "name" | "field" | "column3" | "column4" | "none";
+type SortField = "name" | "field" | "column4" | "none";
 
 export function SignatoriesTable({ sheetId, gid, limit }: Props) {
   const { rows, headers, error, isLoading } = useSignatories(sheetId, gid);
@@ -63,9 +63,6 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
       } else if (sortField === "field") {
         aVal = a.field || "";
         bVal = b.field || "";
-      } else if (sortField === "column3") {
-        aVal = a.column3 || "";
-        bVal = b.column3 || "";
       } else if (sortField === "column4") {
         aVal = a.column4 || "";
         bVal = b.column4 || "";
@@ -170,16 +167,9 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                         </button>
                       </th>
                       <th scope="col" className="px-3 md:px-4 py-3 text-right">
-                        <button
-                          onClick={() => handleSort("column3")}
-                          className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
-                          aria-label={`מיין לפי ${headers[2] || "עמודה 3"}`}
-                        >
-                          <span>{headers[2] || "עמודה 3"}</span>
-                          <span className="text-xs" aria-hidden="true">
-                            {getSortIcon("column3")}
-                          </span>
-                        </button>
+                        <span className="font-semibold text-text">
+                          {headers[2] || "עמודה 3"}
+                        </span>
                       </th>
                       <th scope="col" className="px-3 md:px-4 py-3 text-right relative">
                         <div className="flex w-full items-center justify-between">
