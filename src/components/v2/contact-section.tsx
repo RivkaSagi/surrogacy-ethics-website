@@ -39,14 +39,15 @@ export function ContactSection() {
                 className="text-[14px] hover:opacity-80 transition-opacity"
                 style={{ color: "#FFC5B2" }}
               >
-                עמוד הבית
+                עיקרי הקוד האתי
               </Link>
               <Link
-                href="/team"
+                href="/TheEthicsCode.pdf"
+                target="_blank"
                 className="text-[14px] hover:opacity-80 transition-opacity"
                 style={{ color: "#FFC5B2" }}
               >
-                מי אנחנו
+                הקוד האתי המלא
               </Link>
               <Link
                 href="/signatories"
@@ -56,12 +57,11 @@ export function ContactSection() {
                 אנשי המקצוע החתומים
               </Link>
               <Link
-                href="/TheEthicsCode.pdf"
-                target="_blank"
+                href="/team"
                 className="text-[14px] hover:opacity-80 transition-opacity"
                 style={{ color: "#FFC5B2" }}
               >
-                הקוד האתי המלא
+                מי אנחנו
               </Link>
               <Link
                 href="/accessibility"

@@ -1,4 +1,4 @@
-import { Header } from "@/components/header";
+import { Header } from "@/components/v2/header";
 import { Subtitle } from "@/components/subtitle";
 import { ContactSection } from "@/components/contact-section";
 import { TeamMembers } from "@/components/team-members";

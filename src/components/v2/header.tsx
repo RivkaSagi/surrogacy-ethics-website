@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { PrimaryButton } from "./primary-button";
 
 function scrollToFooter() {
@@ -14,6 +15,8 @@ function scrollToFooter() {
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <header className="sticky top-0 z-50 bg-background" dir="rtl">
@@ -31,11 +34,20 @@ export function Header() {
 
         {/* Navigation - Left side in RTL */}
         <nav className="hidden md:flex items-center gap-8">
+          {!isHome && (
+            <Link
+              href="/"
+              className="font-bold text-sm text-text hover:text-primary transition-colors"
+            >
+              עיקרי הקוד האתי
+            </Link>
+          )}
           <Link
-            href="/team"
+            href="/TheEthicsCode.pdf"
+            target="_blank"
             className="font-bold text-sm text-text hover:text-primary transition-colors"
           >
-            מי אנחנו
+            הקוד האתי המלא
           </Link>
           <Link
             href="/signatories"
@@ -44,11 +56,10 @@ export function Header() {
             אנשי המקצוע החתומים
           </Link>
           <Link
-            href="/TheEthicsCode.pdf"
-            target="_blank"
+            href="/team"
             className="font-bold text-sm text-text hover:text-primary transition-colors"
           >
-            הקוד האתי המלא
+            מי אנחנו
           </Link>
           <Link
             href="/sign"
@@ -98,12 +109,22 @@ export function Header() {
       {mobileMenuOpen && (
         <div id="mobile-menu" className="md:hidden bg-background border-t border-border px-8 py-4">
           <nav className="flex flex-col gap-4">
+            {!isHome && (
+              <Link
+                href="/"
+                className="font-bold text-sm text-text hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                עיקרי הקוד האתי
+              </Link>
+            )}
             <Link
-              href="/team"
+              href="/TheEthicsCode.pdf"
+              target="_blank"
               className="font-bold text-sm text-text hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              מי אנחנו
+              הקוד האתי המלא
             </Link>
             <Link
               href="/signatories"
@@ -113,12 +134,11 @@ export function Header() {
               אנשי המקצוע החתומים
             </Link>
             <Link
-              href="/TheEthicsCode.pdf"
-              target="_blank"
+              href="/team"
               className="font-bold text-sm text-text hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              הקוד האתי המלא
+              מי אנחנו
             </Link>
             <Link
               href="/sign"

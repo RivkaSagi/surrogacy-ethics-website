@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Header } from "@/components/header";
+import { Header } from "@/components/v2/header";
 import { Subtitle } from "@/components/subtitle";
 import { SignatoriesTable } from "@/components/signatories-table";
 import { ContactSection } from "@/components/contact-section";
