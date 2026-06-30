@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import {
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { useSignatories } from "@/hooks/use-signatories";
 
 type Props = {
@@ -10,13 +18,14 @@ type Props = {
   limit?: number;
 };
 
-type SortField = "name" | "field" | "column4" | "none";
+type SortField = "name" | "none";
 
 export function SignatoriesTable({ sheetId, gid, limit }: Props) {
   const { rows, headers, error, isLoading } = useSignatories(sheetId, gid);
-  const [sortField, setSortField] = useState<SortField>("none");
+  const [sortField, setSortField] = useState<SortField>("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [column4Filters, setColumn4Filters] = useState<Set<string>>(new Set());
+  const [fieldFilters, setFieldFilters] = useState<Set<string>>(new Set());
 
   const total = rows.length;
   const showFullPageLink = limit && total > limit;
@@ -39,36 +48,42 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
     return Array.from(values).sort((a, b) => a.localeCompare(b, "he"));
   }, [rows]);
 
+  // Field categories present in the current data, in the order defined by
+  // FIELD_CATEGORIES (so the filter only offers categories that actually match
+  // a signatory).
+  const availableFieldCategories = useMemo(() => {
+    const present = new Set(rows.map((row) => fieldCategory(row.field)));
+    return FIELD_CATEGORIES.filter((c) => present.has(c.label));
+  }, [rows]);
+
   const filteredRows = useMemo(() => {
-    if (column4Filters.size === 0) return rows;
     return rows.filter((row) => {
-      if (!row.column4) return false;
-      const splitValues = row.column4.split(",").map((v) => v.trim());
-      return splitValues.some(
-        (v) => v === COUNTRYWIDE || column4Filters.has(v)
-      );
+      if (fieldFilters.size > 0 && !fieldFilters.has(fieldCategory(row.field))) {
+        return false;
+      }
+      if (column4Filters.size > 0) {
+        if (!row.column4) return false;
+        const splitValues = row.column4.split(",").map((v) => v.trim());
+        if (
+          !splitValues.some(
+            (v) => v === COUNTRYWIDE || column4Filters.has(v)
+          )
+        ) {
+          return false;
+        }
+      }
+      return true;
     });
-  }, [rows, column4Filters]);
+  }, [rows, column4Filters, fieldFilters]);
 
   const sortedRows = useMemo(() => {
     if (sortField === "none") return filteredRows;
 
     const sorted = [...filteredRows].sort((a, b) => {
-      let aVal = "";
-      let bVal = "";
-
-      if (sortField === "name") {
-        aVal = a.name || "";
-        bVal = b.name || "";
-      } else if (sortField === "field") {
-        aVal = a.field || "";
-        bVal = b.field || "";
-      } else if (sortField === "column4") {
-        aVal = a.column4 || "";
-        bVal = b.column4 || "";
-      }
-
-      const comparison = aVal.localeCompare(bVal, "he");
+      const comparison = nameSortKey(a.name).localeCompare(
+        nameSortKey(b.name),
+        "he",
+      );
       return sortDirection === "asc" ? comparison : -comparison;
     });
 
@@ -91,48 +106,20 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
     return sortDirection === "asc" ? "↑" : "↓";
   };
 
-  const toggleColumn4Filter = (value: string) => {
-    const newFilters = new Set(column4Filters);
-    if (newFilters.has(value)) {
-      newFilters.delete(value);
-    } else {
-      newFilters.add(value);
-    }
-    setColumn4Filters(newFilters);
+  const toggleFilterValue = (
+    setFilters: Dispatch<SetStateAction<Set<string>>>,
+    value: string,
+  ) => {
+    setFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) {
+        next.delete(value);
+      } else {
+        next.add(value);
+      }
+      return next;
+    });
   };
-
-  const clearFilters = () => {
-    setColumn4Filters(new Set());
-  };
-
-  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-  const [flipDropdown, setFlipDropdown] = useState(false);
-  const filterButtonRef = useRef<HTMLButtonElement>(null);
-
-  const calculateFlip = useCallback(() => {
-    if (filterButtonRef.current) {
-      const rect = filterButtonRef.current.getBoundingClientRect();
-      const dropdownWidth = 256; // w-64 = 16rem = 256px
-      const hasSpaceOnLeft = rect.left >= dropdownWidth;
-      setFlipDropdown(!hasSpaceOnLeft);
-    }
-  }, []);
-
-  const handleFilterClick = useCallback(() => {
-    if (!showFilterDropdown) {
-      calculateFlip();
-    }
-    setShowFilterDropdown(!showFilterDropdown);
-  }, [showFilterDropdown, calculateFlip]);
-
-  // Recalculate flip on window resize when dropdown is open
-  useEffect(() => {
-    if (!showFilterDropdown) return;
-
-    const handleResize = () => calculateFlip();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [showFilterDropdown, calculateFlip]);
 
   return (
     <section className="py-10 px-4 md:px-20" id="signatories">
@@ -156,15 +143,20 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                           <span className="text-xs" aria-hidden="true">{getSortIcon("name")}</span>
                         </button>
                       </th>
-                      <th scope="col" className="px-3 md:px-4 py-3 text-right">
-                        <button
-                          onClick={() => handleSort("field")}
-                          className="flex w-full items-center justify-between font-semibold text-text transition hover:text-primary"
-                          aria-label={`מיין לפי ${headers[1] || "תחום מקצועי"}`}
-                        >
-                          <span>{headers[1] || "תחום מקצועי"}</span>
-                          <span className="text-xs" aria-hidden="true">{getSortIcon("field")}</span>
-                        </button>
+                      <th scope="col" className="px-3 md:px-4 py-3 text-right relative">
+                        <div className="flex w-full items-center justify-between">
+                          <span className="font-semibold text-text">
+                            {headers[1] || "תחום מקצועי"}
+                          </span>
+                          {availableFieldCategories.length > 0 && (
+                            <FilterDropdown
+                              options={availableFieldCategories.map((c) => c.label)}
+                              selected={fieldFilters}
+                              onToggle={(v) => toggleFilterValue(setFieldFilters, v)}
+                              onClear={() => setFieldFilters(new Set())}
+                            />
+                          )}
+                        </div>
                       </th>
                       <th scope="col" className="px-3 md:px-4 py-3 text-right">
                         <span className="font-semibold text-text">
@@ -178,76 +170,14 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                           </span>
                           <div className="flex items-center gap-2">
                             {uniqueColumn4Values.length > 0 && (
-                              <div className="relative">
-                                <button
-                                  ref={filterButtonRef}
-                                  onClick={handleFilterClick}
-                                  className="rounded p-1 text-text transition hover:bg-primary/10"
-                                  aria-label="סינון"
-                                  aria-expanded={showFilterDropdown}
-                                  aria-haspopup="true"
-                                >
-                                  <span className="text-lg">⋮</span>
-                                </button>
-                                {showFilterDropdown && (
-                                  <>
-                                    <div
-                                      className="fixed inset-0 z-40"
-                                      onClick={() =>
-                                        setShowFilterDropdown(false)
-                                      }
-                                    />
-                                    <div className={`absolute w-64 z-[100] mt-1 rounded-lg border border-border bg-white p-3 shadow-xl top-auto ${flipDropdown ? 'left-0 right-auto' : 'right-0 left-auto'}`}>
-                                      <div className="mb-2 flex items-center justify-between">
-                                        <span className="text-sm font-semibold text-text">
-                                          סינון
-                                        </span>
-                                        <div className="flex gap-2">
-                                          {column4Filters.size > 0 && (
-                                            <button
-                                              onClick={clearFilters}
-                                              className="text-xs text-primary hover:underline"
-                                            >
-                                              נקה
-                                            </button>
-                                          )}
-                                          <button
-                                            onClick={() =>
-                                              setShowFilterDropdown(false)
-                                            }
-                                            className="text-xs text-text/60 hover:underline"
-                                          >
-                                            סגור
-                                          </button>
-                                        </div>
-                                      </div>
-                                      <div className="max-h-60 space-y-2 overflow-y-auto">
-                                        {uniqueColumn4Values.map((value) => (
-                                          <label
-                                            key={value}
-                                            className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 transition hover:bg-background/50"
-                                            onClick={(e) => e.stopPropagation()}
-                                          >
-                                            <input
-                                              type="checkbox"
-                                              checked={column4Filters.has(
-                                                value
-                                              )}
-                                              onChange={() =>
-                                                toggleColumn4Filter(value)
-                                              }
-                                              className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
-                                            />
-                                            <span className="text-sm text-text/80">
-                                              {value}
-                                            </span>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  </>
-                                )}
-                              </div>
+                              <FilterDropdown
+                                options={uniqueColumn4Values}
+                                selected={column4Filters}
+                                onToggle={(v) =>
+                                  toggleFilterValue(setColumn4Filters, v)
+                                }
+                                onClear={() => setColumn4Filters(new Set())}
+                              />
                             )}
                           </div>
                         </div>
@@ -261,7 +191,7 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
                         className="border-b border-border/40 last:border-b-0 transition hover:bg-background/30"
                       >
                         <td className="px-3 md:px-4 py-3 text-right font-medium text-text">
-                          {person.name}
+                          {renderName(person.name)}
                         </td>
                         <td className="px-3 md:px-4 py-3 text-right text-text/80">
                           {person.field || "—"}
@@ -295,6 +225,174 @@ export function SignatoriesTable({ sheetId, gid, limit }: Props) {
         )}
       </div>
     </section>
+  );
+}
+
+// A "⋮" button that opens a checkbox filter dropdown for a column. The dropdown
+// flips to the other side when there isn't room on the left.
+function FilterDropdown({
+  options,
+  selected,
+  onToggle,
+  onClear,
+}: {
+  options: string[];
+  selected: Set<string>;
+  onToggle: (value: string) => void;
+  onClear: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [flip, setFlip] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const calculateFlip = useCallback(() => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const dropdownWidth = 256; // w-64 = 16rem = 256px
+      setFlip(rect.left < dropdownWidth);
+    }
+  }, []);
+
+  const handleClick = useCallback(() => {
+    if (!open) calculateFlip();
+    setOpen((prev) => !prev);
+  }, [open, calculateFlip]);
+
+  // Recalculate flip on window resize when dropdown is open
+  useEffect(() => {
+    if (!open) return;
+    const handleResize = () => calculateFlip();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [open, calculateFlip]);
+
+  // Close on a click/tap outside the dropdown. Using a document listener instead
+  // of a full-screen overlay keeps the table scrollable (and swipeable on mobile)
+  // while the dropdown is open.
+  useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (!containerRef.current?.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () =>
+      document.removeEventListener("pointerdown", handlePointerDown);
+  }, [open]);
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <button
+        ref={buttonRef}
+        onClick={handleClick}
+        className="rounded p-1 text-text transition hover:bg-primary/10"
+        aria-label="סינון"
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
+        <span className="text-lg">⋮</span>
+      </button>
+      {open && (
+        <div
+          className={`absolute w-64 z-[100] mt-1 rounded-lg border border-border bg-white p-3 shadow-xl top-auto ${flip ? "left-0 right-auto" : "right-0 left-auto"}`}
+        >
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-semibold text-text">סינון</span>
+            <div className="flex gap-2">
+              {selected.size > 0 && (
+                <button
+                  onClick={onClear}
+                  className="text-xs text-primary hover:underline"
+                >
+                  נקה
+                </button>
+              )}
+              <button
+                onClick={() => setOpen(false)}
+                className="text-xs text-text/60 hover:underline"
+              >
+                סגור
+              </button>
+            </div>
+          </div>
+          <div className="max-h-60 space-y-2 overflow-y-auto">
+            {options.map((value) => (
+              <label
+                key={value}
+                className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 transition hover:bg-background/50"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <input
+                  type="checkbox"
+                  checked={selected.has(value)}
+                  onChange={() => onToggle(value)}
+                  className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
+                />
+                <span className="text-sm text-text/80">{value}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Professional-field filter categories. Each groups the raw, often gendered,
+// values from the sheet (e.g. פסיכולוג / פסיכולוגית) under one label. `match`
+// values are compared case-insensitively against the trimmed sheet value.
+const FIELD_CATEGORIES: { label: string; match: string[] }[] = [
+  { label: "פסיכולוגיה", match: ["פסיכולוג", "פסיכולוגית"] },
+  { label: "עריכת דין", match: ["עורך דין", "עורכת דין"] },
+  {
+    label: "מרכזים, סוכנויות וליווי",
+    match: ["מלווה", "סוכנות", "מרכז", "ליווי"],
+  },
+  { label: "רפואה", match: ["רופא", "רופאה", "רפואה"] },
+  { label: "סוכן ביטוח", match: ["סוכן ביטוח", "סוכנת ביטוח"] },
+];
+
+// Map a raw field value to its category label. Falls back to the raw value
+// (trimmed) so unmapped fields still get their own filter option.
+function fieldCategory(field: string | undefined): string {
+  const value = (field || "").trim();
+  const category = FIELD_CATEGORIES.find((c) =>
+    c.match.some((m) => m === value),
+  );
+  return category ? category.label : value;
+}
+
+// Academic/professional title prefixes that should be ignored when sorting
+// names alphabetically (ד״ר, דוקטור/ת, פרופ׳, פרופסור, and punctuation variants).
+const NAME_TITLE_PREFIX =
+  /^(?:ד(?:["״׳']?ר|וקטור(?:ית|ת)?)|פרופ(?:["״׳']?|סור)?)[\s.,־-]+/u;
+
+// Sort key for a name: strip leading title prefixes (repeatedly, e.g. "פרופ׳ ד״ר")
+// so sorting is by the actual name, not the title.
+function nameSortKey(name: string | undefined): string {
+  let key = (name || "").trim();
+  let prev;
+  do {
+    prev = key;
+    key = key.replace(NAME_TITLE_PREFIX, "").trim();
+  } while (key !== prev);
+  return key;
+}
+
+// Render a name; if it contains a comma, split it onto two lines.
+function renderName(name: string | undefined): React.ReactNode {
+  if (!name) return "—";
+  const commaIndex = name.indexOf(",");
+  if (commaIndex === -1) return name;
+  const first = name.slice(0, commaIndex).trim();
+  const second = name.slice(commaIndex + 1).trim();
+  return (
+    <>
+      <span className="block">{first}</span>
+      {second && <span className="block">{second}</span>}
+    </>
   );
 }
 
