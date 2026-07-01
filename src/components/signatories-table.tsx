@@ -381,17 +381,21 @@ function nameSortKey(name: string | undefined): string {
   return key;
 }
 
-// Render a name; if it contains a comma, split it onto two lines.
+// Render a name; split it onto a separate line at every comma.
 function renderName(name: string | undefined): React.ReactNode {
   if (!name) return "—";
-  const commaIndex = name.indexOf(",");
-  if (commaIndex === -1) return name;
-  const first = name.slice(0, commaIndex).trim();
-  const second = name.slice(commaIndex + 1).trim();
+  const parts = name
+    .split(",")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  if (parts.length <= 1) return name;
   return (
     <>
-      <span className="block">{first}</span>
-      {second && <span className="block">{second}</span>}
+      {parts.map((part, i) => (
+        <span key={i} className="block">
+          {part}
+        </span>
+      ))}
     </>
   );
 }
