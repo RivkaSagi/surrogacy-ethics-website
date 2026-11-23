@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Old PDF name -> current version (renamed so mobile devices don't reuse a stale download)
+      {
+        source: '/TheEthicsCode.pdf',
+        destination: '/TheEthicsCode-2026.pdf',
+        permanent: false,
+      },
       // Redirect non-www to www
       {
         source: '/:path*',

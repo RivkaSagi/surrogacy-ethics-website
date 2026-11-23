@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "./v2/logo";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { PrimaryButton } from "./primary-button";
 
 function scrollToFooter() {
@@ -14,19 +15,20 @@ function scrollToFooter() {
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <header className="sticky top-0 z-50 bg-background" dir="rtl">
       <div className="flex items-center justify-between px-5 md:px-8 py-2 md:py-3">
         {/* Logo with text - Right side in RTL */}
-        <Link href="/">
-          <Image
-            src="/Logo-new-w-text.png"
-            alt="הקוד האתי לפונדקאות"
-            width={180}
-            height={58}
-            className="h-16 md:h-20 w-auto"
-          />
+        <Link
+          href="/"
+          aria-label="הקוד האתי לפונדקאות - לדף הבית"
+          aria-current={isHome ? "page" : undefined}
+          className="block shrink-0 rounded-sm text-text hover:text-primary transition-colors"
+        >
+          <Logo className="h-16 md:h-20 w-auto" />
         </Link>
 
         {/* Navigation - Left side in RTL */}
@@ -44,7 +46,7 @@ export function Header() {
             אנשי המקצוע החתומים
           </Link>
           <Link
-            href="/TheEthicsCode.pdf"
+            href="/TheEthicsCode-2026.pdf"
             target="_blank"
             className="font-bold text-sm text-text hover:text-primary transition-colors"
           >
@@ -111,7 +113,7 @@ export function Header() {
               אנשי המקצוע החתומים
             </Link>
             <Link
-              href="/TheEthicsCode.pdf"
+              href="/TheEthicsCode-2026.pdf"
               target="_blank"
               className="font-bold text-sm text-text hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}

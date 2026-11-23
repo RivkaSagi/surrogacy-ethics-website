@@ -42,7 +42,7 @@ export function ContactSection() {
                 עיקרי הקוד האתי
               </Link>
               <Link
-                href="/TheEthicsCode.pdf"
+                href="/TheEthicsCode-2026.pdf"
                 target="_blank"
                 className="text-[14px] hover:opacity-80 transition-opacity"
                 style={{ color: "#FFC5B2" }}

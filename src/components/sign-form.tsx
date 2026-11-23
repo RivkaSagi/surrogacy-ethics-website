@@ -402,7 +402,7 @@ export function SignForm() {
           <span className="text-sm text-text/80 leading-relaxed">
             קראתי את ההצהרה לעיל ואת{" "}
             <a
-              href="/TheEthicsCode.pdf"
+              href="/TheEthicsCode-2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary underline hover:opacity-80"

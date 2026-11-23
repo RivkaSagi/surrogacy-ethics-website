@@ -57,7 +57,7 @@ export function EthicCodeSection() {
       </div>
 
       {/* CTA Button - opens PDF in new tab */}
-      <PrimaryButton href="/TheEthicsCode.pdf" target="_blank">
+      <PrimaryButton href="/TheEthicsCode-2026.pdf" target="_blank">
         לקריאת הקוד האתי המלא
       </PrimaryButton>
     </section>
